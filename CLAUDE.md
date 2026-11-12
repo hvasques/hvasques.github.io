@@ -103,3 +103,15 @@ O dono deste repo quer **entender como o site foi montado**, não só recebê-lo
   4. Cada via do croqui termina na própria chapeleta, presa no mesmo platô — ou seja, as vias do portfólio levam de volta à home.
 - **Como foi montado:** a chapeleta é um `<symbol>` SVG (placa com o furo do parafuso e o olhal para o mosquetão, feitos com `fill-rule="evenodd"`), reaproveitado nas 5 posições. Passar o mouse numa linha da legenda acende a via, o número e a chapeleta dela.
 - **Como conferir:** abrir o link do Artifact ou `prototypes/home-wall.html`; alternar a paleta; passar o mouse na legenda.
+
+### Etapa 7 — Páginas separadas sob a mesma caverna
+
+- **Feedback aplicado:**
+  1. Removido o contorno da borda da caverna; a rocha agora é definida só pelo preenchimento (`surface`). As linhas de textura dentro da rocha continuam.
+  2. Em vez de uma página longa com rolagem, **Home** e **Portfólio** viraram páginas separadas — rolando para baixo, o menu sumiria da tela.
+- **Como ficou:**
+  - As duas páginas têm o mesmo teto de caverna com o menu (Home, Portfolio, Blog, About), então o menu está sempre visível.
+  - **Home:** a via começa numa chapeleta embaixo do negativo e sobe até o menu.
+  - **Portfólio:** o croqui fica pendurado na borda da caverna; cada via termina numa chapeleta logo abaixo do menu. Assim toda via do site leva de volta ao menu.
+- **Como foi montado:** as duas "páginas" são duas telas dentro do mesmo quadro; só uma aparece por vez (atributo `hidden`). O menu e o botão "Portfolio" dentro do mock trocam de página, simulando a navegação real. Mesmo link de Artifact da etapa 6 (nova versão).
+- **Como conferir:** abrir https://claude.ai/artifact/ErjrMEDb3CkTPjMzGkgNM1; clicar em Home/Portfolio (fora ou dentro do mock).
