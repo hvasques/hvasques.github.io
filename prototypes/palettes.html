@@ -1,0 +1,503 @@
+<title>Route Palettes</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one live preview stage on top (the portfolio hero, re-skinned by the chosen palette), four palette cards below. Sharp edges throughout. */
+:root {
+  --bg: #F3F5F6;
+  --panel: #FFFFFF;
+  --fg: #15191C;
+  --muted: #5A646B;
+  --line: #D5DBDF;
+  --focus: #D9121A;
+  --display: "Chakra Petch", "Arial Narrow", system-ui, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101315; --panel: #181C1F; --fg: #E9EDEF; --muted: #98A2A9; --line: #2B3135; --focus: #FF4A50;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101315; --panel: #181C1F; --fg: #E9EDEF; --muted: #98A2A9; --line: #2B3135; --focus: #FF4A50;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.55;
+}
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-block: 40px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid;
+  gap: 32px;
+}
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+header.intro { display: grid; gap: 8px; max-width: 68ch; }
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+h1 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(32px, 6vw, 52px);
+  line-height: 1;
+  margin: 0;
+  text-wrap: balance;
+}
+h2 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.1;
+  margin: 0;
+}
+p { margin: 0; }
+.intro p { color: var(--muted); }
+
+/* Palette tabs */
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.tab {
+  font: 600 14px/1 var(--display);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 11px 14px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--fg);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.tab .dot { width: 12px; height: 12px; display: inline-block; }
+.tab[aria-selected="true"] { border-color: var(--fg); box-shadow: inset 0 -3px 0 var(--fg); }
+
+/* ---------- Preview stage: colors come only from the palette variables ---------- */
+.stage {
+  --p-ground: #F5F8FA; --p-surface: #DCEAF2; --p-ink: #12161A; --p-muted: #56636D;
+  --p-path: #D9121A; --p-second: #F08A1C; --p-on-path: #FFFFFF;
+  background: var(--p-ground);
+  color: var(--p-ink);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  position: relative;
+  transition: background-color .35s ease, color .35s ease;
+}
+.stage * { transition: background-color .35s ease, color .35s ease, fill .35s ease, stroke .35s ease, border-color .35s ease; }
+.m-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px clamp(16px, 4vw, 40px);
+  border-bottom: 1px solid color-mix(in srgb, var(--p-ink) 14%, transparent);
+  position: relative;
+  z-index: 2;
+}
+.m-logo { font: 700 16px/1 var(--display); letter-spacing: 0.06em; text-transform: uppercase; }
+.m-logo b { color: var(--p-path); }
+.m-links { display: flex; gap: 20px; font: 500 13px/1 var(--display); letter-spacing: 0.08em; text-transform: uppercase; color: var(--p-muted); }
+.m-links span:first-child { color: var(--p-ink); box-shadow: inset 0 -2px 0 var(--p-path); padding-bottom: 4px; }
+
+.m-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 24px;
+  padding: clamp(28px, 5vw, 56px) clamp(16px, 4vw, 40px) clamp(24px, 4vw, 40px);
+  min-height: 340px;
+}
+.m-band {
+  position: absolute;
+  left: -5%; right: -5%;
+  top: 58%;
+  height: 74px;
+  background: var(--p-surface);
+  transform: rotate(-6deg);
+  z-index: 0;
+}
+.m-copy { position: relative; z-index: 1; display: grid; gap: 14px; align-content: start; }
+.m-grade {
+  justify-self: start;
+  font: 600 12px/1 var(--mono);
+  letter-spacing: 0.06em;
+  padding: 6px 8px;
+  background: var(--p-second);
+  color: var(--p-ink);
+}
+.m-title {
+  font: 700 clamp(40px, 7.5vw, 76px)/0.92 var(--display);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.m-title span { color: var(--p-path); }
+.m-sub { color: var(--p-muted); max-width: 34ch; font-size: 15px; }
+.m-ctas { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+.m-btn {
+  font: 600 13px/1 var(--display);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 13px 18px;
+  background: var(--p-path);
+  color: var(--p-on-path);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+  padding-right: 26px;
+}
+.m-btn.ghost {
+  background: transparent;
+  color: var(--p-ink);
+  box-shadow: inset 0 0 0 2px var(--p-ink);
+  clip-path: none;
+  padding-right: 18px;
+}
+.m-route { position: relative; z-index: 1; width: 100%; height: auto; max-width: 100%; align-self: center; }
+
+.m-cards {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  padding: 0 clamp(16px, 4vw, 40px) clamp(20px, 4vw, 36px);
+}
+.m-card {
+  background: var(--p-ground);
+  border: 1px solid color-mix(in srgb, var(--p-ink) 16%, transparent);
+  padding: 14px;
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+.m-card .k { font: 500 11px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--p-muted); }
+.m-card .t { font: 600 17px/1.15 var(--display); }
+.m-card .bar { height: 4px; background: var(--p-surface); }
+.m-card .bar i { display: block; height: 100%; background: var(--p-path); }
+.m-card.active { border-color: var(--p-path); }
+
+.stage-note { font-size: 13px; color: var(--muted); }
+
+/* ---------- Palette cards ---------- */
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.pal {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 20px;
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  min-width: 0;
+}
+.pal.sel { border-color: var(--fg); }
+.pal-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.pal-head .src { font: 500 12px/1.3 var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.pal-desc { color: var(--muted); font-size: 14px; max-width: 60ch; }
+.swatches { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0; border: 1px solid var(--line); }
+.sw {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  display: grid;
+  grid-template-rows: 64px auto;
+  min-width: 0;
+  font: inherit;
+}
+.sw + .sw { border-left: 1px solid var(--line); }
+.sw .chip { display: block; }
+.sw .meta { padding: 8px 8px 9px; display: grid; gap: 2px; min-width: 0; }
+.sw .role { font: 600 11px/1.2 var(--display); text-transform: uppercase; letter-spacing: 0.06em; }
+.sw .hex { font: 400 11px/1.2 var(--mono); color: var(--muted); }
+.sw.copied .hex { color: var(--fg); }
+
+.checks { display: flex; flex-wrap: wrap; gap: 6px; }
+.chk {
+  font: 500 11.5px/1 var(--mono);
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  font-variant-numeric: tabular-nums;
+}
+.chk .pair { display: inline-flex; }
+.chk .pair i { width: 10px; height: 10px; display: inline-block; border: 1px solid var(--line); }
+.chk .lvl { font-weight: 500; }
+.chk.fail .lvl { color: var(--focus); }
+.use-btn {
+  justify-self: start;
+  font: 600 13px/1 var(--display);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  border: 1px solid var(--fg);
+  background: transparent;
+  color: var(--fg);
+  cursor: pointer;
+}
+.pal.sel .use-btn { background: var(--fg); color: var(--panel); }
+
+.legend { font-size: 13px; color: var(--muted); max-width: 72ch; }
+.legend b { color: var(--fg); font-weight: 600; }
+
+@media (max-width: 820px) {
+  .grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+  .m-hero { grid-template-columns: minmax(0, 1fr); }
+  .m-route { max-width: 320px; justify-self: center; }
+  .m-cards { grid-template-columns: minmax(0, 1fr); }
+  .m-links { gap: 12px; }
+  .swatches { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .sw:nth-child(4) { border-left: 0; }
+  .sw:nth-child(n+4) { border-top: 1px solid var(--line); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stage, .stage * { transition: none !important; }
+  .route-line { animation: none !important; }
+}
+.route-line { stroke-dasharray: 6 7; animation: run 1.6s linear infinite; }
+@keyframes run { to { stroke-dashoffset: -26; } }
+</style>
+
+<div class="wrap">
+  <header class="intro">
+    <div class="eyebrow">Portfolio · prototype 01 · color</div>
+    <h1>Route palettes</h1>
+    <p>Four color directions for a portfolio that mixes climbing and games. Each one has a <b>path</b> color: like runner vision on a rooftop or tape on a gym route, it marks where to go next, and it is the only color that does.</p>
+  </header>
+
+  <section aria-label="Live preview" style="display:grid;gap:12px">
+    <div class="tabs" role="tablist" aria-label="Palettes" id="tabs"></div>
+    <div class="stage" id="stage">
+      <nav class="m-nav" aria-hidden="true">
+        <div class="m-logo">hvasques<b>/</b></div>
+        <div class="m-links"><span>Work</span><span>About</span><span>Contact</span></div>
+      </nav>
+      <div class="m-hero">
+        <div class="m-band"></div>
+        <div class="m-copy">
+          <div class="m-grade" id="grade">V4 · 6B+</div>
+          <p class="m-title">Find the<br><span>next hold</span></p>
+          <p class="m-sub">Sample hero copy. Projects, notes and experiments, laid out like a route.</p>
+          <div class="m-ctas"><span class="m-btn">See the work</span><span class="m-btn ghost">About me</span></div>
+        </div>
+        <svg class="m-route" viewBox="0 0 320 280" role="img" aria-label="A climbing route: holds joined by a moving dashed line in the path color">
+          <g id="holds"></g>
+          <path class="route-line" d="M60 250 L120 196 L96 140 L170 104 L150 52 L236 30" fill="none" stroke="var(--p-path)" stroke-width="3" stroke-linecap="square"></path>
+          <g fill="var(--p-path)">
+            <polygon points="54,242 70,240 72,256 56,260"></polygon>
+            <polygon points="112,188 130,186 128,204 114,206"></polygon>
+            <polygon points="88,132 106,134 104,150 90,148"></polygon>
+            <polygon points="162,96 180,98 178,114 160,112"></polygon>
+            <polygon points="142,44 160,46 158,62 140,60"></polygon>
+            <polygon points="226,20 252,22 246,40 228,38"></polygon>
+          </g>
+          <g fill="var(--p-muted)" opacity="0.35">
+            <polygon points="30,180 42,178 44,190 30,192"></polygon>
+            <polygon points="214,170 228,168 230,182 216,184"></polygon>
+            <polygon points="262,110 274,112 272,124 260,122"></polygon>
+            <polygon points="40,90 54,88 54,100 42,102"></polygon>
+            <polygon points="276,226 290,226 290,240 276,240"></polygon>
+            <polygon points="196,232 208,230 210,244 196,244"></polygon>
+          </g>
+          <text x="236" y="58" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--p-muted)">TOP</text>
+        </svg>
+      </div>
+      <div class="m-cards">
+        <div class="m-card active"><span class="k">Sample · case study</span><span class="t">Project one</span><span class="bar"><i style="width:72%"></i></span></div>
+        <div class="m-card"><span class="k">Sample · side project</span><span class="t">Project two</span><span class="bar"><i style="width:40%"></i></span></div>
+        <div class="m-card"><span class="k">Sample · notes</span><span class="t">Project three</span><span class="bar"><i style="width:18%"></i></span></div>
+      </div>
+    </div>
+    <p class="stage-note">Placeholder layout and copy, only there to show the colors in use. Pick a palette above or below.</p>
+  </section>
+
+  <section style="display:grid;gap:16px" aria-label="Palettes">
+    <div class="grid" id="grid"></div>
+    <p class="legend"><b>Contrast checks</b> use the WCAG 2 formula. AA needs 4.5:1 for body text and 3:1 for large text and UI shapes. A color marked <b>decor</b> is for fills and shapes only, never for text on the ground. Click a swatch to copy its hex.</p>
+  </section>
+</div>
+
+<script>
+const PALETTES = [
+  {
+    id: "rooftop",
+    name: "Rooftop Runner",
+    src: "Inspired by Mirror's Edge",
+    desc: "Bleached white city, pale sky glass, near-black ink and one hard red for the route. Orange is borrowed from the rooftop pipes and signs, used sparingly for tags.",
+    grade: "V4 · 6B+",
+    c: { ground: "#F5F8FA", surface: "#DCEAF2", ink: "#12161A", muted: "#56636D", path: "#D9121A", second: "#F08A1C" },
+    onPath: "#FFFFFF",
+    decor: ["second"]
+  },
+  {
+    id: "alpenglow",
+    name: "Alpenglow",
+    src: "Outdoor · granite at sunrise",
+    desc: "Cold granite and snow, a night-navy ink, and the orange-pink light that hits a big wall at dawn. Lichen green is a quiet second color for tags and charts.",
+    grade: "5.11a · 6c",
+    c: { ground: "#EEF1F3", surface: "#C9D0D6", ink: "#1B2433", muted: "#55606C", path: "#C2461F", second: "#8E9A3C" },
+    onPath: "#FFFFFF",
+    decor: ["second"]
+  },
+  {
+    id: "plywood",
+    name: "Plywood Gym",
+    src: "Indoor · bouldering wall",
+    desc: "Chalk-white ground, raw plywood volumes and a charcoal wall. The route is a purple hold; volt yellow is the start-tape color, always a fill with dark text on it.",
+    grade: "V6 · 7A",
+    c: { ground: "#F4F4F1", surface: "#DDBF91", ink: "#26282B", muted: "#5E6165", path: "#6A3FD4", second: "#E4EE3A" },
+    onPath: "#FFFFFF",
+    decor: ["second"]
+  },
+  {
+    id: "headlamp",
+    name: "Headlamp Session",
+    src: "Night climbing · game HUD",
+    desc: "A dark-first palette: midnight blue, headlamp amber for the path, and dynamic-rope coral as the second signal. Reads like a game HUD at night.",
+    grade: "V8 · 7B",
+    c: { ground: "#0F1424", surface: "#1B2238", ink: "#E7EAF2", muted: "#8C94AB", path: "#FFB547", second: "#FF5C7A" },
+    onPath: "#0F1424",
+    decor: []
+  }
+];
+const ROLES = [
+  ["ground", "Ground"], ["surface", "Surface"], ["ink", "Ink"],
+  ["muted", "Muted"], ["path", "Path"], ["second", "Second"]
+];
+
+function lum(hex) {
+  const n = hex.replace("#", "");
+  return [0, 2, 4].map(i => parseInt(n.slice(i, i + 2), 16) / 255)
+    .map(v => v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4))
+    .reduce((s, v, i) => s + v * [0.2126, 0.7152, 0.0722][i], 0);
+}
+function ratio(a, b) {
+  const x = lum(a), y = lum(b);
+  return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
+}
+function level(r) {
+  if (r >= 7) return "AAA";
+  if (r >= 4.5) return "AA";
+  if (r >= 3) return "AA large";
+  return "fail";
+}
+
+const tabs = document.getElementById("tabs");
+const grid = document.getElementById("grid");
+const stage = document.getElementById("stage");
+
+function check(label, fg, bg, large) {
+  const r = ratio(fg, bg);
+  const lv = level(r, large);
+  const el = document.createElement("span");
+  el.className = "chk" + (lv === "fail" ? " fail" : "");
+  el.innerHTML = `<span class="pair"><i style="background:${fg}"></i><i style="background:${bg}"></i></span>${label} ${r.toFixed(1)}:1 <span class="lvl">${lv}</span>`;
+  return el;
+}
+
+PALETTES.forEach(p => {
+  const t = document.createElement("button");
+  t.className = "tab";
+  t.id = "tab-" + p.id;
+  t.setAttribute("role", "tab");
+  t.innerHTML = `<span class="dot" style="background:${p.c.path}"></span>${p.name}`;
+  t.addEventListener("click", () => select(p.id, true));
+  tabs.appendChild(t);
+
+  const card = document.createElement("article");
+  card.className = "pal";
+  card.id = "pal-" + p.id;
+  card.innerHTML = `
+    <div class="pal-head"><h2>${p.name}</h2><span class="src">${p.src}</span></div>
+    <p class="pal-desc">${p.desc}</p>
+    <div class="swatches"></div>
+    <div class="checks"></div>
+    <button class="use-btn" type="button" id="use-${p.id}">Preview this palette</button>`;
+  const sw = card.querySelector(".swatches");
+  ROLES.forEach(([key, label]) => {
+    const b = document.createElement("button");
+    b.className = "sw";
+    b.type = "button";
+    b.id = `sw-${p.id}-${key}`;
+    b.title = "Copy " + p.c[key];
+    b.innerHTML = `<span class="chip" style="background:${p.c[key]}"></span><span class="meta"><span class="role">${label}${p.decor.includes(key) ? " · decor" : ""}</span><span class="hex">${p.c[key]}</span></span>`;
+    b.addEventListener("click", () => copy(b, p.c[key]));
+    sw.appendChild(b);
+  });
+  const ch = card.querySelector(".checks");
+  ch.append(
+    check("Ink on ground", p.c.ink, p.c.ground),
+    check("Path on ground", p.c.path, p.c.ground),
+    check("Button text", p.onPath, p.c.path),
+    check("Muted on ground", p.c.muted, p.c.ground)
+  );
+  card.querySelector(".use-btn").addEventListener("click", () => {
+    select(p.id, true);
+    stage.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+  });
+  grid.appendChild(card);
+});
+
+function copy(btn, hex) {
+  const hexEl = btn.querySelector(".hex");
+  const done = () => {
+    btn.classList.add("copied");
+    hexEl.textContent = "Copied";
+    setTimeout(() => { btn.classList.remove("copied"); hexEl.textContent = hex; }, 1200);
+  };
+  try {
+    navigator.clipboard.writeText(hex).then(done, () => { hexEl.textContent = hex; selectText(hexEl); });
+  } catch (e) { selectText(hexEl); }
+}
+function selectText(el) {
+  const r = document.createRange(); r.selectNodeContents(el);
+  const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+}
+
+function select(id, push) {
+  const p = PALETTES.find(x => x.id === id) || PALETTES[0];
+  const s = stage.style;
+  s.setProperty("--p-ground", p.c.ground);
+  s.setProperty("--p-surface", p.c.surface);
+  s.setProperty("--p-ink", p.c.ink);
+  s.setProperty("--p-muted", p.c.muted);
+  s.setProperty("--p-path", p.c.path);
+  s.setProperty("--p-second", p.c.second);
+  s.setProperty("--p-on-path", p.onPath);
+  document.getElementById("grade").textContent = p.grade;
+  PALETTES.forEach(x => {
+    document.getElementById("tab-" + x.id).setAttribute("aria-selected", String(x.id === p.id));
+    document.getElementById("pal-" + x.id).classList.toggle("sel", x.id === p.id);
+    document.getElementById("use-" + x.id).textContent = x.id === p.id ? "Showing in preview" : "Preview this palette";
+  });
+  if (push && location.hash !== "#" + p.id) {
+    try { history.replaceState(null, "", "#" + p.id); } catch (e) {}
+  }
+}
+function fromHash() { select((location.hash || "").slice(1) || "rooftop", false); }
+window.addEventListener("hashchange", fromHash);
+fromHash();
+</script>

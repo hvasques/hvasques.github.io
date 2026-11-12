@@ -58,3 +58,19 @@ O dono deste repo quer **entender como o site foi montado**, não só recebê-lo
   5. As cores ficam em variáveis (`--bg`, `--fg`) e mudam sozinhas quando o sistema está em modo escuro (`prefers-color-scheme: dark`).
 - **Escolha técnica:** grid com `place-items: center` em vez de flexbox ou posicionamento absoluto — é a forma mais curta de centralizar nos dois eixos.
 - **Como conferir:** abrir `index.html` no navegador (duplo clique) ou acessar https://hvasques.github.io/ — a publicação leva cerca de 1 minuto após o push.
+
+### Etapa 4 — Protótipo de paletas de cores (tema escalada + games)
+
+- **Conceito:** o portfólio mistura escalada e games. Referência inicial: Mirror's Edge (parkour, estética limpa, arestas retas, vermelho marcando o caminho). Daí a ideia central de toda paleta ter uma cor **path**: a única cor que indica "para onde ir" (botão principal, link ativo, a linha da via), como a fita de uma via no ginásio.
+- **O que foi feito:** criado `prototypes/palettes.html` e publicado como Artifact (https://claude.ai/artifact/YJwSvVbPpiiXgkdYcLWrHy). Não faz parte do site publicado.
+- **As 4 paletas** (6 papéis cada: ground = fundo, surface = superfícies, ink = texto, muted = texto secundário, path = caminho, second = sinal secundário):
+  1. **Rooftop Runner** (inspirada em Mirror's Edge): branco azulado, céu claro, tinta quase preta, vermelho `#D9121A`, laranja nas tags.
+  2. **Alpenglow** (escalada outdoor): granito, neve fria, azul-noite, laranja do sol nascendo na parede `#C2461F`, verde-líquen.
+  3. **Plywood Gym** (boulder indoor): branco-magnésio, compensado, parede grafite, agarra roxa `#6A3FD4`, fita amarelo-neon.
+  4. **Headlamp Session** (escalada noturna / HUD de game): escura, âmbar da lanterna `#FFB547`, coral da corda.
+- **Como foi montado:**
+  1. Cada paleta virou um conjunto de variáveis CSS (`--p-ground`, `--p-path`…). A prévia do hero só usa essas variáveis, então trocar a paleta é só trocar os valores — o mesmo mecanismo que o site final vai usar.
+  2. O contraste de cada par importante (texto no fundo, path no fundo, texto do botão) é calculado na página pela fórmula do WCAG 2 e mostrado como AA/AAA. Antes de publicar, os vermelhos e laranjas foram escurecidos até passar de 4.5:1.
+  3. Cores que não têm contraste para texto (ex.: amarelo-neon) são marcadas como **decor**: só preenchimento, nunca texto sobre o fundo.
+  4. Arestas retas e um botão com o canto cortado na diagonal, para puxar a estética de "arestas afiadas".
+- **Como conferir:** abrir o link do Artifact, ou `prototypes/palettes.html` no navegador; clicar nas abas para trocar a paleta da prévia.
