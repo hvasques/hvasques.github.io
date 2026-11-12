@@ -46,3 +46,15 @@ O dono deste repo quer **entender como o site foi montado**, não só recebê-lo
 - **Por quê o nome:** repos chamados `<usuário>.github.io` são o "site do usuário" no GitHub Pages e ficam na raiz `https://hvasques.github.io/`. O Pages já vem ativado automaticamente, publicando a branch `main`, pasta `/`.
 - **Ainda não feito:** como ainda não existe `index.html`, a URL não mostra nenhuma página.
 - **Como conferir:** `git remote -v` mostra o `origin`; no GitHub, *Settings → Pages* mostra a fonte `main` / `/ (root)`; ou `gh api repos/hvasques/hvasques.github.io/pages`.
+
+### Etapa 3 — Página provisória "WIP"
+
+- **O que foi feito:** criados `index.html` (a página inicial) e `assets/css/style.css` (o visual). A página só mostra "WIP" grande, centralizado na tela.
+- **Como funciona:**
+  1. `index.html` é o arquivo que o GitHub Pages abre por padrão na raiz do site. O `<meta name="viewport">` faz a página se ajustar ao celular; `lang="pt-BR"` indica o idioma para navegadores e leitores de tela.
+  2. O HTML só tem um `<main>` com um `<h1>WIP</h1>` e um `<link>` para o CSS.
+  3. No CSS, o `<main>` ocupa a altura toda da tela (`min-height: 100vh`, e `100dvh` para celulares, que descontam a barra do navegador) e usa `display: grid` + `place-items: center`, que centraliza o conteúdo na horizontal e na vertical ao mesmo tempo.
+  4. O tamanho do texto usa `clamp(3rem, 15vw, 10rem)`: cresce com a largura da tela, mas nunca fica menor que 3rem nem maior que 10rem.
+  5. As cores ficam em variáveis (`--bg`, `--fg`) e mudam sozinhas quando o sistema está em modo escuro (`prefers-color-scheme: dark`).
+- **Escolha técnica:** grid com `place-items: center` em vez de flexbox ou posicionamento absoluto — é a forma mais curta de centralizar nos dois eixos.
+- **Como conferir:** abrir `index.html` no navegador (duplo clique) ou acessar https://hvasques.github.io/ — a publicação leva cerca de 1 minuto após o push.
