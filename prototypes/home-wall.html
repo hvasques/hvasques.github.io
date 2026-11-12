@@ -1,0 +1,267 @@
+<title>Home Wall</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: palette switch, then one tall 1200x1480 desktop frame (scaled to the column): home in the cave on top, a ledge with hangers, the portfolio topo below. Notes after. */
+:root {
+  --bg: #F3F5F6;
+  --panel: #FFFFFF;
+  --fg: #15191C;
+  --muted: #5A646B;
+  --line: #D5DBDF;
+  --focus: #D9121A;
+  --display: "Chakra Petch", "Arial Narrow", system-ui, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101315; --panel: #181C1F; --fg: #E9EDEF; --muted: #98A2A9; --line: #2B3135; --focus: #FF4A50;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101315; --panel: #181C1F; --fg: #E9EDEF; --muted: #98A2A9; --line: #2B3135; --focus: #FF4A50;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.55; }
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-block: 40px 72px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid;
+  gap: 28px;
+}
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+p { margin: 0; }
+.eyebrow { font: 500 12px/1.3 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+h1 { font: 700 clamp(32px, 6vw, 52px)/1 var(--display); margin: 0; text-wrap: balance; }
+h2 { font: 700 22px/1.1 var(--display); margin: 0; }
+.intro { display: grid; gap: 10px; max-width: 70ch; }
+.intro p { color: var(--muted); }
+
+.switch { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.switch .eyebrow { margin-right: 4px; }
+.pbtn {
+  font: 600 14px/1 var(--display); letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 11px 14px; border: 1px solid var(--line); background: var(--panel); color: var(--fg);
+  cursor: pointer; display: inline-flex; gap: 10px; align-items: center;
+}
+.pbtn i { width: 12px; height: 12px; display: inline-block; }
+.pbtn[aria-pressed="true"] { border-color: var(--fg); box-shadow: inset 0 -3px 0 var(--fg); }
+
+.notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.notes > div { display: grid; gap: 6px; align-content: start; min-width: 0; }
+.notes h3 { font: 600 12px/1.2 var(--display); text-transform: uppercase; letter-spacing: 0.08em; margin: 0; color: var(--muted); }
+.notes ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+
+/* ---------- Scaled frame ---------- */
+.frame { position: relative; width: 100%; max-width: 100%; aspect-ratio: 1200 / 1480; overflow: hidden; border: 1px solid var(--line); }
+.screen {
+  position: absolute; top: 0; left: 0;
+  width: 1200px; height: 1480px;
+  transform-origin: 0 0;
+  transform: scale(var(--s, 0.9));
+  background: var(--p-ground);
+  color: var(--p-ink);
+  overflow: hidden;
+}
+.screen svg.bg { position: absolute; inset: 0; width: 1200px; height: 1480px; }
+.screen * { transition: fill .35s ease, stroke .35s ease, background-color .35s ease, color .35s ease; }
+.abs { position: absolute; }
+
+.pal[data-pal="rooftop"] {
+  --p-ground: #F5F8FA; --p-surface: #DCEAF2; --p-ink: #12161A; --p-muted: #56636D;
+  --p-path: #D9121A; --p-second: #F08A1C; --p-on-path: #FFFFFF; --p-rock-line: #A9C3D2;
+}
+.pal[data-pal="alpenglow"] {
+  --p-ground: #EEF1F3; --p-surface: #C9D0D6; --p-ink: #1B2433; --p-muted: #4C5763; --p-path: #C2461F;
+  --p-second: #8E9A3C; --p-on-path: #FFFFFF; --p-rock-line: #A3AEB9;
+}
+
+.logo { font: 700 22px/1 var(--display); letter-spacing: 0.06em; text-transform: uppercase; }
+.logo b { color: var(--p-path); }
+.links { display: flex; gap: 32px; font: 500 16px/1 var(--display); letter-spacing: 0.1em; text-transform: uppercase; color: var(--p-ink); }
+.links .on { box-shadow: inset 0 -3px 0 var(--p-path); padding-bottom: 6px; }
+.chip { display: inline-block; font: 600 14px/1 var(--mono); letter-spacing: 0.06em; padding: 7px 10px; background: var(--p-second); color: var(--p-ink); }
+.title { font: 700 96px/0.9 var(--display); text-transform: uppercase; letter-spacing: -0.01em; margin: 0; }
+.title span { color: var(--p-path); }
+.sub { font-size: 20px; line-height: 1.5; color: var(--p-muted); max-width: 32ch; }
+.ctas { display: flex; gap: 14px; }
+.btn {
+  font: 600 16px/1 var(--display); letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 18px 36px 18px 24px; background: var(--p-path); color: var(--p-on-path);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+}
+.btn.ghost { background: transparent; color: var(--p-ink); box-shadow: inset 0 0 0 2px var(--p-ink); clip-path: none; padding-right: 24px; }
+.mono { font: 500 13px/1.3 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--p-muted); }
+.copy { display: grid; gap: 22px; justify-items: start; }
+.route-line { stroke-dasharray: 8 9; animation: run 1.8s linear infinite; }
+@keyframes run { to { stroke-dashoffset: -34; } }
+
+/* Topo */
+.rt { stroke: var(--p-muted); stroke-width: 3; fill: none; opacity: .5; transition: stroke .2s, opacity .2s, stroke-width .2s; }
+.nb rect { fill: var(--p-ink); transition: fill .2s; }
+.nb text { fill: var(--p-ground); font: 600 14px var(--mono); }
+.hg { fill: var(--p-muted); transition: fill .2s; }
+.screen[data-on="1"] .r1, .screen[data-on="2"] .r2, .screen[data-on="3"] .r3, .screen[data-on="4"] .r4 { stroke: var(--p-path); opacity: 1; stroke-width: 4; }
+.screen[data-on="1"] .n1 rect, .screen[data-on="2"] .n2 rect, .screen[data-on="3"] .n3 rect, .screen[data-on="4"] .n4 rect,
+.screen[data-on="1"] .h1, .screen[data-on="2"] .h2, .screen[data-on="3"] .h3, .screen[data-on="4"] .h4 { fill: var(--p-path); }
+.legend { display: grid; width: 400px; border-top: 1px solid color-mix(in srgb, var(--p-ink) 18%, transparent); }
+.lg {
+  display: grid; grid-template-columns: 30px 1fr auto; gap: 14px; align-items: baseline;
+  padding: 14px 0; border-bottom: 1px solid color-mix(in srgb, var(--p-ink) 18%, transparent); cursor: pointer;
+}
+.lg .n { font: 600 15px/1 var(--mono); }
+.lg .t { font: 600 19px/1.1 var(--display); }
+.lg .t small { display: block; font: 400 13px/1.4 var(--body); color: var(--p-muted); margin-top: 4px; }
+.lg .g { font: 600 15px/1 var(--mono); color: var(--p-muted); font-variant-numeric: tabular-nums; }
+.screen[data-on="1"] .l1 .n, .screen[data-on="2"] .l2 .n, .screen[data-on="3"] .l3 .n, .screen[data-on="4"] .l4 .n,
+.screen[data-on="1"] .l1 .g, .screen[data-on="2"] .l2 .g, .screen[data-on="3"] .l3 .g, .screen[data-on="4"] .l4 .g { color: var(--p-path); }
+
+@media (max-width: 760px) { .notes { grid-template-columns: minmax(0, 1fr); gap: 14px; } }
+@media (prefers-reduced-motion: reduce) { .route-line { animation: none; } .screen * { transition: none; } }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="hold" viewBox="0 0 20 20"><polygon points="2,4 17,1 19,15 4,19"></polygon></symbol>
+  <symbol id="hold2" viewBox="0 0 20 20"><polygon points="1,8 9,1 19,6 15,18 4,17"></polygon></symbol>
+  <!-- Bolt hanger: plate, bolt head on top, eye for the carabiner below -->
+  <symbol id="hanger" viewBox="0 0 20 30">
+    <path fill-rule="evenodd" d="M4 0 H16 L19 11 L14 30 H6 L1 11 Z M10 3.5 a2.6 2.6 0 1 0 0.01 0 Z M10 15.5 a4.4 4.4 0 1 0 0.01 0 Z"></path>
+  </symbol>
+</svg>
+
+<div class="wrap pal" id="pal" data-pal="rooftop">
+  <header class="intro">
+    <div class="eyebrow">Portfolio · prototype 03 · home + portfolio</div>
+    <h1>One wall, two sections</h1>
+    <p>The cave (B) is the home screen and holds the menu for every section: portfolio, blog and whatever comes next. Scroll down and you descend the same wall into the portfolio topo (D). A bolt hanger at the start of the home route ties the two together; the topo routes top out on that same ledge.</p>
+  </header>
+
+  <div class="switch" role="group" aria-label="Palette">
+    <span class="eyebrow">Palette</span>
+    <button class="pbtn" type="button" id="p-rooftop" data-p="rooftop" aria-pressed="true"><i style="background:#D9121A"></i>Rooftop Runner</button>
+    <button class="pbtn" type="button" id="p-alpenglow" data-p="alpenglow" aria-pressed="false"><i style="background:#C2461F"></i>Alpenglow</button>
+  </div>
+
+  <div class="frame"><div class="screen" id="screen" data-on="1" role="img" aria-label="Mock of one tall page. Top: the home screen inside a light cave roof with the menu, an overhang on the right with a route that starts at a bolt hanger. Below a ledge: the portfolio as a topo with four numbered routes, each topping out at its own hanger on the ledge.">
+    <svg class="bg" viewBox="0 0 1200 1480" aria-hidden="true">
+      <!-- Cave roof + overhang, now in the light surface color -->
+      <polygon fill="var(--p-surface)" points="0,0 1200,0 1200,740 1072,740 1060,700 1000,600 950,520 905,440 860,350 818,262 778,180 742,140 680,128 600,140 520,122 440,136 360,118 280,134 200,120 120,138 40,124 0,130"></polygon>
+      <polyline fill="none" stroke="var(--p-rock-line)" stroke-width="2" points="1072,740 1060,700 1000,600 950,520 905,440 860,350 818,262 778,180 742,140 680,128 600,140 520,122 440,136 360,118 280,134 200,120 120,138 40,124 0,130"></polyline>
+      <g fill="none" stroke="var(--p-rock-line)" stroke-width="1.5">
+        <polyline points="1200,250 1110,262 1010,300 930,310"></polyline>
+        <polyline points="1200,420 1120,440 1040,470 990,480"></polyline>
+        <polyline points="1200,600 1140,620 1090,660"></polyline>
+        <polyline points="0,70 180,84 380,72 560,90 760,80 980,96 1200,86"></polyline>
+        <polyline points="830,170 900,150 1000,160 1200,140"></polyline>
+      </g>
+      <g fill="var(--p-rock-line)">
+        <use href="#hold2" x="1110" y="520" width="18" height="18"></use>
+        <use href="#hold2" x="1000" y="380" width="16" height="16"></use>
+        <use href="#hold2" x="1130" y="300" width="18" height="18"></use>
+        <use href="#hold2" x="920" y="230" width="16" height="16"></use>
+        <use href="#hold2" x="1080" y="200" width="14" height="14"></use>
+      </g>
+
+      <!-- Home route: starts at the hanger, tops out at the menu -->
+      <path class="route-line" d="M1086 696 L1046 640 L986 548 L944 458 L896 366 L852 276 L810 196 L766 120" fill="none" stroke="var(--p-path)" stroke-width="4" stroke-linecap="square"></path>
+      <g fill="var(--p-path)">
+        <use href="#hold" x="1034" y="628" width="26" height="26"></use>
+        <use href="#hold" x="974" y="536" width="24" height="24"></use>
+        <use href="#hold" x="932" y="446" width="24" height="24"></use>
+        <use href="#hold" x="884" y="354" width="24" height="24"></use>
+        <use href="#hold" x="840" y="264" width="24" height="24"></use>
+        <use href="#hold" x="798" y="184" width="24" height="24"></use>
+        <use href="#hold" x="750" y="102" width="30" height="30"></use>
+      </g>
+      <use href="#hanger" x="1074" y="672" width="24" height="36" fill="var(--p-ink)"></use>
+
+      <!-- Ledge between the sections -->
+      <line x1="470" y1="742" x2="1200" y2="742" stroke="var(--p-ink)" stroke-width="3"></line>
+
+      <!-- Portfolio topo wall -->
+      <polygon fill="var(--p-surface)" points="500,744 1200,744 1200,1440 900,1452 700,1444 488,1456 506,1200 492,980"></polygon>
+      <g fill="none" stroke="var(--p-rock-line)" stroke-width="1.5">
+        <polyline points="700,744 690,860 710,980 686,1120"></polyline>
+        <polyline points="880,744 900,880 870,1010 890,1160 870,1450"></polyline>
+        <polyline points="1050,744 1040,840 1070,930"></polyline>
+        <polyline points="500,1060 600,1080 640,1070"></polyline>
+        <polyline points="1200,1100 1090,1120 1040,1160"></polyline>
+      </g>
+      <path class="rt r1" d="M630 1390 C 650 1240, 600 1120, 660 980 S 650 840, 630 788"></path>
+      <path class="rt r2" d="M800 1390 C 820 1250, 770 1100, 820 960 S 820 850, 800 788"></path>
+      <path class="rt r3" d="M970 1390 C 940 1240, 1000 1100, 960 960 S 960 850, 970 788"></path>
+      <path class="rt r4" d="M1120 1390 C 1140 1250, 1100 1100, 1140 960 S 1130 850, 1120 788"></path>
+      <use class="hg h1" href="#hanger" x="620" y="752" width="20" height="30"></use>
+      <use class="hg h2" href="#hanger" x="790" y="752" width="20" height="30"></use>
+      <use class="hg h3" href="#hanger" x="960" y="752" width="20" height="30"></use>
+      <use class="hg h4" href="#hanger" x="1110" y="752" width="20" height="30"></use>
+      <g class="nb n1"><rect x="618" y="1394" width="24" height="24"></rect><text x="626" y="1411">1</text></g>
+      <g class="nb n2"><rect x="788" y="1394" width="24" height="24"></rect><text x="796" y="1411">2</text></g>
+      <g class="nb n3"><rect x="958" y="1394" width="24" height="24"></rect><text x="966" y="1411">3</text></g>
+      <g class="nb n4"><rect x="1108" y="1394" width="24" height="24"></rect><text x="1116" y="1411">4</text></g>
+    </svg>
+
+    <!-- Home -->
+    <div class="abs logo" style="left:64px;top:46px">hvasques<b>/</b></div>
+    <div class="abs links" style="left:400px;top:50px"><span class="on">Home</span><span>Portfolio</span><span>Blog</span><span>About</span></div>
+    <div class="abs copy" style="left:64px;top:200px;width:660px">
+      <span class="chip">V4 · 6B+</span>
+      <p class="title">Find the<br><span>next hold</span></p>
+      <p class="sub">Portfolio, blog and experiments. Start anywhere on the wall.</p>
+      <div class="ctas"><span class="btn">Portfolio</span><span class="btn ghost">Blog</span></div>
+    </div>
+    <div class="abs mono" style="left:64px;top:690px">↓ Lower off to the portfolio</div>
+
+    <!-- Portfolio -->
+    <div class="abs copy" style="left:64px;top:810px;width:400px;gap:16px">
+      <span class="mono">Portfolio · 4 routes</span>
+      <p class="title" style="font-size:72px">Pick a<br><span>line</span></p>
+      <p class="sub" style="font-size:17px">Every project is a route on this wall, graded by how hard it was.</p>
+    </div>
+    <div class="abs legend" style="left:64px;top:1080px">
+      <div class="lg l1" data-r="1"><span class="n">1</span><span class="t">Project one<small>Sample · case study</small></span><span class="g">7a</span></div>
+      <div class="lg l2" data-r="2"><span class="n">2</span><span class="t">Project two<small>Sample · side project</small></span><span class="g">6b+</span></div>
+      <div class="lg l3" data-r="3"><span class="n">3</span><span class="t">Project three<small>Sample · game jam</small></span><span class="g">6a</span></div>
+      <div class="lg l4" data-r="4"><span class="n">4</span><span class="t">Project four<small>Sample · notes</small></span><span class="g">5c</span></div>
+    </div>
+    <div class="abs mono" style="left:64px;top:1410px;text-transform:none;letter-spacing:0.02em">Grades: French sport scale. 5c easy → 7a hard.</div>
+  </div></div>
+
+  <div class="notes">
+    <div><h3>What changed</h3><ul><li>Cave rock now uses the light surface color with a thin outline, so the page stays light</li><li>Menu now covers every section: Home, Portfolio, Blog, About</li><li>Home route starts at a bolt hanger on the ledge</li></ul></div>
+    <div><h3>How B and D connect</h3><ul><li>The page is one wall: scrolling down is lowering off</li><li>The ledge splits home from the portfolio</li><li>Each topo route tops out at its own hanger on that ledge, next to where the home route starts</li></ul></div>
+    <div><h3>Open questions</h3><ul><li>Does the blog get its own wall (another topo), or a simpler list?</li><li>Rooftop's red reads stronger on the light rock than Alpenglow's orange</li></ul></div>
+  </div>
+</div>
+
+<script>
+const frame = document.querySelector(".frame");
+const screen = document.getElementById("screen");
+function fit() { screen.style.setProperty("--s", frame.clientWidth / 1200); }
+new ResizeObserver(fit).observe(frame);
+fit();
+
+const pal = document.getElementById("pal");
+document.querySelectorAll(".pbtn").forEach(b => b.addEventListener("click", () => {
+  pal.dataset.pal = b.dataset.p;
+  document.querySelectorAll(".pbtn").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  try { localStorage.setItem("route-pal", b.dataset.p); } catch (e) {}
+}));
+try {
+  const saved = localStorage.getItem("route-pal");
+  if (saved) document.getElementById("p-" + saved)?.click();
+} catch (e) {}
+
+screen.querySelectorAll(".lg").forEach(row => {
+  row.addEventListener("mouseenter", () => { screen.dataset.on = row.dataset.r; });
+  row.addEventListener("click", () => { screen.dataset.on = row.dataset.r; });
+});
+</script>

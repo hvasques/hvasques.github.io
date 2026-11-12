@@ -90,3 +90,16 @@ O dono deste repo quer **entender como o site foi montado**, não só recebê-lo
   4. As cores vêm das mesmas variáveis `--p-*` da etapa 4; trocar a paleta é trocar o atributo `data-pal`.
   5. A linha da via tem um tracejado animado (desligado para quem pede menos movimento no sistema). No conceito D, passar o mouse numa linha da legenda acende a via correspondente.
 - **Como conferir:** abrir o link do Artifact ou `prototypes/hero-layouts.html`; alternar a paleta no topo.
+- **Decisão:** combinar **B** (caverna, menu para todas as seções futuras: portfólio, blog etc.) com **D** (croqui do portfólio).
+
+### Etapa 6 — Protótipo "uma parede só" (B + D)
+
+- **O que foi feito:** criado `prototypes/home-wall.html`, publicado como Artifact (https://claude.ai/artifact/ErjrMEDb3CkTPjMzGkgNM1). É uma página alta (1200×1480): a home dentro da caverna em cima, o croqui do portfólio embaixo.
+- **Feedback aplicado:** a rocha da caverna estava pesada demais (cor `ink`, quase preta). Agora usa a cor `surface` (clara) com um contorno fino (`--p-rock-line`); o texto do menu passou de claro para `ink`.
+- **Como B e D se conectam:**
+  1. A página inteira é uma parede: rolar para baixo é descer.
+  2. Uma linha de "platô" (ledge) separa a home do portfólio.
+  3. A via da home começa numa **chapeleta** (bolt hanger) logo acima do platô e sobe até o menu.
+  4. Cada via do croqui termina na própria chapeleta, presa no mesmo platô — ou seja, as vias do portfólio levam de volta à home.
+- **Como foi montado:** a chapeleta é um `<symbol>` SVG (placa com o furo do parafuso e o olhal para o mosquetão, feitos com `fill-rule="evenodd"`), reaproveitado nas 5 posições. Passar o mouse numa linha da legenda acende a via, o número e a chapeleta dela.
+- **Como conferir:** abrir o link do Artifact ou `prototypes/home-wall.html`; alternar a paleta; passar o mouse na legenda.
