@@ -133,3 +133,20 @@ O dono deste repo quer **entender como o site foi montado**, não só recebê-lo
   4. A interface da página do espécime usa a fonte do sistema de propósito, para não competir com as candidatas.
   5. Antes de publicar, conferi com `curl` que todas as famílias existem no Google Fonts.
 - **Como conferir:** abrir o link do Artifact; trocar a combinação nos botões ou clicando nos cartões lado a lado.
+- **Decisão:** as 4 propostas foram rejeitadas por serem óbvias demais. O que ficou: **Chakra Petch no menu** (e no logo).
+
+### Etapa 9 — Tipografia por peças (menu fixo em Chakra Petch)
+
+- **O que foi feito:** o mesmo Artifact (https://claude.ai/artifact/9CQSVPpNQbbpLRBS2r43dG, versão 2) virou um "monte você mesmo": o menu e o logo ficam fixos em Chakra Petch e cada outra peça tem opções próprias.
+  - **Título:** Geologica com nitidez máxima (cantos cortados), Chakra Petch Light em minúsculas, Darker Grotesque, Funnel Display, Handjet.
+  - **Nomes dos projetos:** Geologica, Chakra Petch, Darker Grotesque, Funnel Sans, SUSE.
+  - **Rótulos** (substitutos do overline): barra do logo na fonte do menu (`/ case study`), marcador em forma de agarra, na mesma linha do nome, texto simples, ou sem rótulo.
+  - **Graus:** Doto (matriz de pontos, como placar/cronômetro), Handjet (segmentos de display digital), "agarra" (o grau dentro de uma forma de agarra), Chakra Petch.
+  - **Texto:** Geologica, Atkinson Hyperlegible Next, Funnel Sans, SUSE.
+  - 4 combinações prontas para começar: *Sharp edges*, *Scoreboard*, *Tall and tight*, *Grades as holds*.
+- **Como foi montado:**
+  1. A tela guarda cada escolha num atributo (`data-t`, `data-i`, `data-l`, `data-g`, `data-b`); o CSS tem uma regra para cada valor. Trocar uma opção é trocar um atributo.
+  2. Os tratamentos de rótulo que não são só fonte (barra, marcador, mesma linha) usam `::before` e mudança de layout no CSS, sem mudar o HTML.
+  3. Geologica usa o eixo variável `SHRP` (nitidez) em 100 para combinar com os cantos cortados da Chakra Petch; Handjet usa o eixo `ELSH` (forma dos elementos).
+  4. A combinação escolhida fica salva no navegador (localStorage), para reabrir onde parou.
+- **Como conferir:** abrir o link; clicar num preset e trocar peça por peça.
