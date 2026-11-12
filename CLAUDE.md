@@ -196,3 +196,22 @@ Tema: escalada + games. Referência: Mirror's Edge (limpo, arestas retas, uma co
 - **Como conferir:** https://claude.ai/artifact/HekNeSAtctbyZUTuXCMq1q — passar o mouse na lista do Portfólio.
 - **Ajustes seguintes:** o menu do Portfólio estava escondido sob o desenho do croqui (camada por cima) — o conteúdo ganhou `z-index` acima do desenho e o desenho `pointer-events: none`. Na Home, os pares de agarras lado a lado foram trocados por 11 agarras isoladas com espaçamento irregular (≈50–115px). O bloco do Portfólio ficou **só 2D**: sem lado sombreado e sem pedra na frente (misturavam profundidade com o resto plano); as fissuras viraram as mesmas linhas de estrato quase horizontais da parede da Home.
 - **Regra de estilo:** tudo é desenho plano (2D) — silhuetas chapadas, linhas de estrato, sem sombra, perspectiva ou profundidade. E **anguloso**: formas com poucas arestas longas e cantos vivos (como a caverna), nunca contornos arredondados. O bloco do Portfólio foi refeito com 10 vértices em vez de 18.
+
+### Etapa 12 — Ajustes finais no canvas e página de projeto
+
+- **Ajustes por comentários (Home e Portfólio):**
+  1. A parede e o teto da caverna agora formam uma linha contínua: a parede fica *atrás* do teto e o teto cresce junto com a altura da janela, então os dois se encontram sempre no mesmo ponto.
+  2. A página ocupa sempre a altura toda da janela (`min-height: max(760px, 100vh)`), para a parede tocar o chão em qualquer zoom.
+  3. O texto nunca invade o teto nem a parede: o início do conteúdo é calculado a partir da altura do teto, e a parede do Portfólio nunca chega a menos de 560px da borda esquerda.
+  4. O menu fica sempre a 64px da borda direita da janela (antes parava em 1280px de largura).
+  5. O Blog saiu do menu e da Home; o menu agora é Home, Portfolio, About.
+- **Portfólio clicável:** cada projeto virou um link; ao passar o mouse, o cursor vira uma etiqueta "KMON! →" na cor path e aparece uma seta depois do grau.
+- **Página de projeto (Project one):** estudo de caso com 5 seções, breadcrumb no logo (`HVASQUES / PORTFOLIO / PROJECT ONE`) e uma parede fina fixa na janela. A via 1 começa embaixo, cada seção é uma agarra posicionada conforme o lugar dela na página, e a via vai de tracejada a contínua, de baixo para cima, conforme a leitura avança.
+- **Como foi montado:** a página de projeto mede, com JavaScript, onde cada título de seção está e quanto da página já foi rolado; com isso calcula a posição das agarras e até onde a linha fica contínua (um `clipPath` recorta a cópia sólida da via).
+- **Como conferir:** https://claude.ai/artifact/HekNeSAtctbyZUTuXCMq1q — usar Play, passar o mouse na lista do Portfólio, clicar num projeto e rolar a página.
+
+### Etapa 13 — Handoff para o agente de código
+
+- **O que foi feito:** criado `HANDOFF.md` na raiz, com tudo que um agente de código precisa para construir o site de verdade a partir do canvas: páginas e arquivos a criar, regras (HTML/CSS/JS puros, sem build, não publicar sem confirmação), cores e fontes, peças compartilhadas, comportamento de cada página, acessibilidade, perguntas em aberto e uma lista de "pronto quando".
+- **Arquivos do canvas copiados** para `prototypes/design-canvas/` (`Main`, `Portfolio` e `WIP.dc.html`), para o agente ter o código-fonte do design no próprio repo. O `HANDOFF.md` explica como traduzir esse formato (`{{ }}`, `sc-for`, `renderVals`) para HTML e JS comuns.
+- **Como conferir:** abrir `HANDOFF.md`; para começar a construção, entregar esse arquivo ao agente de código.

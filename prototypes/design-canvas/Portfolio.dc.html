@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Portfolio</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Funnel+Display:wght@700;800&family=Funnel+Sans:wght@400;500;600&family=Geologica:wght@400;500&display=swap">
+<style>
+body{margin:0;background:#EEF1F3}
+a{color:#1B2433}a:hover{color:#C2461F}
+.row{transition:background-color .15s ease}
+.row:hover{background:rgba(201,208,214,.35)}
+.row:focus-visible{outline:2px solid #1B2433;outline-offset:2px}
+.rt{transition:stroke .2s ease,stroke-width .2s ease,opacity .2s ease}
+@media (prefers-reduced-motion: reduce){.rt,.row{transition:none}}
+@media (max-width:1100px){.wall{position:relative !important;width:100% !important;height:auto !important;max-width:none !important;margin-top:8px}.copy{max-width:100% !important}}
+@media (max-width:860px){.nav{gap:18px !important}.shell{padding-left:20px !important;padding-right:20px !important}}
+</style>
+</helmet>
+<div style="position: relative; min-height: max(760px, 100vh); width: 100%; overflow: hidden; background: #EEF1F3; color: #1B2433; font-family: Geologica, system-ui, sans-serif;">
+
+  <!-- Cave roof: same as Home, so the menu sits in the same place -->
+  <svg aria-hidden="true" viewBox="0 0 1280 150" preserveAspectRatio="none" style="position: absolute; z-index: 1; top: 0; left: 0; width: 100%; height: calc(100% * 150 / 760); display: block;">
+    <polygon fill="#C9D0D6" points="0,0 1280,0 1280,150 1180,140 1080,152 980,136 880,148 780,132 680,146 580,128 480,142 380,124 280,140 180,126 80,144 0,132"></polygon>
+    <polyline fill="none" stroke="#A3AEB9" stroke-width="1.5" vector-effect="non-scaling-stroke" points="0,70 180,84 380,72 560,90 760,80 980,96 1280,86"></polyline>
+  </svg>
+
+  <div class="shell" style="position: relative; z-index: 2; box-sizing: border-box; padding: 0 64px 48px; display: flex; flex-direction: column; gap: 0;">
+    <header style="display: flex; align-items: center; justify-content: space-between; gap: 64px; padding-top: 44px; flex-wrap: wrap; row-gap: 16px;">
+      <a href="Main.dc.html" style="font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 22px; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; color: #1B2433;">hvasques<span style="color: {{path}};">/</span></a>
+      <nav class="nav" aria-label="Main" style="display: flex; gap: 32px; flex-wrap: wrap; font-family: 'Chakra Petch', sans-serif; font-weight: 500; font-size: 16px; letter-spacing: 0.1em; text-transform: uppercase;">
+        <a href="Main.dc.html" style="text-decoration: none; color: #1B2433; padding-bottom: 6px;">Home</a>
+        <a href="Portfolio.dc.html" aria-current="page" style="text-decoration: none; color: #1B2433; padding-bottom: 6px; box-shadow: inset 0 -3px 0 {{path}};">Portfolio</a>
+        <a href="#about" style="text-decoration: none; color: #1B2433; padding-bottom: 6px;">About</a>
+      </nav>
+    </header>
+
+    <main class="copy" style="max-width: 440px; margin-top: calc(max(760px, 100vh) * 152 / 760 - 30px); display: flex; flex-direction: column; gap: 28px;">
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <h1 style="margin: 0; font-family: 'Funnel Display', sans-serif; font-weight: 800; font-size: clamp(48px, 6vw, 80px); line-height: 0.92; letter-spacing: -0.03em; color: #1B2433;">Pick a <span style="color: {{path}};">line</span></h1>
+        <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4C5763;">Every project is a route, graded by how hard it was.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; border-top: 1px solid #C9D0D6;">
+        <sc-for list="{{ projects }}" as="p" hint-placeholder-count="4">
+          <a href="WIP.dc.html" class="row" onMouseEnter="{{ p.pick }}" onFocus="{{ p.pick }}" style="all: unset; box-sizing: border-box; cursor: {{ cursor }}; display: grid; grid-template-columns: 30px minmax(0, 1fr) auto 16px; gap: 14px; align-items: center; padding: 11px 6px 11px 0; border-bottom: 1px solid #C9D0D6; min-height: 44px;">
+            <span style="font-family: 'Chakra Petch', sans-serif; font-weight: 600; font-size: 16px; color: {{ p.numColor }};">{{ p.n }}</span>
+            <span style="display: flex; flex-direction: column; gap: 4px; min-width: 0;">
+              <span style="font-family: 'Funnel Sans', sans-serif; font-weight: 600; font-size: 19px; line-height: 1.1; color: #1B2433;">{{ p.name }}</span>
+              <span style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: #4C5763;">
+                <svg aria-hidden="true" width="10" height="10" viewBox="0 0 10 10" style="flex: none;"><polygon points="1,2 8.5,0.5 10,7.5 2,10" fill="{{ p.markerFill }}"></polygon></svg>
+                {{ p.label }}
+              </span>
+            </span>
+            <span style="font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 15px; line-height: 1; padding: 9px 12px 9px 14px; clip-path: polygon(8% 8%, 92% 0, 100% 70%, 78% 100%, 4% 92%, 0 40%); background: {{ p.gradeBg }}; color: {{ p.gradeColor }};">{{ p.grade }}</span>
+            <span aria-hidden="true" style="font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 18px; line-height: 1; color: {{ path }}; opacity: {{ p.arrow }};">&rarr;</span>
+          </a>
+        </sc-for>
+      </div>
+
+      <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #4C5763;">Grades on the French sport scale: 5c is easy, 7a is hard. Project names are placeholders.</p>
+    </main>
+  </div>
+
+  <!-- Topo: a wall that comes down from the cave roof to the floor, following the owner's sketch, toned down: a few long straight edges with gentle changes of angle. Every route is numbered at its start and at its top, just under the roof. Stacks under the list on narrow screens. -->
+  <!-- The wall box never gets closer than 560px to the left edge, so it can't run into the text. The rock stretches to fill the box (always floor to roof); the routes keep their proportions and sit bottom-right inside it. -->
+  <div class="wall" style="position: absolute; z-index: 0; top: 0; right: 0; height: 100%; aspect-ratio: 720 / 760; max-width: calc(100% - 560px); pointer-events: none;">
+  <svg aria-hidden="true" viewBox="0 0 720 760" preserveAspectRatio="none" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block;">
+    <!-- Wall: joins the cave roof at the top, reaches the floor at the bottom -->
+    <polygon fill="#C9D0D6" points="0,0 720,0 720,760 120,760 100,660 128,560 150,480 176,400 160,300 150,220 138,136 90,128 0,124"></polygon>
+    <g fill="none" stroke="#A3AEB9" stroke-width="1.5" vector-effect="non-scaling-stroke">
+      <polyline points="260,240 380,232 500,242 620,234" vector-effect="non-scaling-stroke"></polyline>
+      <polyline points="280,360 400,350 520,360 640,352" vector-effect="non-scaling-stroke"></polyline>
+      <polyline points="520,470 620,462 720,470" vector-effect="non-scaling-stroke"></polyline>
+      <polyline points="160,560 300,572 440,560" vector-effect="non-scaling-stroke"></polyline>
+      <polyline points="130,680 260,690 380,682" vector-effect="non-scaling-stroke"></polyline>
+    </g>
+  </svg>
+  <svg role="img" aria-label="Topo of the cave wall with four numbered routes climbing from the floor to the roof; the selected project's route is highlighted" viewBox="0 0 720 760" preserveAspectRatio="xMaxYMax meet" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block;">
+
+    <!-- All routes, quiet -->
+    <g fill="none" stroke="#4C5763" stroke-width="4" stroke-linecap="round" opacity="0.7">
+      <path d="M200 690 C 230 620, 300 590, 320 520 S 300 420, 330 340 S 330 230, 318 190"></path>
+      <path d="M390 712 C 410 640, 380 560, 420 480 S 460 330, 430 260 S 420 210, 430 190"></path>
+      <path d="M500 716 C 560 690, 610 640, 610 570 S 640 420, 600 330 S 560 220, 560 190"></path>
+      <path d="M650 712 C 690 620, 660 520, 690 430 S 690 280, 670 190"></path>
+    </g>
+    <!-- The selected route, on top -->
+    <path class="rt" d="{{ sel.d }}" fill="none" stroke="{{ path }}" stroke-width="5.5" stroke-linecap="round"></path>
+
+    <!-- Number badges at each start and top -->
+    <g fill="#1B2433">
+      <polygon points="-15,-12 13,-14 16,4 9,14 -14,12 -16,-1" transform="translate(200 690)"></polygon>
+      <polygon points="-15,-12 13,-14 16,4 9,14 -14,12 -16,-1" transform="translate(318 176)"></polygon>
+      <polygon points="-15,-12 13,-14 16,4 9,14 -14,12 -16,-1" transform="translate(390 712)"></polygon>
+      <polygon points="-15,-12 13,-14 16,4 9,14 -14,12 -16,-1" transform="translate(430 176)"></polygon>
+      <polygon points="-15,-12 13,-14 16,4 9,14 -14,12 -16,-1" transform="translate(500 716)"></polygon>
+      <polygon points="-15,-12 13,-14 16,4 9,14 -14,12 -16,-1" transform="translate(560 176)"></polygon>
+      <polygon points="-15,-12 13,-14 16,4 9,14 -14,12 -16,-1" transform="translate(650 712)"></polygon>
+      <polygon points="-15,-12 13,-14 16,4 9,14 -14,12 -16,-1" transform="translate(670 176)"></polygon>
+    </g>
+    <g fill="{{ path }}">
+      <polygon points="-15,-12 13,-14 16,4 9,14 -14,12 -16,-1" transform="{{ sel.start }}"></polygon>
+      <polygon points="-15,-12 13,-14 16,4 9,14 -14,12 -16,-1" transform="{{ sel.end }}"></polygon>
+    </g>
+    <g fill="#EEF1F3" font-family="Chakra Petch, sans-serif" font-weight="700" font-size="15" text-anchor="middle">
+      <text x="200" y="695">1</text>
+      <text x="318" y="181">1</text>
+      <text x="390" y="717">2</text>
+      <text x="430" y="181">2</text>
+      <text x="500" y="721">3</text>
+      <text x="560" y="181">3</text>
+      <text x="650" y="717">4</text>
+      <text x="670" y="181">4</text>
+    </g>
+  </svg>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"path":{"editor":"color","default":"#C2461F","options":["#C2461F","#D9121A","#1B2433"]},"$preview":{"width":1280,"height":760}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { picked: 1 };
+  }
+  renderVals() {
+    const path = this.props.path ?? '#C2461F';
+    const picked = this.state.picked;
+    const ink = '#1B2433', muted = '#4C5763', surface = '#C9D0D6';
+    const list = [
+      { n: 1, name: 'Project one', label: 'Case study', grade: '7a' },
+      { n: 2, name: 'Project two', label: 'Side project', grade: '6b+' },
+      { n: 3, name: 'Project three', label: 'Game jam', grade: '6a' },
+      { n: 4, name: 'Project four', label: 'Notes', grade: '5c' }
+    ];
+    const projects = list.map((p) => {
+      const on = p.n === picked;
+      return {
+        ...p,
+        arrow: on ? '1' : '0',
+        numColor: on ? path : ink,
+        markerFill: on ? path : muted,
+        gradeBg: on ? path : surface,
+        gradeColor: on ? '#FFFFFF' : ink,
+        pick: () => { if (this.state.picked !== p.n) this.setState({ picked: p.n }); }
+      };
+    });
+    const routes = {
+      1: { d: 'M200 690 C 230 620, 300 590, 320 520 S 300 420, 330 340 S 330 230, 318 190', start: 'translate(200 690)', end: 'translate(318 176)' },
+      2: { d: 'M390 712 C 410 640, 380 560, 420 480 S 460 330, 430 260 S 420 210, 430 190', start: 'translate(390 712)', end: 'translate(430 176)' },
+      3: { d: 'M500 716 C 560 690, 610 640, 610 570 S 640 420, 600 330 S 560 220, 560 190', start: 'translate(500 716)', end: 'translate(560 176)' },
+      4: { d: 'M650 712 C 690 620, 660 520, 690 430 S 690 280, 670 190', start: 'translate(650 712)', end: 'translate(670 176)' }
+    };
+    // Hover cursor: a path-colored tag reading "KMON! ->", with its tip at the top-left (the click point)
+    const tag = `<svg xmlns="http://www.w3.org/2000/svg" width="112" height="34" viewBox="0 0 112 34"><polygon points="1,1 15,8 110,8 102,33 8,33 8,15" fill="${path}"/><text x="18" y="26.5" font-family="Arial Black, Arial, Helvetica, sans-serif" font-weight="900" font-size="14" letter-spacing="0.5" fill="#FFFFFF">KMON! &#8594;</text></svg>`;
+    const cursor = `url('data:image/svg+xml,${encodeURIComponent(tag)}') 1 1, pointer`;
+    return { path, projects, cursor, sel: routes[picked] || routes[1] };
+  }
+}
+</script>
+</body>
+</html>
