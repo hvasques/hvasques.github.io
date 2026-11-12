@@ -74,3 +74,19 @@ O dono deste repo quer **entender como o site foi montado**, não só recebê-lo
   3. Cores que não têm contraste para texto (ex.: amarelo-neon) são marcadas como **decor**: só preenchimento, nunca texto sobre o fundo.
   4. Arestas retas e um botão com o canto cortado na diagonal, para puxar a estética de "arestas afiadas".
 - **Como conferir:** abrir o link do Artifact, ou `prototypes/palettes.html` no navegador; clicar nas abas para trocar a paleta da prévia.
+- **Decisão:** seguem para iteração apenas **Rooftop Runner** e **Alpenglow**.
+
+### Etapa 5 — Protótipo de layouts da tela inicial
+
+- **O que foi feito:** criado `prototypes/hero-layouts.html`, publicado como Artifact (https://claude.ai/artifact/VHehKix2NAu7FemDcqpRjn), com 4 conceitos de tela inicial e um botão para alternar entre as duas paletas mantidas:
+  - **A · Via à direita** — o texto à esquerda e um painel inclinado com a via à direita (base do protótipo anterior, refinada).
+  - **B · Teto de caverna e negativo** — o menu fica dentro do teto de uma caverna, que desce pela direita como um negativo (parede inclinada para fora); a via sobe pela parte de baixo até chegar ao menu.
+  - **C · As agarras são o menu** — sem barra no topo; o menu é uma parede estreita à direita, cada página é uma agarra, a agarra preenchida é a página atual e a linha tracejada mostra o que falta subir.
+  - **D · Croqui como seleção de fase** (sugestão do Claude) — o croqui de guia de escalada (linhas numeradas + legenda com grau) usado como menu de fases de um game: cada projeto é uma via, e o grau diz o quão difícil/grande ele foi.
+- **Como foi montado:**
+  1. Cada conceito é uma "tela" fixa de 1200×700 px, reduzida com `transform: scale()` para caber na largura da coluna. Assim a composição fica igual em qualquer tela, inclusive no celular (menor, mas fiel). Isso só vale para o protótipo; o site real vai precisar de um layout responsivo de verdade.
+  2. Formas (parede, caverna, agarras, vias) são SVG. As agarras são um `<symbol>` reaproveitado com `<use>`, para desenhar uma vez e repetir.
+  3. Textos (logo, título, menu, botões) são HTML posicionado por cima do SVG, para continuarem sendo texto real.
+  4. As cores vêm das mesmas variáveis `--p-*` da etapa 4; trocar a paleta é trocar o atributo `data-pal`.
+  5. A linha da via tem um tracejado animado (desligado para quem pede menos movimento no sistema). No conceito D, passar o mouse numa linha da legenda acende a via correspondente.
+- **Como conferir:** abrir o link do Artifact ou `prototypes/hero-layouts.html`; alternar a paleta no topo.
