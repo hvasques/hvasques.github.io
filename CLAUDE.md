@@ -24,6 +24,21 @@ O dono deste repo quer **entender como o site foi montado**, não só recebê-lo
 - Conteúdo em português, salvo pedido em contrário.
 - Commits pequenos, com mensagem descrevendo o que mudou.
 
+## Identidade visual (decidida)
+
+Tema: escalada + games. Referência: Mirror's Edge (limpo, arestas retas, uma cor marcando o caminho).
+
+- **Paleta Alpenglow:** ground `#EEF1F3`, surface/rocha `#C9D0D6`, ink `#1B2433`, muted `#4C5763`, path `#C2461F`, textura da rocha `#A3AEB9`. A cor **path** é a única que indica "para onde ir" (botão principal, item ativo, via selecionada). Rooftop Runner (path `#D9121A`) fica como alternativa.
+- **Tipografia** (Google Fonts):
+  - Menu e logo: **Chakra Petch** (caixa-alta, espaçada).
+  - Títulos: **Funnel Display** ExtraBold.
+  - Nomes de projetos: **Funnel Sans** SemiBold.
+  - Texto: **Geologica** Regular.
+  - Rótulos: texto normal com um **marcador em forma de agarra** — nunca overline em monoespaçada caixa-alta.
+  - Graus: Chakra Petch dentro de uma **forma de agarra** (badge); ativo = cor path.
+- **Estrutura:** o menu fica dentro do teto de uma caverna, igual em todas as páginas. Home = negativo com uma via que começa numa chapeleta e sobe até o menu. Portfólio = croqui com vias numeradas, cada uma terminando numa chapeleta sob a caverna. Páginas separadas (não uma rolagem longa), para o menu estar sempre visível.
+- Sem cantos arredondados; sem contorno na rocha.
+
 ## Publicação (GitHub Pages)
 
 - Para o site ficar em `https://hvasques.github.io/`, o repo no GitHub deve se chamar **`hvasques.github.io`**. Com outro nome (ex.: `portfolio`), a URL vira `https://hvasques.github.io/portfolio/`.
@@ -150,3 +165,17 @@ O dono deste repo quer **entender como o site foi montado**, não só recebê-lo
   3. Geologica usa o eixo variável `SHRP` (nitidez) em 100 para combinar com os cantos cortados da Chakra Petch; Handjet usa o eixo `ELSH` (forma dos elementos).
   4. A combinação escolhida fica salva no navegador (localStorage), para reabrir onde parou.
 - **Como conferir:** abrir o link; clicar num preset e trocar peça por peça.
+- **Decisão final:** títulos Funnel Display, nomes Funnel Sans, rótulos com marcador de agarra, graus em badge de agarra, texto Geologica, paleta Alpenglow (registrado em "Identidade visual").
+
+### Etapa 10 — Home e Portfólio num canvas de Design
+
+- **O que foi feito:** as duas páginas foram montadas num Artifact de Design (canvas com pranchetas editáveis): https://claude.ai/artifact/HekNeSAtctbyZUTuXCMq1q. Duas pranchetas: **Home** e **Portfolio**, já com a identidade final.
+- **Como foi montado:**
+  1. Cada prancheta é um arquivo `.dc.html` (formato do canvas) e o `canvas.json` diz onde cada uma fica.
+  2. Desta vez as páginas são **fluidas** (como o site real vai ser), não telas fixas reduzidas: o teto da caverna é um SVG que estica na largura (`preserveAspectRatio="none"`); a parede da direita é outro SVG preso à borda direita e dimensionado pela altura da página.
+  3. Em telas menores: na Home a parede some abaixo de 860px; no Portfólio o croqui desce para baixo da lista abaixo de 1100px.
+  4. Links reais entre as pranchetas: o menu e o botão "See the portfolio" levam de uma página à outra no modo Play.
+  5. No Portfólio, passar o mouse ou clicar num projeto acende a via, a chapeleta, o número e o grau dele (estado guardado na prancheta).
+  6. A cor path virou um ajuste (Tweaks) com opções: o laranja Alpenglow, o vermelho Rooftop e tinta.
+- **Onde estão os arquivos:** só no canvas (não estão no repo). Para editar, abrir o link e usar o editor; mudanças feitas lá são lidas de volta antes de qualquer alteração minha.
+- **Como conferir:** abrir o link; usar Play para navegar entre Home e Portfolio.
