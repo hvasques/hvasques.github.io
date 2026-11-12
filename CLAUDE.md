@@ -179,3 +179,18 @@ Tema: escalada + games. Referência: Mirror's Edge (limpo, arestas retas, uma co
   6. A cor path virou um ajuste (Tweaks) com opções: o laranja Alpenglow, o vermelho Rooftop e tinta.
 - **Onde estão os arquivos:** só no canvas (não estão no repo). Para editar, abrir o link e usar o editor; mudanças feitas lá são lidas de volta antes de qualquer alteração minha.
 - **Como conferir:** abrir o link; usar Play para navegar entre Home e Portfolio.
+
+### Etapa 11 — Ajustes por comentários e croqui de boulder
+
+- **Ajustes pedidos nos comentários do canvas:**
+  1. Menu alinhado à direita (logo à esquerda) nas duas páginas.
+  2. Chapeletas removidas — não fazem mais sentido com páginas separadas.
+  3. Via da Home: de linhas retas para **uma curva orgânica** (curva Catmull-Rom convertida em Bézier cúbica, passando pelo centro de cada agarra).
+  4. Via da Home mais interessante: 14 agarras de formas e ângulos variados, com uma travessia; 16 agarras cinza "de outras vias" na parede para dar realismo.
+  5. Espaçamento das agarras variado: pares próximos (~30px) alternando com lances longos (90–125px), como numa via real.
+- **Portfólio redesenhado a partir de um croqui real de boulder** (referência enviada pelo dono):
+  - A parede virou um **bloco** apoiado no chão da caverna, com um lado sombreado, fissuras e uma pedra menor na frente.
+  - Cada via tem o **número no início e no topo**, como nos guias; os números ficam numa forma de agarra.
+  - As vias seguem a forma do bloco (uma sobe pela aresta da direita depois de uma travessia, outras pelo meio e pela esquerda) e algumas terminam perto umas das outras no topo.
+  - Todas as vias aparecem em cinza; a do projeto selecionado é redesenhada **por cima** na cor path, com os dois números também na cor path. (SVG não tem z-index, então a selecionada é uma cópia desenhada por último.)
+- **Como conferir:** https://claude.ai/artifact/HekNeSAtctbyZUTuXCMq1q — passar o mouse na lista do Portfólio.
