@@ -115,3 +115,21 @@ O dono deste repo quer **entender como o site foi montado**, não só recebê-lo
   - **Portfólio:** o croqui fica pendurado na borda da caverna; cada via termina numa chapeleta logo abaixo do menu. Assim toda via do site leva de volta ao menu.
 - **Como foi montado:** as duas "páginas" são duas telas dentro do mesmo quadro; só uma aparece por vez (atributo `hidden`). O menu e o botão "Portfolio" dentro do mock trocam de página, simulando a navegação real. Mesmo link de Artifact da etapa 6 (nova versão).
 - **Como conferir:** abrir https://claude.ai/artifact/ErjrMEDb3CkTPjMzGkgNM1; clicar em Home/Portfolio (fora ou dentro do mock).
+- **Decisão:** a direção (caverna + páginas separadas + croqui) está aprovada. Antes de abrir um artifact de Design para iterar, definir a tipografia.
+
+### Etapa 8 — Espécime de tipografia
+
+- **Problema:** Chakra Petch + IBM Plex Sans + IBM Plex Mono parecem "site gerado por IA". O pior é o *overline* — rótulo pequeno em monoespaçada, caixa-alta e letras espaçadas ("SAMPLE · CASE STUDY").
+- **O que foi feito:** criado `prototypes/type.html`, publicado como Artifact (https://claude.ai/artifact/9CQSVPpNQbbpLRBS2r43dG). Mostra a tela de Portfólio com 5 combinações (a atual só para comparar) e uma fileira lado a lado.
+- **As 4 propostas** (todas do Google Fonts, nenhuma usa monoespaçada):
+  1. **Guidebook** — Sofia Sans Extra Condensed (títulos, notas, menu) + Newsreader (texto); rótulos em itálico serifado, como um guia de escalada.
+  2. **Route tape** — Big Shoulders Stencil (títulos, notas, menu; estilo letra de stencil em crashpad/caixote) + Hanken Grotesk; rótulos em texto simples.
+  3. **Wide HUD** — só Anybody, mudando a largura por função: bem larga nos títulos (HUD de game), normal no texto, estreita nos rótulos.
+  4. **Wayfinding** — Red Hat Display + Red Hat Text, sem caixa-alta; sinalização limpa, a mais próxima de Mirror's Edge.
+- **Como foi montado:**
+  1. Cada combinação é uma classe CSS (`.f-guidebook` etc.) que só define variáveis: fonte, peso, caixa, espaçamento e largura de cada função (título, texto, rótulo, nota, menu).
+  2. Os elementos usam classes de função (`.t-title`, `.t-label`, `.t-num`…) que leem essas variáveis. Trocar a combinação é trocar uma classe — o mesmo mecanismo das paletas.
+  3. Fontes de largura variável (Anybody) usam `font-variation-settings: "wdth"`.
+  4. A interface da página do espécime usa a fonte do sistema de propósito, para não competir com as candidatas.
+  5. Antes de publicar, conferi com `curl` que todas as famílias existem no Google Fonts.
+- **Como conferir:** abrir o link do Artifact; trocar a combinação nos botões ou clicando nos cartões lado a lado.

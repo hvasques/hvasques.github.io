@@ -1,0 +1,353 @@
+<title>Wall Type Specimen</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,400..900&family=Big+Shoulders+Stencil:wght@600;700;800&family=Chakra+Petch:wght@500;600;700&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Red+Hat+Display:wght@500;600;700;900&family=Red+Hat+Text:wght@400;500;600&family=Sofia+Sans+Extra+Condensed:wght@600;700;800;900&display=swap">
+<style>
+/* Layout: the page chrome uses the system font on purpose, so only the candidates carry character. Font switch, then the Portfolio screen (1200x700, scaled) in the chosen pairing, then its role sheet, then a lineup of all five side by side. */
+:root {
+  --bg: #F3F5F6;
+  --panel: #FFFFFF;
+  --fg: #15191C;
+  --muted: #5A646B;
+  --line: #D5DBDF;
+  --focus: #D9121A;
+  --ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101315; --panel: #181C1F; --fg: #E9EDEF; --muted: #98A2A9; --line: #2B3135; --focus: #FF4A50;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101315; --panel: #181C1F; --fg: #E9EDEF; --muted: #98A2A9; --line: #2B3135; --focus: #FF4A50;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--ui); font-size: 15px; line-height: 1.55; }
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-block: 40px 72px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid;
+  gap: 32px;
+}
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+p { margin: 0; }
+h1 { font: 700 clamp(30px, 5vw, 44px)/1.05 var(--ui); letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+h2 { font: 700 20px/1.2 var(--ui); margin: 0; }
+h3 { font: 600 13px/1.3 var(--ui); margin: 0; color: var(--muted); }
+.intro { display: grid; gap: 12px; max-width: 72ch; }
+.intro p { color: var(--muted); }
+.intro b { color: var(--fg); font-weight: 600; }
+
+.controls { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; }
+.switch { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.switch > span { font-size: 13px; color: var(--muted); margin-right: 4px; }
+.pbtn {
+  font: 500 14px/1 var(--ui);
+  padding: 10px 14px; border: 1px solid var(--line); background: var(--panel); color: var(--fg); cursor: pointer;
+  display: inline-flex; gap: 8px; align-items: center;
+}
+.pbtn i { width: 12px; height: 12px; display: inline-block; }
+.pbtn[aria-pressed="true"] { border-color: var(--fg); box-shadow: inset 0 -3px 0 var(--fg); }
+
+/* ---------- Font pairings as variable sets ---------- */
+.f-current {
+  --f-display: "Chakra Petch", sans-serif; --t-weight: 700; --t-transform: uppercase; --t-tracking: -0.01em; --t-scale: 1; --t-lh: 0.9; --t-wdth: 100;
+  --f-body: "IBM Plex Sans", sans-serif; --b-size: 16px;
+  --f-label: "IBM Plex Mono", monospace; --l-size: 12px; --l-weight: 500; --l-style: normal; --l-transform: uppercase; --l-tracking: 0.08em; --l-wdth: 100;
+  --f-num: "IBM Plex Mono", monospace; --n-size: 15px; --n-weight: 600; --n-wdth: 100;
+  --f-nav: "Chakra Petch", sans-serif; --nav-size: 16px; --nav-weight: 500; --nav-transform: uppercase; --nav-tracking: 0.1em; --nav-wdth: 100;
+  --f-item: "Chakra Petch", sans-serif; --i-size: 18px; --i-weight: 600; --i-transform: none; --i-wdth: 100;
+}
+.f-guidebook {
+  --f-display: "Sofia Sans Extra Condensed", "Arial Narrow", sans-serif; --t-weight: 900; --t-transform: uppercase; --t-tracking: 0; --t-scale: 1.45; --t-lh: 0.82; --t-wdth: 100;
+  --f-body: "Newsreader", Georgia, serif; --b-size: 18px;
+  --f-label: "Newsreader", Georgia, serif; --l-size: 15px; --l-weight: 400; --l-style: italic; --l-transform: none; --l-tracking: 0; --l-wdth: 100;
+  --f-num: "Sofia Sans Extra Condensed", "Arial Narrow", sans-serif; --n-size: 26px; --n-weight: 800; --n-wdth: 100;
+  --f-nav: "Sofia Sans Extra Condensed", "Arial Narrow", sans-serif; --nav-size: 21px; --nav-weight: 700; --nav-transform: uppercase; --nav-tracking: 0.03em; --nav-wdth: 100;
+  --f-item: "Sofia Sans Extra Condensed", "Arial Narrow", sans-serif; --i-size: 25px; --i-weight: 800; --i-transform: uppercase; --i-wdth: 100;
+}
+.f-tape {
+  --f-display: "Big Shoulders Stencil", "Arial Narrow", sans-serif; --t-weight: 800; --t-transform: uppercase; --t-tracking: 0.01em; --t-scale: 1.25; --t-lh: 0.86; --t-wdth: 100;
+  --f-body: "Hanken Grotesk", system-ui, sans-serif; --b-size: 17px;
+  --f-label: "Hanken Grotesk", system-ui, sans-serif; --l-size: 14px; --l-weight: 500; --l-style: normal; --l-transform: none; --l-tracking: 0; --l-wdth: 100;
+  --f-num: "Big Shoulders Stencil", "Arial Narrow", sans-serif; --n-size: 26px; --n-weight: 800; --n-wdth: 100;
+  --f-nav: "Big Shoulders Stencil", "Arial Narrow", sans-serif; --nav-size: 21px; --nav-weight: 700; --nav-transform: uppercase; --nav-tracking: 0.06em; --nav-wdth: 100;
+  --f-item: "Hanken Grotesk", system-ui, sans-serif; --i-size: 19px; --i-weight: 600; --i-transform: none; --i-wdth: 100;
+}
+.f-hud {
+  --f-display: "Anybody", system-ui, sans-serif; --t-weight: 900; --t-transform: uppercase; --t-tracking: -0.01em; --t-scale: 0.78; --t-lh: 0.92; --t-wdth: 150;
+  --f-body: "Anybody", system-ui, sans-serif; --b-size: 16px;
+  --f-label: "Anybody", system-ui, sans-serif; --l-size: 14px; --l-weight: 600; --l-style: normal; --l-transform: uppercase; --l-tracking: 0.01em; --l-wdth: 55;
+  --f-num: "Anybody", system-ui, sans-serif; --n-size: 18px; --n-weight: 800; --n-wdth: 150;
+  --f-nav: "Anybody", system-ui, sans-serif; --nav-size: 15px; --nav-weight: 700; --nav-transform: uppercase; --nav-tracking: 0.02em; --nav-wdth: 130;
+  --f-item: "Anybody", system-ui, sans-serif; --i-size: 18px; --i-weight: 700; --i-transform: none; --i-wdth: 110;
+}
+.f-wayfinding {
+  --f-display: "Red Hat Display", system-ui, sans-serif; --t-weight: 900; --t-transform: none; --t-tracking: -0.035em; --t-scale: 1.05; --t-lh: 0.92; --t-wdth: 100;
+  --f-body: "Red Hat Text", system-ui, sans-serif; --b-size: 17px;
+  --f-label: "Red Hat Text", system-ui, sans-serif; --l-size: 14px; --l-weight: 500; --l-style: normal; --l-transform: none; --l-tracking: 0; --l-wdth: 100;
+  --f-num: "Red Hat Display", system-ui, sans-serif; --n-size: 20px; --n-weight: 700; --n-wdth: 100;
+  --f-nav: "Red Hat Display", system-ui, sans-serif; --nav-size: 18px; --nav-weight: 600; --nav-transform: none; --nav-tracking: -0.01em; --nav-wdth: 100;
+  --f-item: "Red Hat Display", system-ui, sans-serif; --i-size: 20px; --i-weight: 700; --i-transform: none; --i-wdth: 100;
+}
+
+/* Typographic roles, used by both the screen and the lineup cards */
+.t-title {
+  font-family: var(--f-display); font-weight: var(--t-weight); text-transform: var(--t-transform);
+  letter-spacing: var(--t-tracking); line-height: var(--t-lh); font-variation-settings: "wdth" var(--t-wdth); margin: 0;
+}
+.t-title span { color: var(--p-path); }
+.t-body { font-family: var(--f-body); font-size: var(--b-size); line-height: 1.5; color: var(--p-muted); }
+.t-label {
+  font-family: var(--f-label); font-size: var(--l-size); font-weight: var(--l-weight); font-style: var(--l-style);
+  text-transform: var(--l-transform); letter-spacing: var(--l-tracking); font-variation-settings: "wdth" var(--l-wdth); color: var(--p-muted);
+}
+.t-num { font-family: var(--f-num); font-size: var(--n-size); font-weight: var(--n-weight); font-variation-settings: "wdth" var(--n-wdth); font-variant-numeric: tabular-nums lining-nums; line-height: 1; }
+.t-item { font-family: var(--f-item); font-size: var(--i-size); font-weight: var(--i-weight); text-transform: var(--i-transform); font-variation-settings: "wdth" var(--i-wdth); line-height: 1.05; }
+.t-nav {
+  font-family: var(--f-nav); font-size: var(--nav-size); font-weight: var(--nav-weight); text-transform: var(--nav-transform);
+  letter-spacing: var(--nav-tracking); font-variation-settings: "wdth" var(--nav-wdth);
+}
+
+/* Palettes */
+.pal[data-pal="rooftop"] {
+  --p-ground: #F5F8FA; --p-surface: #DCEAF2; --p-ink: #12161A; --p-muted: #56636D;
+  --p-path: #D9121A; --p-rock-line: #A9C3D2;
+}
+.pal[data-pal="alpenglow"] {
+  --p-ground: #EEF1F3; --p-surface: #C9D0D6; --p-ink: #1B2433; --p-muted: #4C5763;
+  --p-path: #C2461F; --p-rock-line: #A3AEB9;
+}
+
+/* ---------- Scaled screen ---------- */
+.frame { position: relative; width: 100%; max-width: 100%; aspect-ratio: 1200 / 700; overflow: hidden; border: 1px solid var(--line); }
+.screen {
+  position: absolute; top: 0; left: 0; width: 1200px; height: 700px;
+  transform-origin: 0 0; transform: scale(var(--s, 0.9));
+  background: var(--p-ground); color: var(--p-ink); overflow: hidden;
+}
+.screen svg.bg { position: absolute; inset: 0; width: 1200px; height: 700px; }
+.abs { position: absolute; }
+.logo { font-family: var(--f-display); font-weight: var(--t-weight); font-size: 24px; text-transform: var(--t-transform); letter-spacing: 0.02em; font-variation-settings: "wdth" var(--t-wdth); line-height: 1; }
+.logo b { color: var(--p-path); }
+.links { display: flex; gap: 32px; color: var(--p-ink); }
+.links span { padding-bottom: 6px; }
+.links .on { box-shadow: inset 0 -3px 0 var(--p-path); }
+.screen .t-title { font-size: calc(64px * var(--t-scale)); }
+
+.rt { stroke: var(--p-muted); stroke-width: 3; fill: none; opacity: .5; }
+.rt.on { stroke: var(--p-path); opacity: 1; stroke-width: 4; }
+.hg { fill: var(--p-muted); }
+.hg.on { fill: var(--p-path); }
+.nb rect { fill: var(--p-ink); }
+.nb.on rect { fill: var(--p-path); }
+.nb text { fill: var(--p-ground); font-family: var(--f-num); font-weight: 700; font-size: 14px; font-variation-settings: "wdth" var(--n-wdth); }
+
+.legend { display: grid; width: 410px; border-top: 1px solid color-mix(in srgb, var(--p-ink) 18%, transparent); }
+.lg {
+  display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; gap: 14px; align-items: center;
+  padding: 11px 0; border-bottom: 1px solid color-mix(in srgb, var(--p-ink) 18%, transparent);
+}
+.lg .t { display: grid; gap: 3px; min-width: 0; }
+.lg .g { color: var(--p-muted); }
+.lg.on .n, .lg.on .g { color: var(--p-path); }
+
+/* ---------- Role sheet ---------- */
+.sheet {
+  background: var(--panel); border: 1px solid var(--line); padding: 20px;
+  display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px;
+}
+.sheet .why { display: grid; gap: 10px; align-content: start; }
+.sheet .why p { max-width: 62ch; }
+.roles { display: grid; gap: 0; border-top: 1px solid var(--line); align-content: start; }
+.roles div { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.roles dt { color: var(--muted); }
+.roles dd { margin: 0; }
+.risk { color: var(--muted); font-size: 14px; }
+
+/* ---------- Lineup ---------- */
+.lineup { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 16px; }
+.card {
+  background: var(--p-ground); color: var(--p-ink); border: 1px solid var(--line);
+  padding: 20px; display: grid; gap: 14px; align-content: start; cursor: pointer; text-align: left; font: inherit;
+}
+.card[aria-pressed="true"] { border-color: var(--fg); box-shadow: inset 0 -3px 0 var(--p-path); }
+.card .name { font: 600 13px/1.3 var(--ui); color: var(--p-muted); }
+.card .t-title { font-size: calc(46px * var(--t-scale)); }
+.card .row { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding-block: 10px; border-top: 1px solid color-mix(in srgb, var(--p-ink) 18%, transparent); border-bottom: 1px solid color-mix(in srgb, var(--p-ink) 18%, transparent); }
+.card .row .t { display: grid; gap: 2px; min-width: 0; }
+.card .t-num.g { color: var(--p-path); }
+.card .t-body { font-size: calc(var(--b-size) - 2px); }
+
+@media (max-width: 760px) { .sheet { grid-template-columns: minmax(0, 1fr); } }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="hanger" viewBox="0 0 20 30">
+    <path fill-rule="evenodd" d="M4 0 H16 L19 11 L14 30 H6 L1 11 Z M10 3.5 a2.6 2.6 0 1 0 0.01 0 Z M10 15.5 a4.4 4.4 0 1 0 0.01 0 Z"></path>
+  </symbol>
+</svg>
+
+<div class="wrap pal" id="pal" data-pal="rooftop">
+  <header class="intro">
+    <h1>Wall type specimen</h1>
+    <p>Five font pairings on the Portfolio screen. The first is the current one, kept only for comparison.</p>
+    <p><b>The overline problem.</b> Small uppercase monospace with wide letter-spacing ("SAMPLE · CASE STUDY") is the stock label of generated sites. None of the new pairings use a monospace font. Each one replaces that label with something from its own family: an italic serif, plain sentence case, or condensed capitals. Grades are set in the display face, as a guidebook would print them.</p>
+  </header>
+
+  <div class="controls">
+    <div class="switch" role="group" aria-label="Font pairing" id="fontSwitch"></div>
+    <div class="switch" role="group" aria-label="Palette">
+      <span>Palette</span>
+      <button class="pbtn" type="button" id="p-rooftop" data-p="rooftop" aria-pressed="true"><i style="background:#D9121A"></i>Rooftop</button>
+      <button class="pbtn" type="button" id="p-alpenglow" data-p="alpenglow" aria-pressed="false"><i style="background:#C2461F"></i>Alpenglow</button>
+    </div>
+  </div>
+
+  <div class="frame">
+    <div class="screen f-guidebook" id="screen" role="img" aria-label="Mock of the Portfolio page set in the selected font pairing">
+      <svg class="bg" viewBox="0 0 1200 700" aria-hidden="true">
+        <polygon fill="var(--p-surface)" points="0,0 1200,0 1200,700 900,694 700,700 488,692 506,520 492,330 512,150 440,136 360,118 280,134 200,120 120,138 40,124 0,130"></polygon>
+        <g fill="none" stroke="var(--p-rock-line)" stroke-width="1.5">
+          <polyline points="0,70 180,84 380,72 560,90 760,80 980,96 1200,86"></polyline>
+          <polyline points="700,190 690,300 710,420 686,540"></polyline>
+          <polyline points="880,186 900,320 870,440 890,560 870,694"></polyline>
+          <polyline points="1050,190 1040,280 1070,370"></polyline>
+          <polyline points="500,450 600,470 640,460"></polyline>
+          <polyline points="1200,500 1090,520 1040,560"></polyline>
+        </g>
+        <path class="rt on" d="M630 632 C 650 520, 600 430, 660 340 S 650 240, 630 206"></path>
+        <path class="rt" d="M800 632 C 820 530, 770 420, 820 330 S 820 240, 800 206"></path>
+        <path class="rt" d="M970 632 C 940 520, 1000 420, 960 330 S 960 240, 970 206"></path>
+        <path class="rt" d="M1120 632 C 1140 530, 1100 420, 1140 330 S 1130 240, 1120 206"></path>
+        <use class="hg on" href="#hanger" x="620" y="170" width="20" height="30"></use>
+        <use class="hg" href="#hanger" x="790" y="170" width="20" height="30"></use>
+        <use class="hg" href="#hanger" x="960" y="170" width="20" height="30"></use>
+        <use class="hg" href="#hanger" x="1110" y="170" width="20" height="30"></use>
+        <g class="nb on"><rect x="618" y="638" width="24" height="24"></rect><text x="625" y="655">1</text></g>
+        <g class="nb"><rect x="788" y="638" width="24" height="24"></rect><text x="795" y="655">2</text></g>
+        <g class="nb"><rect x="958" y="638" width="24" height="24"></rect><text x="965" y="655">3</text></g>
+        <g class="nb"><rect x="1108" y="638" width="24" height="24"></rect><text x="1115" y="655">4</text></g>
+      </svg>
+      <div class="abs logo" style="left:64px;top:46px">hvasques<b>/</b></div>
+      <div class="abs links t-nav" style="left:400px;top:48px"><span>Home</span><span class="on">Portfolio</span><span>Blog</span><span>About</span></div>
+      <div class="abs" style="left:64px;top:170px;width:420px;display:grid;gap:12px">
+        <p class="t-title">Pick a<br><span>line</span></p>
+        <p class="t-body">Every project is a route, graded by how hard it was.</p>
+      </div>
+      <div class="abs legend" style="left:64px;top:368px">
+        <div class="lg on"><span class="n t-num">1</span><span class="t"><span class="t-item">Project one</span><span class="t-label">Sample · case study</span></span><span class="g t-num">7a</span></div>
+        <div class="lg"><span class="n t-num">2</span><span class="t"><span class="t-item">Project two</span><span class="t-label">Sample · side project</span></span><span class="g t-num">6b+</span></div>
+        <div class="lg"><span class="n t-num">3</span><span class="t"><span class="t-item">Project three</span><span class="t-label">Sample · game jam</span></span><span class="g t-num">6a</span></div>
+        <div class="lg"><span class="n t-num">4</span><span class="t"><span class="t-item">Project four</span><span class="t-label">Sample · notes</span></span><span class="g t-num">5c</span></div>
+      </div>
+      <div class="abs t-label" style="left:64px;top:660px">Grades: French sport scale, 5c easy to 7a hard.</div>
+    </div>
+  </div>
+
+  <section class="sheet" aria-live="polite">
+    <div class="why">
+      <h2 id="s-name"></h2>
+      <p id="s-why"></p>
+      <p class="risk" id="s-risk"></p>
+    </div>
+    <dl class="roles" id="s-roles"></dl>
+  </section>
+
+  <section style="display:grid;gap:14px" aria-label="All pairings side by side">
+    <h2>Side by side</h2>
+    <div class="lineup" id="lineup"></div>
+  </section>
+</div>
+
+<script>
+const PAIRS = [
+  {
+    id: "guidebook", name: "Guidebook",
+    why: "Set like a climbing guidebook: a tall, very condensed sans for route names and grades, and a book serif for reading. Labels become a quiet italic, the way a guidebook notes the rock type or the first ascent. It is the most editorial option and suits a site that will also carry a blog.",
+    risk: "Watch out: the condensed face needs size to work. Below about 20px it gets cramped, so keep it for titles, menu and grades.",
+    roles: [["Titles", "Sofia Sans Extra Condensed, Black, caps"], ["Reading", "Newsreader"], ["Labels", "Newsreader italic, sentence case"], ["Grades", "Sofia Sans Extra Condensed, ExtraBold"], ["Menu", "Sofia Sans Extra Condensed, Bold, caps"]]
+  },
+  {
+    id: "tape", name: "Route tape",
+    why: "A stencil face, like the lettering sprayed on crash pads, haul bags and route-setting crates, over a clean grotesk for everything else. Labels are plain sentence case in the body face, with no special treatment at all.",
+    risk: "Watch out: stencil is loud. Use it only for titles, menu and grades, never in a paragraph.",
+    roles: [["Titles", "Big Shoulders Stencil, ExtraBold, caps"], ["Reading", "Hanken Grotesk"], ["Labels", "Hanken Grotesk, Medium, sentence case"], ["Grades", "Big Shoulders Stencil, ExtraBold"], ["Menu", "Big Shoulders Stencil, Bold, caps"]]
+  },
+  {
+    id: "hud", name: "Wide HUD",
+    why: "One variable family whose width changes by role: extra wide for titles and grades, like a game HUD, normal for reading, and squeezed narrow for labels. A single family keeps it coherent; the width does the work that a second font usually does. Closest to the games side.",
+    risk: "Watch out: the wide titles take a lot of room. Long project names will need two lines.",
+    roles: [["Titles", "Anybody, Black, width 150, caps"], ["Reading", "Anybody, width 100"], ["Labels", "Anybody, SemiBold, width 55, caps"], ["Grades", "Anybody, ExtraBold, width 150"], ["Menu", "Anybody, Bold, width 130, caps"]]
+  },
+  {
+    id: "wayfinding", name: "Wayfinding",
+    why: "Clean signage type, closest to the Mirror's Edge city: no caps anywhere, tight heavy titles in sentence case, and one family for everything. The red path color does the talking. Labels are just smaller body text.",
+    risk: "Watch out: it is the quietest option, so the personality has to come from the color and the wall drawings.",
+    roles: [["Titles", "Red Hat Display, Black, sentence case"], ["Reading", "Red Hat Text"], ["Labels", "Red Hat Text, Medium, sentence case"], ["Grades", "Red Hat Display, Bold"], ["Menu", "Red Hat Display, SemiBold"]]
+  },
+  {
+    id: "current", name: "Current",
+    why: "What the prototypes use today: a techy display face, a neutral sans and monospace caps for labels and grades. Kept here only so you can compare.",
+    risk: "This is the combination you flagged: Chakra Petch reads as generic sci-fi, and the tracked monospace overline is the stock look of generated pages.",
+    roles: [["Titles", "Chakra Petch, Bold, caps"], ["Reading", "IBM Plex Sans"], ["Labels", "IBM Plex Mono, caps, wide tracking"], ["Grades", "IBM Plex Mono"], ["Menu", "Chakra Petch, caps"]]
+  }
+];
+
+const screen = document.getElementById("screen");
+const sw = document.getElementById("fontSwitch");
+const lineup = document.getElementById("lineup");
+sw.insertAdjacentHTML("beforeend", "<span>Fonts</span>");
+
+PAIRS.forEach(p => {
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "pbtn"; b.id = "f-" + p.id; b.dataset.f = p.id; b.textContent = p.name;
+  b.addEventListener("click", () => pick(p.id));
+  sw.appendChild(b);
+
+  const c = document.createElement("button");
+  c.type = "button"; c.className = "card f-" + p.id; c.id = "c-" + p.id; c.dataset.f = p.id;
+  c.innerHTML = `
+    <span class="name">${p.name}</span>
+    <span class="t-title">Pick a <span>line</span></span>
+    <span class="t-body">Every project is a route, graded by how hard it was.</span>
+    <span class="row"><span class="t-num">1</span><span class="t"><span class="t-item">Project one</span><span class="t-label">Sample · case study</span></span><span class="t-num g">7a</span></span>
+    <span class="t-nav">Home&nbsp;&nbsp; Portfolio&nbsp;&nbsp; Blog&nbsp;&nbsp; About</span>`;
+  c.addEventListener("click", () => { pick(p.id); document.querySelector(".frame").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" }); });
+  lineup.appendChild(c);
+});
+
+function pick(id) {
+  const p = PAIRS.find(x => x.id === id) || PAIRS[0];
+  PAIRS.forEach(x => screen.classList.remove("f-" + x.id));
+  screen.classList.add("f-" + p.id);
+  document.getElementById("s-name").textContent = p.name;
+  document.getElementById("s-why").textContent = p.why;
+  document.getElementById("s-risk").textContent = p.risk;
+  document.getElementById("s-roles").innerHTML = p.roles.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("");
+  document.querySelectorAll("[data-f]").forEach(el => el.setAttribute("aria-pressed", String(el.dataset.f === p.id)));
+}
+pick("guidebook");
+
+const frame = document.querySelector(".frame");
+function fit() { screen.style.setProperty("--s", frame.clientWidth / 1200); }
+new ResizeObserver(fit).observe(frame);
+fit();
+
+const pal = document.getElementById("pal");
+document.querySelectorAll("[data-p]").forEach(b => b.addEventListener("click", () => {
+  pal.dataset.pal = b.dataset.p;
+  document.querySelectorAll("[data-p]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  try { localStorage.setItem("route-pal", b.dataset.p); } catch (e) {}
+}));
+try {
+  const saved = localStorage.getItem("route-pal");
+  if (saved) document.getElementById("p-" + saved)?.click();
+} catch (e) {}
+</script>
