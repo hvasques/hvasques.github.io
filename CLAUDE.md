@@ -39,3 +39,10 @@ O dono deste repo quer **entender como o site foi montado**, não só recebê-lo
 - **Por quê:** começar com o repositório versionado permite acompanhar cada mudança pelo histórico do git e desfazer qualquer passo.
 - **Ainda não feito:** nenhuma página do site existe ainda; o repo ainda não foi enviado ao GitHub.
 - **Como conferir:** `git log` mostra o commit inicial; `ls -a` lista os arquivos.
+
+### Etapa 2 — Repositório no GitHub e GitHub Pages
+
+- **O que foi feito:** o repo local foi enviado para o GitHub como `hvasques/hvasques.github.io` (público) com `gh repo create hvasques.github.io --public --source=. --remote=origin --push`. Esse comando cria o repo remoto, registra-o como `origin` e envia a branch `main`.
+- **Por quê o nome:** repos chamados `<usuário>.github.io` são o "site do usuário" no GitHub Pages e ficam na raiz `https://hvasques.github.io/`. O Pages já vem ativado automaticamente, publicando a branch `main`, pasta `/`.
+- **Ainda não feito:** como ainda não existe `index.html`, a URL não mostra nenhuma página.
+- **Como conferir:** `git remote -v` mostra o `origin`; no GitHub, *Settings → Pages* mostra a fonte `main` / `/ (root)`; ou `gh api repos/hvasques/hvasques.github.io/pages`.
