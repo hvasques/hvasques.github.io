@@ -80,13 +80,6 @@
   stroke-width: 5.5;
   opacity: 1;
 }
-.topo-num {
-  fill: var(--ground);
-  font-family: var(--font-ui);
-  font-weight: 700;
-  font-size: 15px;
-  text-anchor: middle;
-}
 
 /* Invisible hover/click areas over each route (the wall itself ignores the mouse) */
 .topo-hit path {

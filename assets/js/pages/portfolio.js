@@ -69,7 +69,7 @@ for (const p of PROJECTS) {
   const ends = [p.topo.start, p.topo.top];
   badges.set(p.n, ends.map(([x, y]) => hold(['badge', x, y], 'badge')));
   for (const [x, y] of ends) {
-    const text = svg('text', { class: 'topo-num', x, y: y + 5 });
+    const text = svg('text', { class: 'hold-num', x, y: y + 5 });
     text.textContent = p.n;
     numbers.push(text);
   }

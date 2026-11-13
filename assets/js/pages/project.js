@@ -5,7 +5,9 @@
       sits in the page, so adding, removing or moving sections changes the
       route with no other edits. It reads like the page: it starts at the top
       and turns solid downward as you scroll. Each hold is a link to its
-      section. */
+      section. The route's two ends are badges, as on the Portfolio topo:
+      the start (this route's number) goes back to the top of the page, and
+      the finish (an arrow) goes on to the next project. */
 
 import '../site.js';
 import { svg } from '../lib/svg.js';
@@ -30,6 +32,8 @@ const ROOF_BOTTOM = 150;
 const TOP_GAP = 26; // the route starts this far under the roof (or the top of the window)
 const FLOOR_GAP = 56; // and ends this far above the bottom of the window
 const START_RUN = 64; // clear stretch of route between the start and the first hold
+const END_RUN = 52; // and between the last hold and the finish
+const END_SCROLL = 0.08; // the route covers END_RUN during this last share of the scroll
 const HOLD_X = [72, 124, 80, 132, 90, 118]; // zigzag across the wall
 const HOLD_SHAPE = ['f', 'b', 'd', 'e', 'c'];
 const HOLD_ROT = [-15, 20, -25, 10, 30, -10];
@@ -56,6 +60,53 @@ const moveTag = (e) => {
   tag.style.transform = `translate(calc(${e.clientX}px - 100%), ${e.clientY}px) rotate(${TAG_TILT}deg)`;
 };
 
+/** Shows the tag with `text` while the mouse is over `link`. */
+function tagOnHover(link, text) {
+  link.addEventListener('mousedown', (e) => e.preventDefault()); // no focus ring on click
+  link.addEventListener('mouseenter', (e) => {
+    tag.textContent = text;
+    moveTag(e);
+    tag.hidden = false;
+  });
+  link.addEventListener('mousemove', moveTag);
+  link.addEventListener('mouseleave', () => (tag.hidden = true));
+}
+
+/** One end of the route: a badge with a number or arrow on it, as a link. */
+function endBadge({ text, href, label, variant }) {
+  const shape = hold(['badge', 0, 0], variant);
+  const mark = svg('text', { class: 'hold-num', y: 5 });
+  mark.textContent = text;
+  const link = svg('a', { class: 'read-hold', href, 'aria-label': label }, [
+    svg('circle', { class: 'read-hold__hit', r: 26 }),
+    shape,
+    mark,
+  ]);
+  return { link, shape };
+}
+
+/* Start of the route: this route's number. Takes you back to the top. */
+const start = endBadge({ text: project?.n ?? '', href: '#', label: 'Back to the top of the page', variant: 'badge' });
+start.shape.classList.add('is-on');
+start.link.addEventListener('click', (e) => {
+  e.preventDefault();
+  window.scrollTo({ top: 0, behavior: smooth() });
+});
+tagOnHover(start.link, '\u2191 Back to top');
+
+/* Finish: on to the next project that has a page (after the last comes the
+   first). Lights up once you've read to the end. */
+const published = PROJECTS.filter((p) => p.published);
+const here = published.indexOf(project);
+const next = here >= 0 && published.length > 1 ? published[(here + 1) % published.length] : null;
+const finish = endBadge({
+  text: next ? '\u2192' : '\u2190',
+  href: next ? `/portfolio/${next.slug}/` : '/portfolio/',
+  label: next ? `Next project: ${next.name}` : 'Back to projects',
+  variant: 'section',
+});
+tagOnHover(finish.link, next ? `Next: ${next.name} \u2192` : '\u2190 Back to projects');
+
 /* One hold per section: a link placed on the wall by update() */
 const holds = sections.map((heading, i) => {
   const title = heading.textContent.trim();
@@ -72,14 +123,7 @@ const holds = sections.map((heading, i) => {
     e.preventDefault();
     heading.scrollIntoView({ behavior: smooth(), block: 'start' });
   });
-  link.addEventListener('mousedown', (e) => e.preventDefault()); // no focus ring on click
-  link.addEventListener('mouseenter', (e) => {
-    tag.textContent = title;
-    moveTag(e);
-    tag.hidden = false;
-  });
-  link.addEventListener('mousemove', moveTag);
-  link.addEventListener('mouseleave', () => (tag.hidden = true));
+  tagOnHover(link, title);
   return { link, shape };
 });
 
@@ -90,7 +134,9 @@ wall.overlay.append(
   svg('defs', {}, [svg('clipPath', { id: 'read-so-far' }, [clip])]),
   todo,
   done,
-  ...holds.map((h) => h.link)
+  start.link,
+  ...holds.map((h) => h.link),
+  finish.link
 );
 
 /** A smooth curve through the points (Catmull-Rom, written as cubic Béziers). */
@@ -123,11 +169,12 @@ function update() {
   const startY = roofInView + TOP_GAP;
   const endY = wallH - FLOOR_GAP;
 
-  // Where a fraction of the page (0 = top, 1 = end) sits on the wall. The
-  // first START_RUN of the route is kept clear, so the start never sits on
-  // top of the first hold; it shows solid from the beginning.
+  // Where a fraction of the page (0 = top, 1 = end) sits on the wall. A
+  // stretch of route is kept clear at each end (START_RUN, END_RUN), so the
+  // two badges never sit on top of a hold.
   const firstY = startY + START_RUN;
-  const onWall = (t) => firstY + t * (endY - firstY);
+  const lastY = endY - END_RUN;
+  const onWall = (t) => firstY + t * (lastY - firstY);
 
   // A section's fraction = how far you've scrolled when its heading reaches
   // the reading line (60% down the window)
@@ -146,15 +193,21 @@ function update() {
     lastPath = d;
     todo.setAttribute('d', d);
     done.setAttribute('d', d);
-    holds.forEach(({ link }, i) =>
-      link.setAttribute('transform', `translate(${pts[i + 1].x} ${pts[i + 1].y.toFixed(1)})`)
-    );
+    const place = ({ link }, p) => link.setAttribute('transform', `translate(${p.x} ${p.y.toFixed(1)})`);
+    place(start, pts[0]);
+    holds.forEach((h, i) => place(h, pts[i + 1]));
+    place(finish, pts[pts.length - 1]);
   }
 
-  // Solid part: from the top of the wall down to the current progress
+  // Solid part: from the top of the wall down to where you've read. The start
+  // run is solid from the beginning; the end run fills in over the last
+  // END_SCROLL of the scroll, so the line reaches the finish exactly at the end.
+  const lineY = onWall(progress) + END_RUN * clamp01((progress - (1 - END_SCROLL)) / END_SCROLL);
   clip.setAttribute('y', 0);
-  clip.setAttribute('height', Math.max(0, onWall(progress)).toFixed(1));
-  holds.forEach(({ shape }, i) => shape.classList.toggle('is-on', fractions[i] <= progress + 0.0005));
+  clip.setAttribute('height', Math.max(0, lineY).toFixed(1));
+  // A hold lights up when the line reaches it
+  holds.forEach(({ shape }, i) => shape.classList.toggle('is-on', pts[i + 1].y <= lineY + 0.5));
+  finish.shape.classList.toggle('is-on', progress >= 0.999);
 }
 
 let frame = 0;

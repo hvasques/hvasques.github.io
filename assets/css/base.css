@@ -80,6 +80,14 @@ rock-roof {
 .hold--section { fill: var(--muted); transition: fill 0.25s ease; }
 .hold--badge.is-on,
 .hold--section.is-on { fill: var(--path); }
+/* A number (or arrow) written on a badge */
+.hold-num {
+  fill: var(--ground);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 15px;
+  text-anchor: middle;
+}
 
 /* ---- Header (rendered by assets/js/components/header.js) ----------------- */
 
