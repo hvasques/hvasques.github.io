@@ -10,70 +10,45 @@
   max-width: 600px;
 }
 .copy--home .lede { max-width: 38ch; }
+.copy--home .btn { margin-top: 8px; }
 
 /* The name: caps, one word per line */
 .title--name { text-transform: uppercase; }
 .title--name span { display: block; }
 
-/* "create things": on hover or focus, the other things appear in a stack right
-   under it, each "create" lined up with the one in the sentence. The stack
-   always takes up its three lines, even while invisible, so nothing below it
-   (the button) moves when it shows. */
-.creates {
-  display: inline-block;
-  vertical-align: top;
-  white-space: nowrap;
-  cursor: default;
-}
-.creates__more { display: block; }
-.creates__more > span {
-  display: block;
-  opacity: 0;
-  transform: translateY(-8px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-/* The lines drop in one after the other */
-.creates__more > span:nth-child(2) { transition-delay: 0.06s; }
-.creates__more > span:nth-child(3) { transition-delay: 0.12s; }
-.creates:hover .creates__more > span,
-.creates:focus .creates__more > span {
-  opacity: 1;
-  transform: none;
-}
-
-/* Variant: the word after "create" rolls through the list in place, like a
-   slot-machine reel, for as long as the mouse is over it. Nothing else moves. */
+/* "create things": the word after "create" keeps rolling through a list, in
+   place, like a slot-machine reel. The words are in index.html; the reel
+   shows one line at a time and nothing around it moves. */
+.creates { white-space: nowrap; }
 .creates__slot {
   display: inline-block;
   vertical-align: top;
   height: 1.55em; /* one line of the paragraph */
   overflow: hidden;
 }
-.creates__reel { display: block; }
-.creates__reel > span { display: block; }
-.creates--swap:hover .creates__reel,
-.creates--swap:focus .creates__reel { animation: creates-roll 5s ease-in-out infinite; }
-/* Five entries (the last repeats the first, so the loop has no jump): each
-   step moves up one entry = 20% of the reel, then holds */
-@keyframes creates-roll {
-  0% { transform: translateY(0); }
-  6%, 25% { transform: translateY(-20%); }
-  31%, 50% { transform: translateY(-40%); }
-  56%, 75% { transform: translateY(-60%); }
-  81%, 100% { transform: translateY(-80%); }
+.creates__reel {
+  display: block;
+  animation: creates-roll 6s ease-in-out infinite;
 }
-.copy--home .btn { margin-top: 8px; }
+.creates__reel > span { display: block; }
+/* Five entries (the last repeats the first, so the loop has no jump): hold on
+   a word, then move up one entry = 20% of the reel. To change the number of
+   words, change these steps to match. */
+@keyframes creates-roll {
+  0%, 19% { transform: translateY(0); }
+  25%, 44% { transform: translateY(-20%); }
+  50%, 69% { transform: translateY(-40%); }
+  75%, 94% { transform: translateY(-60%); }
+  100% { transform: translateY(-80%); }
+}
 
-/* The route: dashes that keep moving toward the roof */
+/* The route: one solid line through the holds, up to the roof */
 .route-line {
   fill: none;
   stroke: var(--path);
   stroke-width: 4;
   stroke-linecap: round;
-  stroke-dasharray: 8 9;
-  animation: route-run 1.8s linear infinite;
 }
-@keyframes route-run { to { stroke-dashoffset: -34; } }
 
 @media (max-width: 1100px) { .copy--home { max-width: 46%; } }
 @media (max-width: 860px) {
