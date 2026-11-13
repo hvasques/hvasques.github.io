@@ -10,7 +10,10 @@ Build three pages as static HTML, CSS and JavaScript, published by GitHub Pages 
 |---|---|---|
 | Home | `index.html` (replaces the current "WIP" page) | `prototypes/design-canvas/Main.dc.html` |
 | Portfolio | `portfolio/index.html` | `prototypes/design-canvas/Portfolio.dc.html` |
-| Project page (template, one example) | `portfolio/project-one/index.html` | `prototypes/design-canvas/WIP.dc.html` |
+| Project page **template** | `portfolio/_template/index.html` | `prototypes/design-canvas/WIP.dc.html` |
+| First project, made from the template | `portfolio/project-one/index.html` | same |
+
+The project page is a **template**: every project page is made from it, and only the content changes. See §6 → *Project page template*.
 
 Folder-style URLs (`/portfolio/`, `/portfolio/project-one/`) keep links clean on GitHub Pages without a build step.
 
@@ -91,7 +94,7 @@ The design has a light theme only. Don't add dark mode unless the owner asks.
 ### Portfolio (`portfolio/index.html`)
 
 - Title: "Pick a **line**". Below it is a list of 4 projects. Each row shows the number, the name (Funnel Sans), a label with a hold marker, and a grade badge. The copy and grades are placeholders; keep them and flag them to the owner.
-- Each row is an `<a>` to its project page. Today every row goes to `project-one`. Hovering or focusing a row **selects** it: the number, marker and grade badge turn `--path`, a `→` appears after the grade, and that project's route is highlighted on the topo.
+- The rows are rendered from `assets/js/projects.js` (see the project page template below). Each row is an `<a>` to `/portfolio/<slug>/`. Hovering or focusing a row **selects** it: the number, marker and grade badge turn `--path`, a `→` appears after the grade, and that project's route is highlighted on the topo.
 - **Custom cursor on rows:** a `--path` tag reading "KMON! →", with its tip at the top-left, which is the click point. It's an SVG data-URI cursor built in `renderVals()` in the source. Two things to keep in mind:
   1. Cursor images can't load web fonts. The source uses Arial Black, and the owner has been told this. A JS label that follows the mouse could use Chakra Petch; that's the owner's call.
   2. Cursor images over 128px are ignored by browsers. Keep the current 112×34.
@@ -102,13 +105,28 @@ The design has a light theme only. Don't add dark mode unless the owner asks.
   - Route paths and badge positions are in the `routes` object in `Portfolio.dc.html`.
 - Responsive: below 1100px the topo stops overlaying and stacks under the list at full width.
 
-### Project page (`portfolio/project-one/index.html`)
+### Project page template (`portfolio/_template/index.html`)
 
-- Header: breadcrumb (see 5.3). Then a label "Case study · Route 1" with a hold marker, the h1 "Project one", and a `7a` grade badge in `--path`. One intro line, then 5 sections with h2s: Context, The problem, What I tried, What shipped, What I learned. All body text is bracketed placeholders. **Don't invent content.** Keep the brackets and tell the owner.
+The design shows "Project one", but treat it as the template for **every** project page. Build it so that adding a project means copying a folder and writing content, without touching CSS or JS.
+
+**How the template works (no build step):**
+
+1. **One data file lists the projects:** `assets/js/projects.js`. Each entry has `n` (route number), `slug`, `name`, `label`, `grade` and `topo` (that route's path and badge positions on the Portfolio topo). The Portfolio list and topo are rendered from this array, so a new project shows up on the Portfolio page by adding one entry.
+2. **Each project page is a copy of `portfolio/_template/`.** You copy it to `portfolio/<slug>/` and edit only the content: the title, the label, the grade, the intro and the sections. Everything else (roof, menu, breadcrumb, wall, route) comes from shared CSS and JS.
+3. **The page identifies itself with one attribute:** `<body data-project="<slug>">`. The page script reads the matching entry from `projects.js` to fill the breadcrumb's last crumb, the "Case study · Route N" label and the grade badge. The title and body copy stay as plain HTML in the page, so the owner can edit them directly.
+4. **Sections are free-form.** Any `h2` with `data-sec` becomes a hold. A project can have 3 sections or 8; the reading route adapts, because it measures the headings at runtime. Don't hard-code 5 holds.
+5. **`_template/` is not linked from anywhere** and has `<meta name="robots" content="noindex">`. Its sections are the bracketed prompts from the design (Context, The problem, What I tried, What shipped, What I learned), which act as the writing guide for each new project.
+6. **Add a short "How to add a project" section to `README.md`:** copy the folder, rename it to the slug, add the entry to `projects.js`, and write the content.
+
+Alternative, for the owner to decide (§8): Jekyll layouts would remove the duplicated header markup in each copy, but they mean deleting `.nojekyll` and adding a generator, which `CLAUDE.md` asks to avoid without a clear reason. With three or four projects, copying the template is simpler to understand. Don't switch to Jekyll without the owner's OK.
+
+**Template content (from the design):**
+
+- Header: breadcrumb (see 5.3), with the last crumb set to the project's name. Then a label "Case study · Route N" with a hold marker, the h1 project name, and the grade badge in `--path`. One intro line, then the sections. In the template all body text is bracketed placeholders. **Don't invent content for real projects.** `project-one` keeps the brackets until the owner writes it.
 - At the end, a "← Back to the routes" button → `/portfolio/`.
 - **Reading route (the signature interaction):**
   - A thin wall (200px wide) is **fixed to the window** (`position: fixed; right: 0; top: 0; height: 100vh`) and doesn't scroll. It has a flat, angular rock with strata lines.
-  - Route 1 starts near the bottom of the window (`y = vh - 56`) and climbs to just under the roof (`y = roofH + 26`). It shows no route numbers; the owner asked for them removed.
+  - The page's route (route N, from `data-project`) starts near the bottom of the window (`y = vh - 56`) and climbs to just under the roof (`y = roofH + 26`). It shows no route numbers; the owner asked for them removed.
   - Each `h2` (marked `data-sec`) becomes a **hold**. Its height on the wall is where the section sits in the page: `f = clamp((sectionY - 0.6*vh) / (pageH - vh), 0, 1)` and `wallY = startY - f * (startY - topY)`. Hold x positions zigzag: `[72, 124, 80, 132, 90, 118]`. The curve through the points is Catmull-Rom converted to cubic Bézier; the code is in `renderVals()`.
   - Scroll progress is `p = scrollY / (pageH - vh)`. The whole route is drawn dashed in muted grey, and a solid `--path` copy is clipped to the band from the bottom up to `startY - p*span`. A hold turns `--path` once `f <= p`.
   - Recompute on `scroll`, `resize` and a `ResizeObserver` on the page, throttled with `requestAnimationFrame`. Hold colors have a 0.25s fill transition; turn it off under reduced motion.
@@ -127,14 +145,16 @@ The design has a light theme only. Don't add dark mode unless the owner asks.
 
 - The canvas was never visually checked by the agent that built it; the owner reviewed it through comments. Check every page yourself in a browser at 1280×760, at 1920×1080, in a tall narrow window and at phone width.
 - **About** page: not designed. Ask the owner before building one.
-- Projects 2–4 have no pages. All rows link to project one for now.
+- Projects 2–4: create them from the template only if the owner asks. Until then, their rows can link to project one, or be rendered without a link. Ask which.
+- Template mechanism: copy-per-project (recommended above) or Jekyll layouts. Confirm with the owner before you start.
 - KMON cursor font: Arial Black, or a mouse-following label in Chakra Petch? This is the owner's call.
 - The canvas's accent-color tweak (orange / Rooftop red / ink) becomes the single `--path` variable. The owner chose Alpenglow orange.
 
 ## 9. Definition of done
 
-- [ ] `index.html`, `portfolio/index.html` and `portfolio/project-one/index.html` exist and match the canvas at 1280×760.
-- [ ] One `assets/css/style.css` with the tokens; JS only in `assets/js/` (portfolio selection and cursor; reading route).
+- [ ] `index.html`, `portfolio/index.html`, `portfolio/_template/index.html` and `portfolio/project-one/index.html` exist and match the canvas at 1280×760.
+- [ ] One `assets/css/style.css` with the tokens; JS only in `assets/js/` (`projects.js` data, portfolio selection and cursor, reading route).
+- [ ] Adding a project is: copy `_template/`, add one entry to `projects.js`, write content. Prove it by making a throwaway second project locally (with 3 sections instead of 5), checking that it appears on Portfolio and its route works, then deleting it. The steps are documented in `README.md`.
 - [ ] Menu, roof and logo are identical on all pages, and the menu ends 64px from the right edge.
 - [ ] Walls reach the floor at any window height, and text never runs under the roof or a wall.
 - [ ] Phone width works: walls hidden or stacked as described, no horizontal scroll.

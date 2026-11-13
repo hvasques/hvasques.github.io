@@ -215,3 +215,14 @@ Tema: escalada + games. Referência: Mirror's Edge (limpo, arestas retas, uma co
 - **O que foi feito:** criado `HANDOFF.md` na raiz, com tudo que um agente de código precisa para construir o site de verdade a partir do canvas: páginas e arquivos a criar, regras (HTML/CSS/JS puros, sem build, não publicar sem confirmação), cores e fontes, peças compartilhadas, comportamento de cada página, acessibilidade, perguntas em aberto e uma lista de "pronto quando".
 - **Arquivos do canvas copiados** para `prototypes/design-canvas/` (`Main`, `Portfolio` e `WIP.dc.html`), para o agente ter o código-fonte do design no próprio repo. O `HANDOFF.md` explica como traduzir esse formato (`{{ }}`, `sc-for`, `renderVals`) para HTML e JS comuns.
 - **Como conferir:** abrir `HANDOFF.md`; para começar a construção, entregar esse arquivo ao agente de código.
+
+### Etapa 14 — Página de projeto vira template
+
+- **O que mudou:** no `HANDOFF.md`, a página de projeto deixou de ser uma página única e virou um **template** que todas as páginas de projeto vão seguir.
+- **Como vai funcionar (sem build):**
+  1. Uma lista única de projetos em `assets/js/projects.js` (número, slug, nome, rótulo, grau e a via no croqui). A página de Portfólio é montada a partir dela.
+  2. Cada projeto é uma cópia da pasta `portfolio/_template/` com outro nome (ex.: `portfolio/project-one/`); só o conteúdo muda.
+  3. A página diz qual projeto é com um atributo (`data-project`), e o script preenche o breadcrumb, o rótulo e o grau a partir da lista.
+  4. As seções são livres: qualquer `h2` marcado vira uma agarra, então um projeto pode ter 3 ou 8 seções.
+- **Escolha técnica:** copiar o template por projeto, em vez de usar layouts do Jekyll. Com poucos projetos, copiar é mais simples de entender e não exige ligar o Jekyll (que hoje está desligado pelo `.nojekyll`). O agente deve confirmar essa escolha com o dono antes de começar.
+- **Como conferir:** ler a seção "Project page template" do `HANDOFF.md`.
