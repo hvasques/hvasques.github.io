@@ -9,7 +9,34 @@
   gap: 24px;
   max-width: 600px;
 }
-.copy--home .lede { max-width: 34ch; }
+.copy--home .lede { max-width: 38ch; }
+
+/* The name: caps, one word per line */
+.title--name { text-transform: uppercase; }
+.title--name span { display: block; }
+
+/* "create things": on hover or focus, the other things open in a stack right
+   under it, each "create" lined up with the one in the sentence. The stack is
+   part of the text flow, so the button below moves down to make room. */
+.creates {
+  display: inline-block;
+  vertical-align: top;
+  white-space: nowrap;
+  cursor: default;
+}
+.creates__more {
+  display: block;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.25s ease, opacity 0.25s ease;
+}
+.creates__more > span { display: block; }
+.creates:hover .creates__more,
+.creates:focus .creates__more {
+  max-height: 5em; /* three lines */
+  opacity: 1;
+}
 .copy--home .btn { margin-top: 8px; }
 
 /* The route: dashes that keep moving toward the roof */
