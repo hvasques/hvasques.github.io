@@ -12,6 +12,26 @@
 .copy--home .lede { max-width: 38ch; }
 .copy--home .btn { margin-top: 8px; }
 
+/* Contact links under the button, separated by the logo's slash */
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.contact li + li::before {
+  content: "/";
+  margin: 0 12px;
+  color: var(--path);
+}
+.contact a { text-decoration: none; }
+
 /* The name: caps, one word per line */
 .title--name { text-transform: uppercase; }
 .title--name span { display: block; }

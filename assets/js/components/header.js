@@ -1,4 +1,4 @@
-/* <site-header current="home|portfolio|about">: logo + menu, identical on
+/* <site-header current="home|portfolio">: logo + menu, identical on
    every page. Below Home, the logo's slash continues into a breadcrumb:
      a page from the menu (e.g. Portfolio)     HVASQUES / PORTFOLIO
      project page (<body data-project="slug">) HVASQUES / PORTFOLIO / PROJECT NAME */
@@ -9,7 +9,6 @@ import { PROJECTS } from '../data/projects.js';
 export const NAV = [
   { id: 'home', label: 'Home', href: '/' },
   { id: 'portfolio', label: 'Portfolio', href: '/portfolio/' },
-  { id: 'about', label: 'About', href: '#about' }, // no page yet
 ];
 
 const SLASH = '<span class="slash" aria-hidden="true">/</span>';
