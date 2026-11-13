@@ -3,8 +3,9 @@
    2. Draws the reading route on the thin wall. It is built from the page
       itself: every <h2 data-sec> becomes a hold, placed by where that heading
       sits in the page, so adding, removing or moving sections changes the
-      route with no other edits. The route turns solid from the bottom up as
-      you scroll, and each hold is a link to its section. */
+      route with no other edits. It reads like the page: it starts at the top
+      and turns solid downward as you scroll. Each hold is a link to its
+      section. */
 
 import '../site.js';
 import { svg } from '../lib/svg.js';
@@ -26,8 +27,8 @@ if (project) {
 // All in design units (the wall is 200 wide)
 const WALL_WIDTH = 200;
 const ROOF_BOTTOM = 150;
-const FLOOR_GAP = 56; // the route starts this far above the bottom of the window
-const TOP_GAP = 26; // and ends this far under the roof (or the top of the window)
+const TOP_GAP = 26; // the route starts this far under the roof (or the top of the window)
+const FLOOR_GAP = 56; // and ends this far above the bottom of the window
 const START_RUN = 64; // clear stretch of route between the start and the first hold
 const HOLD_X = [72, 124, 80, 132, 90, 118]; // zigzag across the wall
 const HOLD_SHAPE = ['f', 'b', 'd', 'e', 'c'];
@@ -113,19 +114,20 @@ function update() {
   const range = Math.max(1, document.documentElement.scrollHeight - vh);
   const progress = clamp01(window.scrollY / range); // 0 at the top, 1 at the end
 
-  // The route runs from near the floor up to just under the roof. The roof
-  // scrolls away with the page but the wall stays, so the top of the route
-  // follows the roof's edge up: once the roof is gone, the route uses the
-  // whole height of the wall instead of leaving a blank band at the top.
+  // The route runs from just under the roof down to near the floor, in the
+  // same direction as the page. The roof scrolls away with the page but the
+  // wall stays, so the start of the route follows the roof's edge up: once
+  // the roof is gone, the route uses the whole height of the wall instead of
+  // leaving a blank band at the top.
   const roofInView = Math.max(0, ROOF_BOTTOM - window.scrollY / u);
-  const startY = wallH - FLOOR_GAP;
-  const topY = roofInView + TOP_GAP;
+  const startY = roofInView + TOP_GAP;
+  const endY = wallH - FLOOR_GAP;
 
   // Where a fraction of the page (0 = top, 1 = end) sits on the wall. The
   // first START_RUN of the route is kept clear, so the start never sits on
   // top of the first hold; it shows solid from the beginning.
-  const firstY = startY - START_RUN;
-  const onWall = (t) => firstY - t * (firstY - topY);
+  const firstY = startY + START_RUN;
+  const onWall = (t) => firstY + t * (endY - firstY);
 
   // A section's fraction = how far you've scrolled when its heading reaches
   // the reading line (60% down the window)
@@ -135,9 +137,9 @@ function update() {
   });
 
   const pts = [
-    { x: 96, y: startY },
+    { x: 104, y: startY },
     ...fractions.map((f, i) => ({ x: pick(HOLD_X, i), y: onWall(f) })),
-    { x: 104, y: topY },
+    { x: 96, y: endY },
   ];
   const d = curve(pts);
   if (d !== lastPath) {
@@ -149,10 +151,9 @@ function update() {
     );
   }
 
-  // Solid part: from the bottom of the window up to the current progress
-  const progressY = onWall(progress);
-  clip.setAttribute('y', progressY.toFixed(1));
-  clip.setAttribute('height', Math.max(0, wallH - progressY).toFixed(1));
+  // Solid part: from the top of the wall down to the current progress
+  clip.setAttribute('y', 0);
+  clip.setAttribute('height', Math.max(0, onWall(progress)).toFixed(1));
   holds.forEach(({ shape }, i) => shape.classList.toggle('is-on', fractions[i] <= progress + 0.0005));
 }
 
