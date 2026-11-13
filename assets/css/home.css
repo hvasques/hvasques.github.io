@@ -40,6 +40,28 @@
   opacity: 1;
   transform: none;
 }
+
+/* Variant: the word after "create" rolls through the list in place, like a
+   slot-machine reel, for as long as the mouse is over it. Nothing else moves. */
+.creates__slot {
+  display: inline-block;
+  vertical-align: top;
+  height: 1.55em; /* one line of the paragraph */
+  overflow: hidden;
+}
+.creates__reel { display: block; }
+.creates__reel > span { display: block; }
+.creates--swap:hover .creates__reel,
+.creates--swap:focus .creates__reel { animation: creates-roll 5s ease-in-out infinite; }
+/* Five entries (the last repeats the first, so the loop has no jump): each
+   step moves up one entry = 20% of the reel, then holds */
+@keyframes creates-roll {
+  0% { transform: translateY(0); }
+  6%, 25% { transform: translateY(-20%); }
+  31%, 50% { transform: translateY(-40%); }
+  56%, 75% { transform: translateY(-60%); }
+  81%, 100% { transform: translateY(-80%); }
+}
 .copy--home .btn { margin-top: 8px; }
 
 /* The route: dashes that keep moving toward the roof */
