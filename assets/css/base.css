@@ -7,19 +7,23 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
-  /* No rubber-band scrolling past the top or bottom of the page… */
-  overscroll-behavior: none;
-  /* …and if a browser bounces anyway, what shows beyond the page is rock
-     (a continuation of the roof), not a pale gap */
+  /* If the browser lets you scroll past the top or bottom of the page, what
+     shows beyond it is rock (a continuation of the roof), not a pale gap */
   background: var(--surface);
+}
+/* With a mouse or trackpad, no rubber-band scrolling at all. Phones keep
+   theirs, because it is also how pull-to-refresh works. */
+@media (hover: hover) {
+  html, body { overscroll-behavior: none; }
 }
 
 body {
-  overscroll-behavior: none;
   position: relative;
   margin: 0;
-  /* At least one window tall, so the walls always reach the floor */
+  /* At least one window tall, so the walls always reach the floor.
+     svh = the window height on phones while the address bar is showing */
   min-height: max(100vh, calc(760 * var(--u)));
+  min-height: max(100svh, calc(760 * var(--u)));
   background: var(--ground);
   color: var(--ink);
   font-family: var(--font-body);
@@ -207,12 +211,19 @@ site-header {
   clip-path: var(--shape-button);
 }
 .btn:hover { color: var(--on-path); }
+.btn--sm { padding: 11px 28px 11px 16px; font-size: 13px; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 
+/* ---- Phones and narrow windows --------------------------------------------
+   One breakpoint for the whole site. Below it: no walls (each page's CSS
+   hides its own), and the header is only the menu, without the logo and
+   breadcrumb, which don't fit beside it. */
 @media (max-width: 860px) {
   :root { --gutter: 20px; }
-  .nav { gap: 18px; }
+  site-header { justify-content: flex-end; }
+  .brand { display: none; }
+  .nav { gap: 22px; }
 }

@@ -87,7 +87,93 @@
   pointer-events: none;
 }
 
+/* Way back to the list: on wide screens the breadcrumb (top) and a button at
+   the end; on phones there is no breadcrumb, so the button goes to the top */
+.back--top { display: none; }
+
 @media (max-width: 860px) {
   .wall--read { display: none; }
   .copy--project { width: 100%; }
+  .back--top { display: inline-block; }
+  .back--bottom { display: none; }
+  .content--project { --content-gap: 36px; }
 }
+
+/* ---- Pieces used inside a case study ------------------------------------ */
+
+/* Fact sheet under the intro: role, team, when, tools */
+.facts {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 8px 20px;
+  margin: 6px 0 0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; }
+
+.section ul,
+.section ol {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding-left: 1.2em;
+  font-size: 17px;
+  line-height: 1.6;
+}
+.section li::marker { color: var(--path); }
+.section h3 {
+  margin: 10px 0 0;
+  font-family: var(--font-name);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+/* Images. Until the real screenshot exists, a .shot__slot holds its place.
+   To add the image: put the file in /assets/img/<slug>/ and swap the
+   <div class="shot__slot">…</div> for <img src="/assets/img/<slug>/<file>.png" alt="…">.
+   Screenshots must use made-up data, never a real customer's. */
+.shot {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px 0 6px;
+}
+.shot img { display: block; width: 100%; height: auto; }
+.shot__slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 10;
+  padding: 24px;
+  background: var(--surface);
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+}
+.shot figcaption { font-size: 14px; line-height: 1.5; color: var(--muted); }
+
+/* A number worth stopping at */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 18px 24px;
+  margin: 6px 0;
+}
+.stat { display: flex; flex-direction: column; gap: 4px; }
+.stat__n {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 40px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.stat__what { font-size: 14px; line-height: 1.45; color: var(--muted); }

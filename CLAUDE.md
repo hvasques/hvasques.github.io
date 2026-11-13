@@ -18,7 +18,7 @@ Um site de portfólio simples, rápido e fácil de manter, publicado de graça p
 - Caminhos absolutos a partir da raiz (`/assets/...`), então para ver localmente é preciso um servidor: `python3 -m http.server` na raiz do repo.
 - Texto do site em inglês; notas do repo em português.
 - Commits pequenos, com mensagem descrevendo o que mudou.
-- Celular ainda não é prioridade: abaixo de ~1000px as paredes somem e o texto ocupa a largura.
+- Celular: um único breakpoint em 860px. Abaixo dele as paredes somem, o header fica só com o menu (sem logo/breadcrumb) e a página de projeto ganha o botão "Back to projects" no topo. Em telas de toque não há seleção por hover no Portfólio: um toque abre o projeto.
 
 ## Arquitetura (onde mexer)
 

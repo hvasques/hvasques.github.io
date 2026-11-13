@@ -60,6 +60,11 @@
 }
 .row.is-on .row__n { color: var(--path); }
 .row.is-on .row__arrow { opacity: 1; }
+/* Touch screens have no hover to select a row, so every project that has a
+   page shows its arrow, and one tap opens it */
+@media (hover: none) {
+  .row[href] .row__arrow { opacity: 1; }
+}
 
 /* ---- Topo ---- */
 

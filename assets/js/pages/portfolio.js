@@ -23,6 +23,9 @@ const CURSOR = `url('data:image/svg+xml,${encodeURIComponent(tag)}') ${TIP[0]} $
 
 const urlOf = (p) => (p.published ? `/portfolio/${p.slug}/` : null);
 
+// False on touch screens: there, nothing is "selected"; a tap opens the project
+const canHover = matchMedia('(hover: hover)').matches;
+
 /* ---- List ---------------------------------------------------------------- */
 const rows = new Map();
 const list = document.querySelector('[data-routes]');
@@ -43,8 +46,10 @@ for (const p of PROJECTS) {
   row.querySelector('.row__name').textContent = p.name;
   row.querySelector('.label').textContent = p.label;
   row.querySelector('.grade').textContent = p.grade;
-  row.addEventListener('mouseenter', () => select(p.n));
-  row.addEventListener('focus', () => select(p.n));
+  // Mouse only: on iOS, reacting to a touch "hover" swallows the first tap,
+  // and the link would need a second tap to open
+  row.addEventListener('pointerenter', (e) => e.pointerType === 'mouse' && select(p.n));
+  row.addEventListener('focus', () => canHover && select(p.n));
   rows.set(p.n, row);
   list.append(row);
 }
@@ -76,11 +81,12 @@ for (const p of PROJECTS) {
     ...ends.map(([x, y]) => hold(['badge', x, y, 0, 1.3])),
   ]);
   if (urlOf(p)) hit.style.cursor = CURSOR;
-  hit.addEventListener('mouseenter', () => {
+  hit.addEventListener('pointerenter', (e) => {
+    if (e.pointerType !== 'mouse') return;
     select(p.n);
     rows.get(p.n).classList.add('is-hot');
   });
-  hit.addEventListener('mouseleave', () => rows.get(p.n).classList.remove('is-hot'));
+  hit.addEventListener('pointerleave', () => rows.get(p.n).classList.remove('is-hot'));
   // No focus ring or text selection when a route is clicked or double-clicked
   hit.addEventListener('mousedown', (e) => e.preventDefault());
   hits.push(hit);
@@ -104,4 +110,4 @@ function select(n) {
   }
 }
 
-select(PROJECTS[0].n);
+if (canHover) select(PROJECTS[0].n);
