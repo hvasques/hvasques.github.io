@@ -15,27 +15,30 @@
 .title--name { text-transform: uppercase; }
 .title--name span { display: block; }
 
-/* "create things": on hover or focus, the other things open in a stack right
-   under it, each "create" lined up with the one in the sentence. The stack is
-   part of the text flow, so the button below moves down to make room. */
+/* "create things": on hover or focus, the other things appear in a stack right
+   under it, each "create" lined up with the one in the sentence. The stack
+   always takes up its three lines, even while invisible, so nothing below it
+   (the button) moves when it shows. */
 .creates {
   display: inline-block;
   vertical-align: top;
   white-space: nowrap;
   cursor: default;
 }
-.creates__more {
+.creates__more { display: block; }
+.creates__more > span {
   display: block;
-  overflow: hidden;
-  max-height: 0;
   opacity: 0;
-  transition: max-height 0.25s ease, opacity 0.25s ease;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
-.creates__more > span { display: block; }
-.creates:hover .creates__more,
-.creates:focus .creates__more {
-  max-height: 5em; /* three lines */
+/* The lines drop in one after the other */
+.creates__more > span:nth-child(2) { transition-delay: 0.06s; }
+.creates__more > span:nth-child(3) { transition-delay: 0.12s; }
+.creates:hover .creates__more > span,
+.creates:focus .creates__more > span {
   opacity: 1;
+  transform: none;
 }
 .copy--home .btn { margin-top: 8px; }
 
