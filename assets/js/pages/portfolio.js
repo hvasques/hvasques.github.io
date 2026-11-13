@@ -12,14 +12,31 @@ import { PROJECTS } from '../data/projects.js';
 
 /* ---- Hover cursor: a tilted, path-colored tag reading "KMON! →" -----------
    The tag's tip is the click point. Cursor images can't use web fonts and are
-   ignored above 128px, hence Arial Black on a 114 x 42 canvas. */
-const TILT = -7; // degrees; negative = the tag rises to the right
-const TIP = [2, 9]; // where the tip sits on the canvas (leaves room for the tilt)
+   ignored above 128px, hence Arial Black on a small canvas.
+   Each project gets its own tilt, alternating down the list: TILTS[0] for
+   the first, TILTS[1] for the second, and so on (negative = rises to the
+   right, positive = drops to the right). */
+const TILTS = [-7, 7];
 
 const tokens = getComputedStyle(document.documentElement);
 const token = (name) => tokens.getPropertyValue(name).trim();
-const tag = `<svg xmlns="http://www.w3.org/2000/svg" width="114" height="42" viewBox="0 0 114 42"><g transform="translate(${TIP[0]} ${TIP[1]}) rotate(${TILT}) translate(-1 -1)"><polygon points="1,1 15,8 110,8 102,33 8,33 8,15" fill="${token('--path')}"/><text x="18" y="26.5" font-family="Arial Black, Arial, Helvetica, sans-serif" font-weight="900" font-size="14" letter-spacing="0.5" fill="${token('--on-path')}">KMON! &#8594;</text></g></svg>`;
-const CURSOR = `url('data:image/svg+xml,${encodeURIComponent(tag)}') ${TIP[0]} ${TIP[1]}, pointer`;
+const TAG_SHAPE = [[0, 0], [14, 7], [109, 7], [101, 32], [7, 32], [7, 14]]; // from the tip
+
+function kmonCursor(tilt) {
+  // Rotate the tag around its tip, then size the canvas to what it covers
+  const rad = (tilt * Math.PI) / 180;
+  const turned = TAG_SHAPE.map(([x, y]) => [x * Math.cos(rad) - y * Math.sin(rad), x * Math.sin(rad) + y * Math.cos(rad)]);
+  const xs = turned.map((pt) => pt[0]);
+  const ys = turned.map((pt) => pt[1]);
+  const tipX = Math.ceil(2 - Math.min(...xs));
+  const tipY = Math.ceil(2 - Math.min(...ys));
+  const w = Math.ceil(tipX + Math.max(...xs) + 2);
+  const h = Math.ceil(tipY + Math.max(...ys) + 2);
+  const tag = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><g transform="translate(${tipX} ${tipY}) rotate(${tilt})"><polygon points="${TAG_SHAPE.map((pt) => pt.join(',')).join(' ')}" fill="${token('--path')}"/><text x="17" y="25.5" font-family="Arial Black, Arial, Helvetica, sans-serif" font-weight="900" font-size="14" letter-spacing="0.5" fill="${token('--on-path')}">KMON! &#8594;</text></g></svg>`;
+  return `url('data:image/svg+xml,${encodeURIComponent(tag)}') ${tipX} ${tipY}, pointer`;
+}
+const cursors = TILTS.map(kmonCursor);
+const cursorOf = (p) => cursors[PROJECTS.indexOf(p) % cursors.length];
 
 const urlOf = (p) => (p.published ? `/portfolio/${p.slug}/` : null);
 
@@ -35,7 +52,7 @@ for (const p of PROJECTS) {
   row.className = 'row';
   if (urlOf(p)) {
     row.href = urlOf(p);
-    row.style.cursor = CURSOR;
+    row.style.cursor = cursorOf(p);
   }
   row.innerHTML = `
     <span class="row__n"></span>
@@ -80,7 +97,7 @@ for (const p of PROJECTS) {
     svg('path', { d: p.topo.d }),
     ...ends.map(([x, y]) => hold(['badge', x, y, 0, 1.3])),
   ]);
-  if (urlOf(p)) hit.style.cursor = CURSOR;
+  if (urlOf(p)) hit.style.cursor = cursorOf(p);
   hit.addEventListener('pointerenter', (e) => {
     if (e.pointerType !== 'mouse') return;
     select(p.n);
