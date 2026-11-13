@@ -82,6 +82,42 @@ The design has a light theme only. Don't add dark mode unless the owner asks.
 7. **Grade badge.** Chakra Petch 700 on an irregular hold shape: `clip-path: polygon(8% 8%, 92% 0, 100% 70%, 78% 100%, 4% 92%, 0 40%)`. The background is `--surface`, or `--path` with white text when active.
 8. **Page root.** `min-height: max(760px, 100vh)`, so the walls always reach the floor.
 
+## 5b. Shape inventory (holds, badges, rock)
+
+Every shape below is hand-tuned. **Copy the coordinates exactly; don't redraw or "clean up" any shape.** All shapes are flat polygons with sharp corners.
+
+**Hold library.** These are the same shapes on every page; holds are distinguished only by `transform` (translate / rotate / scale). Put them in one SVG sprite (`assets/img/holds.svg`, one `<symbol>` per shape, with no `fill` set on the symbol, so `<use>` can color them) or in a small JS map. Points are relative to the hold's center.
+
+| Id | Points | Look |
+|---|---|---|
+| `hold-a` | `-9,-6 8,-8 9,5 -7,7` | small crimp |
+| `hold-b` | `-12,-8 10,-12 12,7 -8,12` | square-ish edge |
+| `hold-c` | `-13,-2 -4,-12 12,-7 9,10 -9,9` | pentagon |
+| `hold-d` | `-15,-4 0,-10 15,-4 10,8 -11,8` | wide sloper |
+| `hold-e` | `-11,-10 9,-9 12,3 2,11 -10,6` | pinch |
+| `hold-f` | `-13,-9 11,-11 13,4 7,11 -12,9 -13,-2` | jug |
+| `hold-lip` | `-16,-11 13,-14 16,5 9,13 -14,11 -16,-2` | big final hold at the Home lip |
+| `badge` | `-15,-12 13,-14 16,4 9,14 -14,12 -16,-1` | route-number badge on the Portfolio topo |
+| `marker` | `1,2 8.5,0.5 10,7.5 2,10` in a 10×10 box | label marker (inline 10px SVG) |
+
+**Where each shape is used** (exact positions are in the files in `prototypes/design-canvas/`):
+
+| Page | Element | Count | Color | Source |
+|---|---|---|---|---|
+| All | Cave roof polygon + 1 strata polyline | 1 | `--surface` / `--texture` | first `<svg>` in each file |
+| Home | Overhang rock polygon + 4 strata lines | 1 | `--surface` / `--texture` | `svg.wall` in `Main.dc.html` |
+| Home | Grey holds from "other routes" | 16 | `--texture` | `<g fill="#A3AEB9">` |
+| Home | Route holds (11, the last is `hold-lip`) + dashed route path | 11 | `--path` | `<g fill="{{path}}">` and `path.route-line` |
+| Portfolio | Topo rock polygon + 5 strata lines | 1 | `--surface` / `--texture` | first `<svg>` inside `div.wall` |
+| Portfolio | 4 route paths (muted) + selected copy on top | 4 + 1 | `--muted` / `--path` | second `<svg>` inside `div.wall`; paths also in the `routes` object |
+| Portfolio | Number badges at each route's start and top, with numbers | 8 | `--ink`, selected `--path`; numbers in `--ground` | `<g fill="#1B2433">` + `<text>` group |
+| Portfolio | Label markers in list rows | 4 | `--muted`, selected `--path` | inside the `sc-for` row |
+| Project template | Thin wall rock + strata | 1 | `--surface` / `--texture` | **generated** in `renderVals()`: angular left edge, x cycling `[40,18,50,26,46,14]` every 150px |
+| Project template | Section holds | 1 per `h2` | `--muted`, reached `--path` | **generated**: cycles `hold-f, hold-b, hold-d, hold-e, hold-c`, rotations `[-15,20,-25,10,30,-10]`, scale 1.25 |
+| Project template | Route: dashed copy + solid clipped copy | 2 | `--muted` dashed `7 9` / `--path` | **generated** (see §6) |
+
+Home and Portfolio shapes are static: port the SVG markup as-is, swapping `{{path}}` for `var(--path)`. The project template's shapes are computed at runtime, so port that logic from `WIP.dc.html` → `renderVals()`.
+
 ## 6. Page by page
 
 ### Home (`index.html`)

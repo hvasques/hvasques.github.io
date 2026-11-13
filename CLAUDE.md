@@ -226,3 +226,10 @@ Tema: escalada + games. Referência: Mirror's Edge (limpo, arestas retas, uma co
   4. As seções são livres: qualquer `h2` marcado vira uma agarra, então um projeto pode ter 3 ou 8 seções.
 - **Escolha técnica:** copiar o template por projeto, em vez de usar layouts do Jekyll. Com poucos projetos, copiar é mais simples de entender e não exige ligar o Jekyll (que hoje está desligado pelo `.nojekyll`). O agente deve confirmar essa escolha com o dono antes de começar.
 - **Como conferir:** ler a seção "Project page template" do `HANDOFF.md`.
+
+### Etapa 15 — Inventário de formas no handoff
+
+- **O que mudou:** o `HANDOFF.md` ganhou a seção "Shape inventory": a biblioteca de agarras (as mesmas 7 formas em todas as páginas, mais o badge de número e o marcador de rótulo) com as coordenadas exatas, e uma tabela de onde cada forma aparece (página, quantidade, cor e em qual trecho do arquivo do canvas está).
+- **Por quê:** antes, as agarras só existiam dentro dos arquivos do canvas; o agente podia redesenhá-las. Agora a regra é copiar as coordenadas, sem "limpar" nenhuma forma.
+- **Escolha técnica sugerida:** guardar as agarras num único arquivo SVG (`assets/img/holds.svg`, um `<symbol>` por forma) e reaproveitar com `<use>` — desenhar uma vez, repetir em qualquer página, como já foi feito nos protótipos.
+- **Como conferir:** ler a seção 5b do `HANDOFF.md`.
