@@ -1,0 +1,6 @@
+<!-- Site icon: the "lip" hold (assets/js/components/holds.js) in the path color.
+     Static copy for places that can't run the site's JS; browsers use the live
+     version from assets/js/components/favicon.js, which follows tokens.css. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-18 -18 36 36">
+  <polygon points="-16,-11 13,-14 16,5 9,13 -14,11 -16,-2" transform="rotate(-12)" fill="#C2461F"/>
+</svg>

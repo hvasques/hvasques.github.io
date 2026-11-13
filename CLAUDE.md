@@ -27,6 +27,7 @@ Um site de portfólio simples, rápido e fácil de manter, publicado de graça p
 | Cores, fontes, escala da rocha, formas de botão/badge | `assets/css/tokens.css` (único lugar) |
 | Menu e logo/breadcrumb | `assets/js/components/header.js` (`<site-header>`) |
 | Formas das agarras | `assets/js/components/holds.js` (`hold()`), usado em todas as páginas |
+| Ícone do site (uma agarra na cor path) | `assets/js/components/favicon.js`; cópias estáticas em `assets/img/favicon.svg`, `/favicon.ico` e `/apple-touch-icon.png` |
 | Desenho do teto e das paredes, e os segmentos extras | `assets/js/components/rock-shapes.js` |
 | Como os segmentos são montados | `assets/js/components/rock.js` |
 | Lista de projetos (lista + croqui + páginas) | `assets/js/data/projects.js` |
