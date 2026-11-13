@@ -7,7 +7,7 @@
       and turns solid downward as you scroll. Each hold is a link to its
       section. The route's two ends are badges, as on the Portfolio topo:
       the start (this route's number) goes back to the top of the page, and
-      the finish (an arrow) goes on to the next project. */
+      the finish (an arrow) goes to the bottom. */
 
 import '../site.js';
 import { svg } from '../lib/svg.js';
@@ -94,18 +94,13 @@ start.link.addEventListener('click', (e) => {
 });
 tagOnHover(start.link, '\u2191 Back to top');
 
-/* Finish: on to the next project that has a page (after the last comes the
-   first). Lights up once you've read to the end. */
-const published = PROJECTS.filter((p) => p.published);
-const here = published.indexOf(project);
-const next = here >= 0 && published.length > 1 ? published[(here + 1) % published.length] : null;
-const finish = endBadge({
-  text: next ? '\u2192' : '\u2190',
-  href: next ? `/portfolio/${next.slug}/` : '/portfolio/',
-  label: next ? `Next project: ${next.name}` : 'Back to projects',
-  variant: 'section',
+/* Finish: takes you to the bottom of the page. Lights up once you've read to the end. */
+const finish = endBadge({ text: '\u2193', href: '#', label: 'Go to the bottom of the page', variant: 'section' });
+finish.link.addEventListener('click', (e) => {
+  e.preventDefault();
+  window.scrollTo({ top: document.documentElement.scrollHeight, behavior: smooth() });
 });
-tagOnHover(finish.link, next ? `Next: ${next.name} \u2192` : '\u2190 Back to projects');
+tagOnHover(finish.link, '\u2193 Go to bottom');
 
 /* One hold per section: a link placed on the wall by update() */
 const holds = sections.map((heading, i) => {
