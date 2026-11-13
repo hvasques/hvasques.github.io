@@ -1,6 +1,6 @@
 /* <site-header current="home|portfolio|about">: logo + menu, identical on
    every page. Below Home, the logo's slash continues into a breadcrumb:
-     Portfolio page                            HVASQUES / PORTFOLIO
+     a page from the menu (e.g. Portfolio)     HVASQUES / PORTFOLIO
      project page (<body data-project="slug">) HVASQUES / PORTFOLIO / PROJECT NAME */
 
 import { PROJECTS } from '../data/projects.js';
@@ -21,8 +21,8 @@ function crumbsFor(current) {
     const name = PROJECTS.find((p) => p.slug === slug)?.name ?? 'Project name';
     return [{ label: 'Portfolio', href: '/portfolio/' }, { label: name }];
   }
-  if (current === 'portfolio') return [{ label: 'Portfolio' }];
-  return [];
+  const page = NAV.find((item) => item.id === current);
+  return page && page.id !== 'home' ? [{ label: page.label }] : [];
 }
 
 class SiteHeader extends HTMLElement {
