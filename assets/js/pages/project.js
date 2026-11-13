@@ -38,7 +38,9 @@ const HOLD_X = [72, 124, 80, 132, 90, 118]; // zigzag across the wall
 const HOLD_SHAPE = ['f', 'b', 'd', 'e', 'c'];
 const HOLD_ROT = [-15, 20, -25, 10, 30, -10];
 const HOLD_SCALE = 1.25;
-const TAG_TILT = 7; // degrees; the hover tag rises away from its tip
+// Degrees. The hover tags take these in turn down the route (start, each
+// section, finish): positive = the tag rises away from its tip, negative = drops
+const TAG_TILTS = [7, -7];
 
 const pick = (list, i) => list[i % list.length];
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
@@ -56,15 +58,17 @@ tag.className = 'hold-tag';
 tag.hidden = true;
 tag.setAttribute('aria-hidden', 'true');
 document.body.append(tag);
+let tagTilt = TAG_TILTS[0];
 const moveTag = (e) => {
-  tag.style.transform = `translate(calc(${e.clientX}px - 100%), ${e.clientY}px) rotate(${TAG_TILT}deg)`;
+  tag.style.transform = `translate(calc(${e.clientX}px - 100%), ${e.clientY}px) rotate(${tagTilt}deg)`;
 };
 
-/** Shows the tag with `text` while the mouse is over `link`. */
-function tagOnHover(link, text) {
+/** Shows the tag with `text` while the mouse is over `link`, the `order`-th stop on the route. */
+function tagOnHover(link, text, order) {
   link.addEventListener('mousedown', (e) => e.preventDefault()); // no focus ring on click
   link.addEventListener('mouseenter', (e) => {
     tag.textContent = text;
+    tagTilt = pick(TAG_TILTS, order);
     moveTag(e);
     tag.hidden = false;
   });
@@ -92,7 +96,7 @@ start.link.addEventListener('click', (e) => {
   e.preventDefault();
   window.scrollTo({ top: 0, behavior: smooth() });
 });
-tagOnHover(start.link, '\u2191 Back to top');
+tagOnHover(start.link, '\u2191 Back to top', 0);
 
 /* Finish: takes you to the bottom of the page. Lights up once you've read to the end. */
 const finish = endBadge({ text: '\u2193', href: '#', label: 'Go to the bottom of the page', variant: 'section' });
@@ -100,7 +104,7 @@ finish.link.addEventListener('click', (e) => {
   e.preventDefault();
   window.scrollTo({ top: document.documentElement.scrollHeight, behavior: smooth() });
 });
-tagOnHover(finish.link, '\u2193 Go to bottom');
+tagOnHover(finish.link, '\u2193 Go to bottom', sections.length + 1);
 
 /* One hold per section: a link placed on the wall by update() */
 const holds = sections.map((heading, i) => {
@@ -118,7 +122,7 @@ const holds = sections.map((heading, i) => {
     e.preventDefault();
     heading.scrollIntoView({ behavior: smooth(), block: 'start' });
   });
-  tagOnHover(link, title);
+  tagOnHover(link, title, i + 1);
   return { link, shape };
 });
 

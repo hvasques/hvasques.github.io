@@ -13,10 +13,9 @@ import { PROJECTS } from '../data/projects.js';
 /* ---- Hover cursor: a tilted, path-colored tag reading "KMON! →" -----------
    The tag's tip is the click point. Cursor images can't use web fonts and are
    ignored above 128px, hence Arial Black on a small canvas.
-   Each project gets its own tilt, alternating down the list: TILTS[0] for
-   the first, TILTS[1] for the second, and so on (negative = rises to the
-   right, positive = drops to the right). */
-const TILTS = [-7, 7];
+   Negative tilt = rises to the right, positive = drops to the right. With
+   more than one value here, the projects take them in turn down the list. */
+const TILTS = [-7];
 
 const tokens = getComputedStyle(document.documentElement);
 const token = (name) => tokens.getPropertyValue(name).trim();
