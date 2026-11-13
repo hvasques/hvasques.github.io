@@ -1,0 +1,30 @@
+/* Home: copy on the left, overhang wall with the route on the right */
+
+.wall--home { width: calc(520 * var(--u)); }
+
+.copy--home {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  max-width: 600px;
+}
+.copy--home .lede { max-width: 34ch; }
+.copy--home .btn { margin-top: 8px; }
+
+/* The route: dashes that keep moving toward the roof */
+.route-line {
+  fill: none;
+  stroke: var(--path);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 8 9;
+  animation: route-run 1.8s linear infinite;
+}
+@keyframes route-run { to { stroke-dashoffset: -34; } }
+
+@media (max-width: 1100px) { .copy--home { max-width: 46%; } }
+@media (max-width: 860px) {
+  .wall--home { display: none; }
+  .copy--home { max-width: 100%; }
+}

@@ -1,5 +1,7 @@
 # Handoff: build the portfolio site from the design canvas
 
+> **Status: built.** The site was built from this handoff. Some details changed on the way (CSS split into `tokens.css` + per-page files, header and rock rendered by JS components, rock tiled from segments instead of stretched, and the "explain every step / log an Etapa" rule was dropped). `README.md` and `CLAUDE.md` describe the code as it is now; this file is kept as the design reference.
+
 This file is for the coding agent that turns the approved design into the real site. Read it in full, then read `CLAUDE.md`. Its rules apply to you too, including the rule to explain every change step by step and log it as a new "Etapa".
 
 ## 1. Goal

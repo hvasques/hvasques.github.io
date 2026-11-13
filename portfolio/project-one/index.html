@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project one — hvasques</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/project.css">
+  <script type="module" src="/assets/js/pages/project.js"></script>
+</head>
+<body data-project="project-one">
+  <rock-roof></rock-roof>
+  <div class="rock wall wall--read"></div>
+  <site-header current="portfolio"></site-header>
+
+  <main class="content content--project">
+    <article class="copy--project">
+      <header class="project-head">
+        <!-- Label and grade are filled in from projects.js -->
+        <span class="label label--on" data-project-label>Case study · Route N</span>
+        <div class="project-title">
+          <h1 class="title">Project one</h1>
+          <span class="grade grade--on grade--lg" data-project-grade>0a</span>
+        </div>
+        <p class="lede">[One sentence on what this project was and why it mattered.]</p>
+      </header>
+
+      <section class="section">
+        <h2 data-sec>Context</h2>
+        <p>[Who it was for, what was going on, and your role. Two or three short paragraphs.]</p>
+      </section>
+      <section class="section">
+        <h2 data-sec>The problem</h2>
+        <p>[What was hard, and how you knew it was the right thing to work on.]</p>
+      </section>
+      <section class="section">
+        <h2 data-sec>What I tried</h2>
+        <p>[The options, the dead ends, and the call you made. Images or sketches go here.]</p>
+      </section>
+      <section class="section">
+        <h2 data-sec>What shipped</h2>
+        <p>[The result, with the numbers or feedback that show it worked.]</p>
+      </section>
+      <section class="section">
+        <h2 data-sec>What I learned</h2>
+        <p>[What you'd do differently on the next route.]</p>
+      </section>
+
+      <a class="btn" href="/portfolio/">&larr; Back to the routes</a>
+    </article>
+  </main>
+</body>
+</html>

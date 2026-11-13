@@ -1,0 +1,42 @@
+/* ==========================================================================
+   Design tokens: the ONE file to edit to restyle the whole site.
+   Colors, fonts, scale and shapes. Every other CSS and JS file reads these.
+   ========================================================================== */
+
+/* Fonts are loaded here so that swapping a family is a one-file change:
+   edit this URL and the matching --font-* variable below. */
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Funnel+Display:wght@700;800&family=Funnel+Sans:wght@400;500;600&family=Geologica:wght@400;500&display=swap");
+
+:root {
+  /* ---- Colors (palette: Alpenglow) ---- */
+  --ground:  #EEF1F3; /* page background */
+  --surface: #C9D0D6; /* rock (roof, walls), inactive grade badge, list rules */
+  --ink:     #1B2433; /* text */
+  --muted:   #4C5763; /* secondary text, inactive routes and holds */
+  --texture: #A3AEB9; /* strata lines and decorative holds. Never for text */
+  --path:    #C2461F; /* the ONLY "go here" color. Alternative: Rooftop #D9121A */
+  --on-path: #FFFFFF; /* text on top of --path */
+
+  /* ---- Fonts ---- */
+  --font-ui:    "Chakra Petch", sans-serif;       /* logo, menu, buttons, grades, route numbers */
+  --font-title: "Funnel Display", sans-serif;     /* page titles (h1) */
+  --font-name:  "Funnel Sans", sans-serif;        /* project names, section headings */
+  --font-body:  "Geologica", system-ui, sans-serif;
+
+  /* ---- Scale ----
+     The rock is drawn on a 1280 x 760 design frame. --u is the size of one
+     frame unit: the frame is scaled to FIT inside the window, never stretched.
+     Whatever space is left over (ultrawide or very tall windows) is filled
+     with extra rock segments. See assets/js/components/rock.js. */
+  --u-min: 0.75px; /* the rock never gets smaller than this */
+  --u-max: 1.5px;  /* nor bigger, so it doesn't balloon on huge monitors */
+  --u: clamp(var(--u-min), min(100vw / 1280, 100vh / 760), var(--u-max));
+
+  /* ---- Layout ---- */
+  --gutter: 64px; /* side padding of the page; the menu ends this far from the edge */
+
+  /* ---- Shapes (all flat, sharp corners) ---- */
+  --shape-button: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+  --shape-grade:  polygon(8% 8%, 92% 0, 100% 70%, 78% 100%, 4% 92%, 0 40%);
+  --shape-marker: polygon(10% 20%, 85% 5%, 100% 75%, 20% 100%);
+}

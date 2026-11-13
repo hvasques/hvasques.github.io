@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfolio — hvasques</title>
+  <meta name="description" content="Every project is a route, graded by how hard it was.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/portfolio.css">
+  <script type="module" src="/assets/js/pages/portfolio.js"></script>
+</head>
+<body>
+  <rock-roof></rock-roof>
+  <div class="rock wall wall--topo"></div>
+  <site-header current="portfolio"></site-header>
+
+  <main class="content content--portfolio">
+    <div class="copy--portfolio">
+      <div class="intro">
+        <h1 class="title title--sm">Pick a <span class="hl">line</span></h1>
+        <p class="lede">Every project is a route, graded by how hard it was.</p>
+      </div>
+
+      <!-- Rows are built from assets/js/data/projects.js -->
+      <div class="routes" data-routes></div>
+
+      <p class="note">Grades on the French sport scale: 5c is easy, 7a is hard. Project names are placeholders.</p>
+    </div>
+  </main>
+</body>
+</html>

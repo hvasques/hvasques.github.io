@@ -1,0 +1,86 @@
+/* Portfolio: list of projects on the left, topo wall on the right */
+
+.content--portfolio { --content-gap: 43px; padding-bottom: 48px; }
+
+.wall--topo { width: calc(720 * var(--u)); }
+
+.copy--portfolio {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 440px;
+}
+.copy--portfolio .intro { display: flex; flex-direction: column; gap: 14px; }
+.copy--portfolio .lede { font-size: 17px; }
+.note { margin: 0; font-size: 14px; line-height: 1.5; color: var(--muted); }
+
+/* ---- Project rows (built by assets/js/pages/portfolio.js) ---- */
+
+.routes {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--surface);
+}
+.row {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) auto 16px;
+  align-items: center;
+  gap: 14px;
+  min-height: 44px;
+  padding: 11px 6px 11px 0;
+  border-bottom: 1px solid var(--surface);
+  color: var(--ink);
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+.row:hover {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--surface) 35%, transparent);
+}
+.row__n {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 16px;
+}
+.row__body { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.row__name {
+  font-family: var(--font-name);
+  font-weight: 600;
+  font-size: 19px;
+  line-height: 1.1;
+}
+.row__arrow {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--path);
+  opacity: 0;
+}
+.row.is-on .row__n { color: var(--path); }
+.row.is-on .row__arrow { opacity: 1; }
+
+/* ---- Topo ---- */
+
+.topo-route {
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 4;
+  stroke-linecap: round;
+  opacity: 0.7;
+}
+.topo-route--on {
+  stroke: var(--path);
+  stroke-width: 5.5;
+  opacity: 1;
+}
+.topo-num {
+  fill: var(--ground);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 15px;
+  text-anchor: middle;
+}
+
+/* Not enough room for the wall next to the list */
+@media (max-width: 1040px) { .wall--topo { display: none; } }

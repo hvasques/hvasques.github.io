@@ -1,0 +1,206 @@
+/* ==========================================================================
+   Shared styles: page frame, rock, header, and the small reusable pieces
+   (title, label, grade badge, button, holds). No colors or fonts are written
+   here directly; they all come from tokens.css.
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  position: relative;
+  margin: 0;
+  /* At least one window tall, so the walls always reach the floor */
+  min-height: max(100vh, calc(760 * var(--u)));
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+
+a { color: var(--ink); }
+a:hover { color: var(--path); }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+/* ---- Rock (drawn by assets/js/components/rock.js) ----------------------- */
+/* Layers: walls 0, roof 1, content 2, header 3 */
+
+.rock {
+  position: absolute;
+  overflow: hidden;
+  pointer-events: none;
+}
+.rock > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.rock__fill { fill: var(--surface); }
+.rock__strata polyline {
+  fill: none;
+  stroke: var(--texture);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+rock-roof {
+  display: block;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(152 * var(--u));
+}
+
+.wall {
+  z-index: 0;
+  top: 0;
+  right: 0;
+  height: 100%;
+}
+
+/* ---- Holds (shapes live in assets/js/components/holds.js) ---------------- */
+
+.hold { fill: var(--texture); }          /* decoration on the rock */
+.hold--route { fill: var(--path); }      /* a hold on the highlighted route */
+.hold--badge { fill: var(--ink); }       /* route-number badge on the topo */
+.hold--section { fill: var(--muted); transition: fill 0.25s ease; }
+.hold--badge.is-on,
+.hold--section.is-on { fill: var(--path); }
+
+/* ---- Header (rendered by assets/js/components/header.js) ----------------- */
+
+site-header {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 64px;
+  padding: 44px var(--gutter) 0;
+}
+
+.brand {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.brand a { text-decoration: none; }
+.brand ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.brand .crumb-mid { color: var(--muted); }
+.brand .crumb-mid:hover { color: var(--path); }
+.slash { color: var(--path); }
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.nav a { padding-bottom: 6px; text-decoration: none; }
+.nav a[aria-current="page"] { box-shadow: inset 0 -3px 0 var(--path); }
+
+/* ---- Content ------------------------------------------------------------- */
+
+.content {
+  position: relative;
+  z-index: 2;
+  /* Starts under the roof: tied to the roof's height so it never overlaps */
+  padding: calc(152 * var(--u) + var(--content-gap, 55px)) var(--gutter) 56px;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(56px, 8vw, 104px);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+}
+.title--sm { font-size: clamp(48px, 6vw, 80px); }
+.hl { color: var(--path); }
+
+.lede {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+/* Label: plain text with a hold-shaped marker in front */
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.label::before {
+  content: "";
+  flex: none;
+  width: 10px;
+  height: 10px;
+  background: var(--muted);
+  clip-path: var(--shape-marker);
+}
+.label--on::before,
+.is-on .label::before { background: var(--path); }
+
+/* Grade badge: a grade inside a hold shape */
+.grade {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1;
+  padding: 9px 12px 9px 14px;
+  background: var(--surface);
+  color: var(--ink);
+  clip-path: var(--shape-grade);
+}
+.grade--on,
+.is-on .grade { background: var(--path); color: var(--on-path); }
+.grade--lg { font-size: 18px; padding: 11px 14px 11px 16px; }
+
+/* Primary button: the right edge is cut on a diagonal */
+.btn {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 18px 38px 18px 24px;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: var(--path);
+  color: var(--on-path);
+  clip-path: var(--shape-button);
+}
+.btn:hover { color: var(--on-path); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+@media (max-width: 860px) {
+  :root { --gutter: 20px; }
+  .nav { gap: 18px; }
+}

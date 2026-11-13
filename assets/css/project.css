@@ -1,0 +1,65 @@
+/* Project page: case study text, with the reading route on a thin wall
+   that stays fixed to the window */
+
+.content--project { padding-bottom: 96px; }
+
+.wall--read {
+  position: fixed;
+  width: calc(200 * var(--u));
+  height: 100vh;
+}
+
+.copy--project {
+  display: flex;
+  flex-direction: column;
+  width: min(640px, calc(100% - 200 * var(--u)));
+}
+
+.project-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  padding-bottom: 96px;
+}
+.project-head .label { font-size: 15px; }
+.project-head .lede { max-width: 40ch; }
+.project-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 18px;
+}
+.project-title .grade { margin-bottom: 8px; }
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 340px;
+  padding-bottom: 48px;
+}
+.section h2 {
+  margin: 0;
+  font-family: var(--font-name);
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 1.1;
+}
+.section p { margin: 0; font-size: 17px; line-height: 1.65; }
+.section img { max-width: 100%; height: auto; }
+
+/* Reading route: dashed = still to read, solid = already read */
+.read-route { fill: none; stroke-linecap: round; }
+.read-route--todo {
+  stroke: var(--muted);
+  stroke-width: 3;
+  stroke-dasharray: 7 9;
+  opacity: 0.75;
+}
+.read-route--done { stroke: var(--path); stroke-width: 4.5; }
+
+@media (max-width: 860px) {
+  .wall--read { display: none; }
+  .copy--project { width: 100%; }
+}
