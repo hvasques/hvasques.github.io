@@ -6,7 +6,16 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
+html {
+  /* No rubber-band scrolling past the top or bottom of the page… */
+  overscroll-behavior: none;
+  /* …and if a browser bounces anyway, what shows beyond the page is rock
+     (a continuation of the roof), not a pale gap */
+  background: var(--surface);
+}
+
 body {
+  overscroll-behavior: none;
   position: relative;
   margin: 0;
   /* At least one window tall, so the walls always reach the floor */
