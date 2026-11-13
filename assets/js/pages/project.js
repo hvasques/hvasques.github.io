@@ -58,13 +58,18 @@ let lastPath = '';
 
 function update() {
   const vh = window.innerHeight;
-  const wallH = vh / unit(); // wall height in design units
+  const u = unit();
+  const wallH = vh / u; // wall height in design units
   const range = Math.max(1, document.documentElement.scrollHeight - vh);
   const progress = clamp01(window.scrollY / range); // 0 at the top, 1 at the end
 
-  // The route runs from near the floor up to just under the roof
+  // The route runs from near the floor up to just under the roof. The roof
+  // scrolls away with the page but the wall stays, so the top of the route
+  // follows the roof's edge up: once the roof is gone, the route uses the
+  // whole height of the wall instead of leaving a blank band at the top.
+  const roofInView = Math.max(0, ROOF_BOTTOM - window.scrollY / u);
   const startY = wallH - 56;
-  const topY = ROOF_BOTTOM + 26;
+  const topY = roofInView + 26;
   const span = startY - topY;
 
   // A section's place on the wall = how far you've scrolled when its heading

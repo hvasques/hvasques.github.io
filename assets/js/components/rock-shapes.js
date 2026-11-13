@@ -98,11 +98,11 @@ export const TOPO_WALL = {
   ],
 };
 
-/** Project pages: the thin reading wall. A short cap under the roof, then only fillers. */
+/** Project pages: the thin reading wall. A short top piece (behind the roof until you scroll), then only fillers. */
 export const READING_WALL = {
   axis: 'y',
   anchor: 'start',
-  body: { size: 120, edge: [[0, 0], [0, 90]] },
+  body: { size: 120, edge: [[16, 0]] },
   fillers: [
     { size: 300, edge: [[40, 0], [18, 150]], strata: ['60,140 130,134 200,146'] },
     { size: 300, edge: [[50, 0], [26, 150]], strata: ['60,30 130,36 200,24', '60,220 130,214 200,226'] },
