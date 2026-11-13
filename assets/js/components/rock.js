@@ -64,15 +64,17 @@ function layout({ body, fillers = [], anchor = 'start' }, length) {
  * Draws a rock strip inside `host` and keeps it fitted as the host resizes.
  * Returns { svg, overlay }: `overlay` is a <g> in the body's coordinates,
  * where a page draws its own things (routes, holds) on top of the rock.
+ * With a `label` the drawing is announced to screen readers (as `role`,
+ * an image by default); without one it is hidden from them.
  */
-export function mountRock(host, spec, { label } = {}) {
+export function mountRock(host, spec, { label, role = 'img' } = {}) {
   const horizontal = spec.axis === 'x';
   const fill = svg('polygon', { class: 'rock__fill' });
   const pieces = svg('g');
   const overlay = svg('g');
   const root = svg(
     'svg',
-    { preserveAspectRatio: 'none', ...(label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': 'true' }) },
+    { preserveAspectRatio: 'none', ...(label ? { role, 'aria-label': label } : { 'aria-hidden': 'true' }) },
     [fill, pieces, overlay]
   );
   host.append(root);

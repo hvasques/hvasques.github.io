@@ -81,6 +81,8 @@ for (const p of PROJECTS) {
     rows.get(p.n).classList.add('is-hot');
   });
   hit.addEventListener('mouseleave', () => rows.get(p.n).classList.remove('is-hot'));
+  // No focus ring or text selection when a route is clicked or double-clicked
+  hit.addEventListener('mousedown', (e) => e.preventDefault());
   hits.push(hit);
 }
 

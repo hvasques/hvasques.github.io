@@ -92,6 +92,8 @@
   pointer-events: stroke;
 }
 .topo-hit .hold { fill: transparent; pointer-events: all; }
+.topo-hit { outline: none; }
+.wall--topo { user-select: none; -webkit-user-select: none; }
 
 /* Not enough room for the wall next to the list */
 @media (max-width: 1040px) { .wall--topo { display: none; } }

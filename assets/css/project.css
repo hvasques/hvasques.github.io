@@ -59,6 +59,34 @@
 }
 .read-route--done { stroke: var(--path); stroke-width: 4.5; }
 
+/* Each hold is a link to its section */
+.read-hold { pointer-events: all; cursor: none; } /* the tag below replaces the cursor */
+.read-hold__hit { fill: transparent; }
+.read-hold:hover .hold { fill: var(--path); }
+[data-sec] { scroll-margin-top: 48px; }
+
+/* The tag that follows the mouse over a hold, with the section's title.
+   Its tip (top-right) is the click point; it is placed by project.js. */
+.hold-tag {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  padding: 14px 24px 6px 20px;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: var(--path);
+  color: var(--on-path);
+  clip-path: var(--shape-tag);
+  transform-origin: 100% 0;
+  pointer-events: none;
+}
+
 @media (max-width: 860px) {
   .wall--read { display: none; }
   .copy--project { width: 100%; }

@@ -39,4 +39,6 @@
   --shape-button: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
   --shape-grade:  polygon(8% 8%, 92% 0, 100% 70%, 78% 100%, 4% 92%, 0 40%);
   --shape-marker: polygon(10% 20%, 85% 5%, 100% 75%, 20% 100%);
+  /* Pointer tag (like the "KMON!" cursor), with its tip at the top-right */
+  --shape-tag:    polygon(100% 0, calc(100% - 14px) 7px, 0 7px, 8px 100%, calc(100% - 7px) 100%, calc(100% - 7px) 14px);
 }
