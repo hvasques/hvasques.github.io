@@ -125,7 +125,10 @@ site-header {
   z-index: 2;
   /* Starts under the roof: tied to the roof's height so it never overlaps */
   padding: calc(152 * var(--u) + var(--content-gap, 55px)) var(--gutter) 56px;
+  /* The empty part of this box lies over the walls: let the mouse through */
+  pointer-events: none;
 }
+.content > * { pointer-events: auto; }
 
 .title {
   margin: 0;

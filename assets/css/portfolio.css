@@ -33,7 +33,8 @@
   text-decoration: none;
   transition: background-color 0.15s ease;
 }
-.row:hover {
+.row:hover,
+.row.is-hot { /* is-hot: its route is being hovered on the wall */
   color: var(--ink);
   background: color-mix(in srgb, var(--surface) 35%, transparent);
 }
@@ -81,6 +82,16 @@
   font-size: 15px;
   text-anchor: middle;
 }
+
+/* Invisible hover/click areas over each route (the wall itself ignores the mouse) */
+.topo-hit path {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 30;
+  stroke-linecap: round;
+  pointer-events: stroke;
+}
+.topo-hit .hold { fill: transparent; pointer-events: all; }
 
 /* Not enough room for the wall next to the list */
 @media (max-width: 1040px) { .wall--topo { display: none; } }
