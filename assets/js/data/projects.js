@@ -16,10 +16,10 @@
 export const PROJECTS = [
   {
     n: 1,
-    slug: 'project-one',
-    name: 'Project one',
-    label: 'Case study',
-    grade: '7a',
+    slug: 'insured-portal',
+    name: 'Policyholder portal',
+    label: 'Portal',
+    grade: '6c',
     published: true,
     topo: {
       d: 'M200 690 C 230 620, 300 590, 320 520 S 300 420, 330 340 S 330 230, 318 190',
@@ -30,9 +30,9 @@ export const PROJECTS = [
   {
     n: 2,
     slug: 'project-two',
-    name: 'Project two',
-    label: 'Side project',
-    grade: '6b+',
+    name: 'Project two [WIP]',
+    label: 'Work in progress',
+    grade: '7a',
     published: false,
     topo: {
       d: 'M390 712 C 410 640, 380 560, 420 480 S 460 330, 430 260 S 420 210, 430 190',
@@ -43,27 +43,14 @@ export const PROJECTS = [
   {
     n: 3,
     slug: 'project-three',
-    name: 'Project three',
-    label: 'Game jam',
-    grade: '6a',
+    name: 'Project three [WIP]',
+    label: 'Work in progress',
+    grade: '6b',
     published: false,
     topo: {
       d: 'M500 716 C 560 690, 610 640, 610 570 S 640 420, 600 330 S 560 220, 560 190',
       start: [500, 716],
       top: [560, 176],
-    },
-  },
-  {
-    n: 4,
-    slug: 'project-four',
-    name: 'Project four',
-    label: 'Notes',
-    grade: '5c',
-    published: false,
-    topo: {
-      d: 'M650 712 C 690 620, 660 520, 690 430 S 690 280, 670 190',
-      start: [650, 712],
-      top: [670, 176],
     },
   },
 ];

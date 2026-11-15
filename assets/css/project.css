@@ -135,6 +135,8 @@
 /* Images. Until the real screenshot exists, a .shot__slot holds its place.
    To add the image: put the file in /assets/img/<slug>/ and swap the
    <div class="shot__slot">…</div> for <img src="/assets/img/<slug>/<file>.png" alt="…">.
+   Narrow screenshots (a phone-width screen) go inside a
+   <div class="shot__plate">: one or two side by side, stacked on phones.
    Screenshots must use made-up data, never a real customer's. */
 .shot {
   display: flex;
@@ -143,6 +145,16 @@
   margin: 10px 0 6px;
 }
 .shot img { display: block; width: 100%; height: auto; }
+.shot__plate {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  background: var(--surface);
+}
+.shot__plate img { flex: 1 1 220px; min-width: 0; max-width: 340px; }
 .shot__slot {
   display: flex;
   align-items: center;
@@ -177,3 +189,22 @@
   letter-spacing: -0.02em;
 }
 .stat__what { font-size: 14px; line-height: 1.45; color: var(--muted); }
+
+/* Answers to a survey question: one row per option, widest bar = 100% */
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 6px 0;
+}
+.bars__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content;
+  gap: 6px 16px;
+  font-size: 15px;
+  line-height: 1.4;
+}
+.bars__n { font-family: var(--font-ui); font-weight: 600; }
+.bars__bar { grid-column: 1 / -1; height: 10px; background: var(--surface); }
+.bars__bar span { display: block; height: 100%; background: var(--ink); }
+.bars__note { font-size: 14px; line-height: 1.5; color: var(--muted); }

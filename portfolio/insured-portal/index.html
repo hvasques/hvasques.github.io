@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Policyholder portal — hvasques</title>
+  <meta name="description" content="The first portal at Justos built end to end by the product team: designed in Claude Design, coded with Claude Code, live 27 days after the first commit.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/project.css">
+  <script type="module" src="/assets/js/pages/project.js"></script>
+</head>
+<body data-project="insured-portal">
+  <rock-roof></rock-roof>
+  <div class="rock wall wall--read"></div>
+  <site-header current="portfolio"></site-header>
+
+  <main class="content content--project">
+    <article class="copy--project">
+      <header class="project-head">
+        <a class="btn btn--sm back--top" href="/portfolio/">&larr; Back to projects</a>
+        <!-- Label and grade are filled in from projects.js -->
+        <span class="label label--on" data-project-label>Case study · Route N</span>
+        <div class="project-title">
+          <h1 class="title">Policyholder portal</h1>
+          <span class="grade grade--on grade--lg" data-project-grade>0a</span>
+        </div>
+        <p class="lede">The first portal at Justos built end to end by the product team: designed in Claude Design, coded with Claude Code, live 27 days after the first commit.</p>
+        <dl class="facts">
+          <dt>My role</dt>
+          <dd>Product manager. I wrote the front end and the API changes.</dd>
+          <dt>With</dt>
+          <dd>A product designer (design), engineering (API review, authentication, deploy)</dd>
+          <dt>When</dt>
+          <dd>August to September 2026</dd>
+          <dt>Tools</dt>
+          <dd>Claude Design, Claude Code · React, TypeScript, Vite, Tailwind</dd>
+        </dl>
+      </header>
+
+      <section class="section">
+        <h2 data-sec>Context</h2>
+        <p>Justos is a Brazilian car insurer. The customers interacts mainly with the mobile app, which also measures how they drive with telematics.</p>
+        <p>In August 2026 we started letting the policyholder and the main driver be two different people: a company that owns the car, or a parent who insures the car their child drives. The driver kept the app, The policyholder who doesn't drive was left with nothing: no place to see the policy they pay for, check a payment or download a document.</p>
+        <p>Our solution was creating a webportal for the policyholder. However, since this would change the initial engineering roadmap planning we decided to take the matter into our own hands</p>
+      </section>
+
+      <section class="section">
+        <h2 data-sec>What it does</h2>
+        <p>A web portal for policyholders who aren't the driver. They sign in with a one-time code and can:</p>
+        <ul>
+          <li>see every policy they hold, and what each one still needs before it's active;</li>
+          <li>check coverages, payments and failed charges;</li>
+          <li>download the proposal and the policy;</li>
+          <li>follow change requests, and find their broker's contact.</li>
+        </ul>
+        <p>Claims and changes to the policy still go through the broker or our support team. We kept v1 from having writing operations on purpose, since this was our first experience changing the backend.</p>
+        <figure class="shot">
+          <div class="shot__plate">
+            <img src="/assets/img/insured-portal/next-steps.png" width="880" height="998" alt="Portal home for a proposal under review: a list of next steps, with getting a quote done, activating permissions as the current step with a button to remind the driver, and sending documents still to come.">
+          </div>
+          <figcaption>Home for a proposal under review: the steps left before the policy is active, and a way to remind the driver of theirs. The screenshots on this page were taken in the staging environment, with sensitive data replaced by dummy values.</figcaption>
+        </figure>
+        <figure class="shot">
+          <div class="shot__plate">
+            <img src="/assets/img/insured-portal/payments.png" width="1078" height="1250" alt="Payments screen: nothing pending, the plan summary, the card on file and the history of charges.">
+            <img src="/assets/img/insured-portal/coverages.png" width="1076" height="1606" alt="Coverage summary screen: one list of what the policy includes and one of what it doesn't, with a button to open the full policy as a PDF.">
+          </div>
+          <figcaption>Payments and coverages: what was charged, and what the policy includes and doesn't. Staging data, with sensitive values replaced by dummies.</figcaption>
+        </figure>
+      </section>
+
+      <section class="section">
+        <h2 data-sec>How I built it</h2>
+        <p>I know my way with coding, but I never deployed an entire app before. This is the process that made it work.</p>
+        <ul>
+          <li><strong>Design first, as a clickable prototype.</strong> Our product designer led the design in Claude Design while I checked each screen against what the API could return. The prototype was exported as a handoff package: 11 screens, the seven states a policy can be in, design tokens and icons.</li>
+          <li><strong>Instructions that fit a beginner.</strong> The repository's instruction file tells Claude Code that a product manager is building his first app, and asks it to explain every file it creates. I read the code I shipped.</li>
+          <li><strong>The stack engineers already knew.</strong> I copied the stack of our brokers' portal, because engineers would inherit this one.</li>
+          <li><strong>Mock data first, then the real API.</strong> The front end ran against a mock layer for a week. I removed it once the endpoints existed.</li>
+          <li><strong>API changes through pull requests.</strong> I wrote seven pull requests on the company's API with Claude Code. First there were some rounds of review with a reviewer bot, then Engineers reviewed and approved each one.</li>
+          <li><strong>A decision log.</strong> Every choice that wasn't obvious went into a numbered file in the repository: 35 entries by launch.</li>
+        </ul>
+        <p>Engineering also owned what I shouldn't: The deploy and the CI setup.</p>
+        <figure class="shot">
+          <img src="/assets/img/insured-portal/prototype.png" width="2370" height="1522" alt="The portal's prototype open in Claude Design, showing the home screen of an active policy, with controls above it for the policy state, payment plan and screen.">
+          <figcaption>The prototype in Claude Design. The controls at the top switch the policy's state, the payment plan and the screen, so each case could be checked before any code was written.</figcaption>
+        </figure>
+      </section>
+
+      <section class="section">
+        <h2 data-sec>What shipped</h2>
+        <div class="stat-row">
+          <div class="stat"><span class="stat__n">27 days</span><span class="stat__what">from the first commit to the release</span></div>
+          <div class="stat"><span class="stat__n">11</span><span class="stat__what">screens, for people and companies</span></div>
+          <div class="stat"><span class="stat__n">7</span><span class="stat__what">pull requests on the API, all reviewed by engineering</span></div>
+        </div>
+        <p>The portal was built alongside other tasks, and it went live in early September 2026. A few weeks later engineering moved its data reads to the company's new policy model, in their own pull requests: the code was readable enough for someone else to take over.</p>
+      </section>
+
+      <section class="section">
+        <h2 data-sec>What I learned</h2>
+        <ul>
+          <li><strong>Set up review for everything, not only the risky part.</strong> The API changes went through pull requests. The front end didn't: I committed straight to the main branch, with no CI, until launch week. On the next portal every change went through a pull request from the first day.</li>
+          <li><strong>The tool is fast; the judgment is still the work.</strong> Most of my time went into deciding what the portal should refuse to do, and into reading the code until I could explain it.</li>
+          <li><strong>Build for the people who inherit it.</strong> Copying a stack the engineers already used is why they could change it later without asking me.</li>
+        </ul>
+      </section>
+
+      <a class="btn back--bottom" href="/portfolio/">&larr; Back to projects</a>
+    </article>
+  </main>
+</body>
+</html>
