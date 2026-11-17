@@ -29,11 +29,11 @@ export const PROJECTS = [
   },
   {
     n: 2,
-    slug: 'project-two',
-    name: 'Project two [WIP]',
-    label: 'Work in progress',
+    slug: 'partner-portal',
+    name: 'Partner portal',
+    label: 'Portal',
     grade: '7a',
-    published: false,
+    published: true,
     topo: {
       d: 'M390 712 C 410 640, 380 560, 420 480 S 460 330, 430 260 S 420 210, 430 190',
       start: [390, 712],

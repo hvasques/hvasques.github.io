@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Partner portal — hvasques</title>
+  <meta name="description" content="Three people from the product team replaced an internal Retool tool with a real portal in 27 days, coordinated in Linear and built with Claude Code.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/project.css">
+  <script type="module" src="/assets/js/pages/project.js"></script>
+</head>
+<body data-project="partner-portal">
+  <rock-roof></rock-roof>
+  <div class="rock wall wall--read"></div>
+  <site-header current="portfolio"></site-header>
+
+  <main class="content content--project">
+    <article class="copy--project">
+      <header class="project-head">
+        <a class="btn btn--sm back--top" href="/portfolio/">&larr; Back to projects</a>
+        <!-- Label and grade are filled in from projects.js -->
+        <span class="label label--on" data-project-label>Case study · Route N</span>
+        <div class="project-title">
+          <h1 class="title">Partner portal</h1>
+          <span class="grade grade--on grade--lg" data-project-grade>0a</span>
+        </div>
+        <p class="lede">Three people from the product team replaced an internal tool built on Retool with a real portal. Partner firms were signing in 27 days after the first commit, and Retool was switched off the day before its contract ended.</p>
+        <dl class="facts">
+          <dt>My role</dt>
+          <dd>Product manager. I scoped the portal, wrote about half of the front end and part of the API, and coordinated the work.</dd>
+          <dt>With</dt>
+          <dd>A product designer and a product colleague (design and code), engineering (API review, deploy)</dd>
+          <dt>When</dt>
+          <dd>August to October 2026</dd>
+          <dt>Tools</dt>
+          <dd>Claude Design, Claude Code, Linear · React, TypeScript, Vite, Tailwind</dd>
+        </dl>
+      </header>
+
+      <section class="section">
+        <h2 data-sec>Context</h2>
+        <p>Justos sells car insurance through brokers. Many of those brokers work under a partner firm: a company that supports a network of brokerages and follows their quotes, proposals, policies and renewals.</p>
+        <p>Partner firms did that in an internal tool built on Retool. It had 11 menu items, and every one of them queried the database directly, with no API underneath. It was slow, and access was granted by hand.</p>
+        <p>The Retool contract ended in early October 2026, and this tool was the last reason to keep paying for it. After the experience we had building the <a href="/portfolio/insured-portal/">policyholder portal</a>, we decided that we could build it while engineering focused on completing the roadmap. I also took the opportunity to teach two colleagues how to build with AI and coordinated them to ensure we could kill Retool before the contract renewed.</p>
+      </section>
+
+      <section class="section">
+        <h2 data-sec>What it does</h2>
+        <p>A web portal where a partner firm signs in with a one-time code and sees its own network:</p>
+        <ul>
+          <li>a dashboard of its brokerages, and a page for each one;</li>
+          <li>quotes, proposals, policies and renewals across the network;</li>
+          <li>production reports, for the firm's administrators only;</li>
+          <li>CSV export, and a support widget.</li>
+        </ul>
+        <figure class="shot">
+          <img src="/assets/img/partner-portal/dashboard.png" width="2876" height="1618" alt="The portal's home screen: six cards counting the firm's registered brokers, those who have signed in, those with and without a quote, those who have sold a policy, and the total of policies sold.">
+          <figcaption>The home dashboard: how many of the firm's brokers have access, have signed in, have quoted and have sold. Each card opens the list behind its number. The screenshots on this page were taken in the staging environment and show dummy data.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="/assets/img/partner-portal/quotes.png" width="2870" height="1614" alt="The quotes screen: filters for period, brokerage and product, totals for annual and monthly quotes, and a table with client, plate, commission, date, brokerage and a link to each quote.">
+          <figcaption>Quotes across the network, filtered by period, brokerage and product, with a button to download the table. Staging environment, dummy data.</figcaption>
+        </figure>
+      </section>
+
+      <section class="section">
+        <h2 data-sec>Reads and writes</h2>
+        <p>The old tool read straight from the database. The new portal has an API of its own, and each kind of operation got a different level of care.</p>
+        <ul>
+          <li><strong>Reads.</strong> Every screen got its own endpoint, limited to the brokerages of the firm that is signed in. Policies and renewals read from the company's new policy model, not from the tables the old tool used.</li>
+          <li><strong>Writes.</strong> The portal changes no policy data by itself. Its one sensitive action is acting as a brokerage: a partner firm can open the brokers' portal as one of its own brokerages and do there what that broker could do. The access is limited to the firm's own network, and the session carries a mark saying who opened it.</li>
+        </ul>
+        <p>So anything that changes a quote or a policy still happens in the brokers' portal, which engineering already maintained.</p>
+        <figure class="shot">
+          <img src="/assets/img/partner-portal/brokerage.png" width="2874" height="774" alt="A brokerage's page, with its registration data, tabs for quotes, policies and accesses, and a button to open the brokers' portal.">
+          <figcaption>A brokerage's page. The button at the top right opens the brokers' portal as that brokerage. Staging environment, dummy data.</figcaption>
+        </figure>
+      </section>
+
+      <section class="section">
+        <h2 data-sec>How we built it</h2>
+        <ul>
+          <li><strong>The scope as a table, before any code.</strong> One document listed each screen, the data it needed and the endpoint that would serve it. A second one listed the front-end steps in order.</li>
+          <li><strong>Design in Claude Design.</strong> Our product designer ran the prototype in rounds and exported it as a handoff package that lives in the repository.</li>
+          <li><strong>Code with Claude Code.</strong> The front end took 51 pull requests. I wrote about half of them: sign-in, the dashboard, proposals, policies, quotes and the act-as-a-brokerage flow. My two colleagues were writing code for the first time.</li>
+          <li><strong>Engineers on what they should own.</strong> An engineer approved every change to the company's API, and the infrastructure team ran the deploys.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2 data-sec>Coordinating in Linear</h2>
+        <p>Three people writing code in parallel, plus about six engineers helping on the side, needed one place to look. Four days after the first commit I moved the back-end to-do list from a text file to a Linear project and shared it with everyone.</p>
+        <p>After I showed my colleagues how to build with Claude Code in a few live sessions, we coordinated asynchronously. Linear showed which issue each of us was working on, and each issue was the starting point for a Claude Code session.</p>
+        <ul>
+          <li><strong>One issue per step.</strong> Each step in the scope document pointed to an issue, and each pull request was named after the issue it closed. Thirty different issues show up across the front-end pull requests.</li>
+          <li><strong>The rules lived in the project.</strong> Its description held what every contributor had to follow, people and Claude alike: which data model to read from, and the few exceptions we had agreed on.</li>
+          <li><strong>The launch as a sequence.</strong> Staging, then production two days later, then access for the partner firms the day after. Their first feedback was fixed within hours.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2 data-sec>What shipped</h2>
+        <div class="stat-row">
+          <div class="stat"><span class="stat__n">27 days</span><span class="stat__what">from the first commit to partner firms signing in</span></div>
+          <div class="stat"><span class="stat__n">51</span><span class="stat__what">pull requests on the front end, from three product people and engineering</span></div>
+          <div class="stat"><span class="stat__n">1 day</span><span class="stat__what">to spare: Retool was switched off the day before the contract ended</span></div>
+        </div>
+        <p>Partner firms got access on 1 October 2026. The next day the Retool users were deactivated and the billing was removed.</p>
+      </section>
+
+      <a class="btn back--bottom" href="/portfolio/">&larr; Back to projects</a>
+    </article>
+  </main>
+</body>
+</html>

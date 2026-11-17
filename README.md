@@ -17,7 +17,7 @@ python3 -m http.server 8000   # na raiz do repo
 index.html                     Home
 portfolio/index.html           Portfólio (lista + croqui)
 portfolio/_template/           Modelo de página de projeto (não é linkado)
-portfolio/project-one/         Primeiro projeto, feito a partir do modelo
+portfolio/<slug>/              Um projeto por pasta, feito a partir do modelo (insured-portal, partner-portal, scheduled-renewal-survey)
 assets/css/tokens.css          Cores, fontes, escala e formas: o único arquivo para mudar o visual
 assets/css/base.css            Estilos compartilhados (rocha, menu, título, rótulo, grau, botão)
 assets/css/{home,portfolio,project}.css
