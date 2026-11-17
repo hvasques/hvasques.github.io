@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scheduled renewal survey — hvasques</title>
+  <meta name="description" content="A one-minute survey to our brokers, to decide whether to build scheduled renewal. How I ran the numbers with Claude on Redshift and Looker, what we asked, how we read it and what we decided.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/project.css">
+  <script type="module" src="/assets/js/pages/project.js"></script>
+</head>
+<body data-project="scheduled-renewal-survey">
+  <rock-roof></rock-roof>
+  <div class="rock wall wall--read"></div>
+  <site-header current="portfolio"></site-header>
+
+  <main class="content content--project">
+    <article class="copy--project">
+      <header class="project-head">
+        <a class="btn btn--sm back--top" href="/portfolio/">&larr; Back to projects</a>
+        <!-- Label and grade are filled in from projects.js -->
+        <span class="label label--on" data-project-label>Case study · Route N</span>
+        <div class="project-title">
+          <h1 class="title">Scheduled renewal survey</h1>
+          <span class="grade grade--on grade--lg" data-project-grade>0a</span>
+        </div>
+        <p class="lede">A one-minute survey to our brokers, to decide whether to build scheduled renewal. I ran the numbers behind it with Claude on Redshift and Looker. The answer was yes, for a smaller group than we hoped but with a lift still worth investing.</p>
+        <dl class="facts">
+          <dt>My role</dt>
+          <dd>Product manager. I ran the send, did the analysis and wrote the results and the product spec.</dd>
+          <dt>When</dt>
+          <dd>October 2026</dd>
+          <dt>Tools</dt>
+          <dd>Claude Code with the Redshift and Looker MCP servers, SQL, Python · Customer.io, WhatsApp, Google Forms</dd>
+        </dl>
+      </header>
+
+      <section class="section">
+        <h2 data-sec>Why a survey</h2>
+        <p>Justos sells through brokers, and an annual policy only renews when the broker sends the renewal proposal for it. Many send it late, or don't send it at all. Our numbers showed that we could improve the renewal rate by getting more renewal quotes turned into proposals.</p>
+        <p>Pricing is always the first thing we blame. But the revenue team brought an insight: some brokers, especially the big ones, tend to keep their policies with the same insurer at renewal. So they suggested something a few big insurers already offer: scheduled renewal, a feature that lets brokers opt in to have their annual policies renew automatically, without sending a proposal for each one.</p>
+        <p>The problem was that an earlier renewal discovery with brokers had shown this idea was heavily rejected. So before deciding whether it was worth building, we asked ourselves one question: even if adoption is low, would the impact still be significant?</p>
+        <p>To answer it, we ran a survey with our brokers.</p>
+      </section>
+
+      <section class="section">
+        <h2 data-sec>What we asked</h2>
+        <p>Three questions and an optional comment:</p>
+        <ol>
+          <li><strong>Do you already know or use this kind of renewal?</strong>
+            <p class="goal">Goal: understand how well known the feature is.</p>
+            <ul>
+              <li>I use it today</li>
+              <li>I used it and stopped</li>
+              <li>I know it, but never used it</li>
+              <li>I didn't know it</li>
+            </ul>
+          </li>
+          <li><strong>For your car insurance book, this kind of renewal…</strong>
+            <p class="goal">Goal: understand how brokers see it, and how that relates to how well they know it.</p>
+            <ul>
+              <li>Works well, I'd turn it on for almost everything</li>
+              <li>Works for part of my clients</li>
+              <li>Doesn't work for me, I prefer to quote each renewal</li>
+              <li>Gets in the way of my work</li>
+            </ul>
+          </li>
+          <li><strong>What weighs most in that answer?</strong> (up to two)
+            <p class="goal">Goal: understand what they like or dislike about it, and where we could improve on what other companies already offer.</p>
+            <ul>
+              <li>Less work</li>
+              <li>Not losing the client to another brokerage</li>
+              <li>Losing control of price and coverages</li>
+              <li>Commission (keeping or negotiating it)</li>
+              <li>I compare the market at every renewal</li>
+              <li>The client being surprised by a renewal I didn't announce</li>
+              <li>I've had a problem with it before</li>
+              <li>Other (free text)</li>
+            </ul>
+          </li>
+        </ol>
+        <p>I set up the send: a WhatsApp message through our messaging platform, with a link to a form that already knew who was answering. I proposed sending it to every broker and not to a sample.</p>
+        <div class="stat-row">
+          <div class="stat"><span class="stat__n">219</span><span class="stat__what">answers, against a target of 100</span></div>
+          <div class="stat"><span class="stat__n">95%</span><span class="stat__what">of them arrived on the same day</span></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 data-sec>What they said</h2>
+        <div class="bars" role="list" aria-label="For your car insurance book, this kind of renewal…">
+          <div class="bars__row" role="listitem"><span>Doesn't work for me, I prefer to quote each renewal</span><span class="bars__n">56%</span><span class="bars__bar"><span style="width:56%"></span></span></div>
+          <div class="bars__row" role="listitem"><span>Works for part of my clients</span><span class="bars__n">19%</span><span class="bars__bar"><span style="width:19%"></span></span></div>
+          <div class="bars__row" role="listitem"><span>Works well, I'd turn it on for almost everything</span><span class="bars__n">15%</span><span class="bars__bar"><span style="width:15%"></span></span></div>
+          <div class="bars__row" role="listitem"><span>Gets in the way of my work</span><span class="bars__n">10%</span><span class="bars__bar"><span style="width:10%"></span></span></div>
+        </div>
+        <p class="bars__note">Question 2, share of the 219 answers.</p>
+        <ul>
+          <li><strong>One in three would use it.</strong> 34% said it works, and more of them for part of their clients than for all.</li>
+          <li><strong>They know the idea.</strong> 73% had heard of it and 28% had used it somewhere. More than half of those who used it had stopped.</li>
+          <li><strong>Using it changes the answer.</strong> Among brokers who use it today, 88% said it works. Among those who only know it, 20%.</li>
+          <li><strong>The objections are about the broker's role.</strong> The top reasons were comparing the market at every renewal (42%) and the client being surprised by a renewal the broker didn't announce (34%).</li>
+          <li><strong>Control over the quote came next.</strong> 21% feared losing control of price and coverages, and 16% pointed to commission, which brokers often raise at renewal.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2 data-sec>How that changed the project</h2>
+        <p>The objections were about control, not about automation. That changed how we would build it, and where it would differ from what other insurers offer. There, the broker accepts once and the insurer renews by itself, on the current policy's terms. Our version gives the controls to the broker:</p>
+        <ul>
+          <li><strong>Limits set by the broker.</strong> A policy only renews automatically when the new quote stays within bounds the broker chose: how much the premium and the deductible may rise.</li>
+          <li><strong>Commission as a setting.</strong> The broker decides how much to raise it at renewal, and sees how many policies would leave the programme if they do.</li>
+          <li><strong>Policies can be left out.</strong> The broker chooses which clients are in, and can keep any single policy out of the programme.</li>
+          <li><strong>Messages in the broker's name.</strong> The client hears about the renewal as if their broker had sent the proposal, not from the insurer.</li>
+        </ul>
+        <p>Together, these cover 58% of the objections brokers picked.</p>
+      </section>
+
+      <section class="section">
+        <h2 data-sec>How I analysed it</h2>
+        <p>The answers confirmed what we expected: adoption would be low. That left the question we had started with. If only the brokers who said yes used the feature, how much would the renewal rate move?</p>
+        <p>My plan had five steps:</p>
+        <ol>
+          <li><strong>Tie each answer to a brokerage.</strong> The form captured the broker's e-mail, and 218 of the 219 answers matched a brokerage in our data. That gave each answer a size and a renewal history.</li>
+          <li><strong>Check who answered.</strong> Respondents renewed at the same rate as the brokers who didn't answer, and their sizes followed the base. They were a little more active: 35% had sold a policy in the last month, against 28.5%. The gap was at the top, where the largest brokerages gave four answers for about a fifth of the renewal volume.</li>
+          <li><strong>Size the adopters by volume.</strong> The 34% of brokers who would use it hold 22% of the respondents' renewal volume, so that is the share of the book the feature could reach.</li>
+          <li><strong>Set default limits from renewals that happened.</strong> I looked at how much premium and deductible changed in policies that had renewed, and based the default limits on the 75th percentile of each.</li>
+          <li><strong>Count the lost renewals that fitted.</strong> I checked which lost renewals were inside those limits, counted them as renewed, and applied the result to the adopters' share of the volume.</li>
+        </ol>
+        <p>The first pass, assuming every lost renewal inside the limits would have renewed:</p>
+        <div class="stat-row">
+          <div class="stat"><span class="stat__n">22%</span><span class="stat__what">of renewal volume held by brokers who would use it</span></div>
+          <div class="stat"><span class="stat__n">47%</span><span class="stat__what">of renewals fitted the default limits</span></div>
+          <div class="stat"><span class="stat__n">+4.8 p.p.</span><span class="stat__what">on the annual renewal rate</span></div>
+        </div>
+        <p>The revenue team challenged that assumption. Today almost every proposal a broker sends becomes a policy, but by then the broker has talked to the client. A scheduled renewal goes out without that conversation, so the client can still turn it down, and fewer proposals would become policies.</p>
+        <p>To put a number on it, we looked at what brokers had done with the quotes of the lost renewals that fitted the limits:</p>
+        <ul>
+          <li><strong>Changed coverage was the flag.</strong> In 46% of them the broker had changed the coverage, almost always adding to it. That client wanted something other than last year's policy, and a scheduled renewal would have sent the original quote.</li>
+          <li><strong>Editing by itself wasn't.</strong> 77% of the renewals that did happen had been edited too.</li>
+          <li><strong>The factor.</strong> We counted as recoverable only the lost renewals where the broker hadn't touched the coverage: 48% of them.</li>
+        </ul>
+        <p>Applying that factor gave the final estimate:</p>
+        <div class="stat-row">
+          <div class="stat"><span class="stat__n">+2.3 p.p.</span><span class="stat__what">final estimate on the annual renewal rate</span></div>
+          <div class="stat"><span class="stat__n">+1.6 p.p.</span><span class="stat__what">low end, counting only quotes the broker hadn't changed at all</span></div>
+          <div class="stat"><span class="stat__n">48%</span><span class="stat__what">of the lost renewals inside the limits counted as recoverable</span></div>
+        </div>
+        <p>I also tested how fragile it is. In the group that would use the feature, the gain comes from four policies in three brokerages, and with the final assumption it is not statistically significant. The estimate sizes the opportunity. The real number can only be measured after launch.</p>
+      </section>
+
+      <section class="section">
+        <h2 data-sec>Running the numbers with AI</h2>
+        <p>I'm not an analyst. Every number in this analysis came from me asking a question and Claude running it on our data stack. My part was deciding what to ask, what counted, and whether to believe the answer.</p>
+        <h3>The setup</h3>
+        <ul>
+          <li><strong>Redshift, read-only.</strong> Claude Code reaches the data warehouse through an MCP server. It can list tables, read their columns and run queries. It can't change anything.</li>
+          <li><strong>Looker, for how the business already counts.</strong> Through Looker's MCP server, Claude can tell me which fields exist, how a measure is defined and what a query returns. That is how I built the renewal views earlier in the year, the ones that showed proposals going out late.</li>
+          <li><strong>Notes on the data, which Claude reads first.</strong> I keep a file per topic on our data model: which table answers what, and every trap we've hit. Counting customers when the question is about policies. A status column that keeps history and inflates a count. Test records. Data that arrives a day late.</li>
+        </ul>
+        <h3>How a number gets made</h3>
+        <ol>
+          <li><strong>I ask in plain language.</strong> For example: do the brokers who said it works renew more than the others?</li>
+          <li><strong>Claude finds the tables, writes the SQL and runs it on Redshift.</strong></li>
+          <li><strong>I check what is behind the result.</strong> What one row is, which dates are in, how many policies sit behind a percentage.</li>
+          <li><strong>The query goes into a script.</strong> One script generates the nine warehouse queries behind the document's tables, each with the list of respondents built in. Two more produce the tables that come only from the answers, and the impact maths.</li>
+        </ol>
+      </section>
+
+      <section class="section">
+        <h2 data-sec>What we decided</h2>
+        <p>I shared the results with our revenue director and our CTO. The CTO was sceptical about building a feature that brokers had rejected so strongly. I recommended building it, but the final decision belonged to revenue. In the end, we decided it was worth building:</p>
+        <p>That design answers the worries about control and about surprising the client. It doesn't answer the most common one: brokers who compare the market at every renewal.</p>
+        <p>The prospect of rejection or low adoption can be discouraging. That is where a product manager's job comes in: understanding the pain points that keep users from adopting a feature, solving them, and showing that even with low adoption it can still move the product's metrics.</p>
+      </section>
+
+      <a class="btn back--bottom" href="/portfolio/">&larr; Back to projects</a>
+    </article>
+  </main>
+</body>
+</html>

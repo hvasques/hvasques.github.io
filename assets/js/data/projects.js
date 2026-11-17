@@ -42,11 +42,11 @@ export const PROJECTS = [
   },
   {
     n: 3,
-    slug: 'project-three',
-    name: 'Project three [WIP]',
-    label: 'Work in progress',
-    grade: '6b',
-    published: false,
+    slug: 'scheduled-renewal-survey',
+    name: 'Scheduled renewal survey',
+    label: 'Research',
+    grade: '5c',
+    published: true,
     topo: {
       d: 'M500 716 C 560 690, 610 640, 610 570 S 640 420, 600 330 S 560 220, 560 190',
       start: [500, 716],

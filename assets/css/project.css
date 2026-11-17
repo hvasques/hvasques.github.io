@@ -124,6 +124,20 @@
   line-height: 1.6;
 }
 .section li::marker { color: var(--path); }
+/* Under a list item's title: what that item was for (e.g. a question's goal) */
+.section .goal {
+  margin-top: 2px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+/* A list inside a list item (e.g. the options of a survey question) */
+.section li > ul,
+.section li > ol {
+  gap: 4px;
+  margin-top: 8px;
+  font-size: 16px;
+}
 .section h3 {
   margin: 10px 0 0;
   font-family: var(--font-name);
